@@ -12,11 +12,11 @@ interface Nasheed {
 }
 
 export interface NasheedsState {
-  value: Array<Nasheed>;
+  items: Array<Nasheed>;
 }
 
 const initialState: NasheedsState = {
-  value: [],
+  items: [],
 };
 
 export const nasheedsSlice = createSlice({
@@ -24,13 +24,13 @@ export const nasheedsSlice = createSlice({
   initialState,
   reducers: {
     addNasheed: (state, action: PayloadAction<Nasheed>) => {
-      state.value.push(action.payload);
+      state.items.push(action.payload);
     },
     removeNasheed: (state, action: PayloadAction<number>) => {
-      state.value.filter((nasheed) => nasheed.id !== action.payload);
+      state.items.filter((nasheed) => nasheed.id !== action.payload);
     },
     updateNasheed: (state, action: PayloadAction<Nasheed>) => {
-      state.value.map((nasheed) =>
+      state.items.map((nasheed) =>
         nasheed.id === action.payload.id ? action.payload : nasheed
       );
     },
