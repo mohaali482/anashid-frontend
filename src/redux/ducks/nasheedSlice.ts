@@ -23,8 +23,8 @@ export const nasheedsSlice = createSlice({
   name: "nasheeds",
   initialState,
   reducers: {
-    addNasheeds: (state, action: PayloadAction<Array<Nasheed>>) => {
-      state.value.push(...action.payload);
+    addNasheed: (state, action: PayloadAction<Nasheed>) => {
+      state.value.push(action.payload);
     },
     removeNasheed: (state, action: PayloadAction<number>) => {
       state.value.filter((nasheed) => nasheed.id !== action.payload);
@@ -37,7 +37,7 @@ export const nasheedsSlice = createSlice({
   },
 });
 
-export const { addNasheeds, removeNasheed, updateNasheed } =
+export const { addNasheed, removeNasheed, updateNasheed } =
   nasheedsSlice.actions;
 
 export default nasheedsSlice.reducer;
