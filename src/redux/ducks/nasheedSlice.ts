@@ -46,10 +46,29 @@ export const nasheedsSlice = createSlice({
         nasheed.id === action.payload.id ? action.payload : nasheed
       );
     },
+    fetchNasheeds: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchNasheedsSuccess: (state, action: PayloadAction<Nasheed[]>) => {
+      state.items = action.payload;
+      state.loading = false;
+      state.error = null;
+    },
+    fetchNasheedsError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.loading = false;
+    },
   },
 });
 
-export const { addNasheed, removeNasheed, updateNasheed } =
-  nasheedsSlice.actions;
+export const {
+  addNasheed,
+  removeNasheed,
+  updateNasheed,
+  fetchNasheeds,
+  fetchNasheedsSuccess,
+  fetchNasheedsError,
+} = nasheedsSlice.actions;
 
 export default nasheedsSlice.reducer;
