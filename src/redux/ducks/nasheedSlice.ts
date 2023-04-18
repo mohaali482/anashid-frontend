@@ -11,12 +11,22 @@ interface Nasheed {
   updated_at: Date;
 }
 
+interface NasheedError {
+  name: Array<string>;
+  poster: Array<string>;
+  audio: Array<string>;
+}
+
 export interface NasheedsState {
   items: Array<Nasheed>;
+  loading: boolean;
+  error: NasheedError | null;
 }
 
 const initialState: NasheedsState = {
   items: [],
+  loading: false,
+  error: null,
 };
 
 export const nasheedsSlice = createSlice({
