@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-interface Nasheed {
+export interface Nasheed {
   id: number;
   owner: string;
   name: string;
