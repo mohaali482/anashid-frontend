@@ -20,13 +20,15 @@ interface NasheedError {
 export interface NasheedsState {
   items: Array<Nasheed>;
   loading: boolean;
-  error: NasheedError | null;
+  formErrors: NasheedError | null;
+  error: string | null;
 }
 
 const initialState: NasheedsState = {
   items: [],
   loading: false,
   error: null,
+  formErrors: null,
 };
 
 export const nasheedsSlice = createSlice({
