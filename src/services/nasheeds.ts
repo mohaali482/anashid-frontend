@@ -15,3 +15,7 @@ export async function requestAddNasheed(formData: FormData) {
     method: "POST",
   });
 }
+
+export async function requestNasheed(id: number): Promise<Response> {
+  return (await axios(`/nasheed/nasheeds/${id}`)).data;
+}
