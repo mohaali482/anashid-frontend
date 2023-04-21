@@ -11,7 +11,7 @@ export const store = configureStore({
     nasheeds: nasheedsReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(middleware),
+    getDefaultMiddleware({ serializableCheck: false }).concat(middleware),
 });
 
 sagaMiddleware.run(rootSaga);
