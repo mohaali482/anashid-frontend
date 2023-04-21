@@ -23,6 +23,7 @@ export interface NasheedError {
 
 export interface NasheedsState {
   items: Array<Nasheed>;
+  nasheed: Nasheed | null;
   loading: boolean;
   formErrors: NasheedError | null;
   error: string | null;
