@@ -9,5 +9,12 @@ interface Response {
 }
 
 export async function requestListNasheeds(): Promise<Response> {
-  return (await axios("/nasheed/nasheds/")).data;
+  return (await axios("/nasheed/nasheeds/")).data;
+}
+
+export async function requestAddNasheed(formData: FormData) {
+  return await axios("/nasheed/nasheeds/", {
+    data: formData,
+    method: "POST",
+  });
 }
