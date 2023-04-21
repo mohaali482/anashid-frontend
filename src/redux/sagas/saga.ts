@@ -1,4 +1,4 @@
-import { call, takeEvery, put } from "Redux-Saga/effects";
+import { call, takeEvery, put, select } from "Redux-Saga/effects";
 import {
   addNasheed,
   addNasheedError,
@@ -12,11 +12,13 @@ import {
   requestListNasheeds,
 } from "../../services/nasheeds";
 import { PayloadAction } from "@reduxjs/toolkit";
+import { RootState } from "../store";
 
 export function* fetchNasheedsSaga() {
   try {
     yield put(fetchNasheeds);
-    let result = yield call(requestListNasheeds);
+    const limit = yield select((state: RootState) => state.nasheeds.limit);
+    let result = yield call(requestListNasheeds, limit);
     yield put(fetchNasheedsSuccess(result));
   } catch (error) {
     yield put(fetchNasheedsError(error.response.data));
