@@ -3,6 +3,9 @@ import {
   addNasheed,
   addNasheedError,
   addNasheedSuccess,
+  fetchNasheed,
+  fetchNasheedError,
+  fetchNasheedSuccess,
   fetchNasheeds,
   fetchNasheedsError,
   fetchNasheedsSuccess,
@@ -11,6 +14,7 @@ import {
 import {
   requestAddNasheed,
   requestListNasheeds,
+  requestNasheed,
   requestPageNasheeds,
 } from "../../services/nasheeds";
 import { PayloadAction } from "@reduxjs/toolkit";
@@ -56,7 +60,18 @@ export function* requestAddNasheedSaga(action: PayloadAction<FormData>) {
   }
 }
 
+export function* fetchNasheedSaga(action: PayloadAction<number>) {
+  try {
+    yield put(fetchNasheed);
+    let { data } = yield call(requestNasheed, action.payload);
+    yield put(fetchNasheedSuccess(data));
+  } catch (error) {
+    yield put(fetchNasheedError(error.response.data));
+  }
+}
+
 export default function* rootSaga() {
+  yield takeEvery(fetchNasheed, fetchNasheedSaga);
   yield takeEvery(fetchNasheeds, fetchNasheedsSaga);
   yield takeEvery(fetchPageNasheeds, fetchPageNasheedsSaga);
   yield takeEvery(addNasheed, requestAddNasheedSaga);
