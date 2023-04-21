@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Nasheed, NasheedError, NasheedsState } from "../../types";
+import { Nasheed, NasheedError, NasheedsState, Response } from "../../types";
 
 const initialState: NasheedsState = {
   items: [],
@@ -41,13 +41,18 @@ export const nasheedsSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
-    fetchNasheedsSuccess: (state, action: PayloadAction<Nasheed[]>) => {
-      state.items = action.payload;
+    fetchNasheedsSuccess: (state, action: PayloadAction<Response>) => {
+      state.items = action.payload.results;
+      state.next = action.payload.next;
+      state.previous = action.payload.previous;
       state.loading = false;
       state.error = null;
     },
     fetchNasheedsError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
+      state.next = null;
+      state.previous = null;
+      state.items = [];
       state.loading = false;
     },
   },

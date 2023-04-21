@@ -16,8 +16,8 @@ import { PayloadAction } from "@reduxjs/toolkit";
 export function* fetchNasheedsSaga() {
   try {
     yield put(fetchNasheeds);
-    let { results } = yield call(requestListNasheeds);
-    yield put(fetchNasheedsSuccess(results));
+    let result = yield call(requestListNasheeds);
+    yield put(fetchNasheedsSuccess(result));
   } catch (error) {
     yield put(fetchNasheedsError(error.response.data));
   }
