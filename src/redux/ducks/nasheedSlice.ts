@@ -35,8 +35,18 @@ export const nasheedsSlice = createSlice({
   name: "nasheeds",
   initialState,
   reducers: {
-    addNasheed: (state, action: PayloadAction<Nasheed>) => {
+    addNasheed: (state, action: PayloadAction<FormData>) => {
+      state.loading = true;
+      state.formErrors = null;
+    },
+    addNasheedSuccess: (state, action: PayloadAction<Nasheed>) => {
       state.items.push(action.payload);
+      state.loading = false;
+      state.formErrors = null;
+    },
+    addNasheedError: (state, action: PayloadAction<NasheedError>) => {
+      state.loading = false;
+      state.formErrors = action.payload;
     },
     removeNasheed: (state, action: PayloadAction<number>) => {
       state.items.filter((nasheed) => nasheed.id !== action.payload);
@@ -64,6 +74,8 @@ export const nasheedsSlice = createSlice({
 
 export const {
   addNasheed,
+  addNasheedSuccess,
+  addNasheedError,
   removeNasheed,
   updateNasheed,
   fetchNasheeds,
