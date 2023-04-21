@@ -1,31 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-
-export interface Nasheed {
-  id: number;
-  owner: string;
-  name: string;
-  poster: string;
-  audio: string;
-  created_at: Date;
-  updated_at: Date;
-}
-
-interface NasheedError {
-  name: Array<string>;
-  poster: Array<string>;
-  audio: Array<string>;
-}
-
-export interface NasheedsState {
-  items: Array<Nasheed>;
-  loading: boolean;
-  formErrors: NasheedError | null;
-  error: string | null;
-  next: string | null;
-  previous: string | null;
-  limit: number;
-}
+import { Nasheed, NasheedError, NasheedsState } from "../../types";
 
 const initialState: NasheedsState = {
   items: [],
