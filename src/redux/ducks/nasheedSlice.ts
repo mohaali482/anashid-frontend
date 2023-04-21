@@ -22,6 +22,9 @@ export interface NasheedsState {
   loading: boolean;
   formErrors: NasheedError | null;
   error: string | null;
+  next: string | null;
+  previous: string | null;
+  limit: number;
 }
 
 const initialState: NasheedsState = {
@@ -29,6 +32,9 @@ const initialState: NasheedsState = {
   loading: false,
   error: null,
   formErrors: null,
+  next: null,
+  previous: null,
+  limit: 10,
 };
 
 export const nasheedsSlice = createSlice({
