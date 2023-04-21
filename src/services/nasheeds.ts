@@ -1,3 +1,4 @@
+import { Response } from "../types";
 import axios from "./config";
 
 export async function requestListNasheeds(): Promise<Response> {
