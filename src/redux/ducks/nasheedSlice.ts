@@ -59,6 +59,9 @@ export const nasheedsSlice = createSlice({
       state.loading = true;
       state.error = null;
     },
+    setPageLimit: (state, action: PayloadAction<number>) => {
+      state.limit = action.payload;
+    },
   },
 });
 
@@ -72,6 +75,7 @@ export const {
   fetchNasheedsSuccess,
   fetchNasheedsError,
   fetchPageNasheeds,
+  setPageLimit,
 } = nasheedsSlice.actions;
 
 export default nasheedsSlice.reducer;
