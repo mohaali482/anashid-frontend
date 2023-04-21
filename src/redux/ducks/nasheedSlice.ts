@@ -55,6 +55,10 @@ export const nasheedsSlice = createSlice({
       state.items = [];
       state.loading = false;
     },
+    fetchPageNasheeds: (state, action: PayloadAction<string>) => {
+      state.loading = true;
+      state.error = null;
+    },
   },
 });
 
@@ -67,6 +71,7 @@ export const {
   fetchNasheeds,
   fetchNasheedsSuccess,
   fetchNasheedsError,
+  fetchPageNasheeds,
 } = nasheedsSlice.actions;
 
 export default nasheedsSlice.reducer;
