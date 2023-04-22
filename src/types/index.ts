@@ -30,4 +30,6 @@ export interface NasheedsState {
   next: string | null;
   previous: string | null;
   limit: number;
+  loadedIds: Array<number>;
+  loadMoreLoading: boolean;
 }
