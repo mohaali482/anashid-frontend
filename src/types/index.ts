@@ -5,9 +5,19 @@ export interface Response {
   results: Nasheed[];
 }
 
+export interface Owner {
+  id: number;
+  username: string;
+  first_name: string | null;
+  last_name: string | null;
+  email: string | null;
+  image: File | null;
+  date_joined: Date;
+}
+
 export interface Nasheed {
   id: number;
-  owner: string;
+  owner: Owner;
   name: string;
   poster: string;
   audio: string;
