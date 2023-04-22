@@ -10,6 +10,9 @@ import {
   fetchNasheedsError,
   fetchNasheedsSuccess,
   fetchPageNasheeds,
+  loadMoreNasheeds,
+  loadMoreNasheedsError,
+  loadMoreNasheedsSuccess,
 } from "../ducks/nasheedSlice";
 import {
   requestAddNasheed,
@@ -70,9 +73,21 @@ export function* fetchNasheedSaga(action: PayloadAction<number>) {
   }
 }
 
+export function* loadMoreNasheedsSaga() {
+  try {
+    let link: string = yield select((state: RootState) => state.nasheeds.next);
+    yield put(loadMoreNasheeds);
+    let result: Response = yield call(requestPageNasheeds, link);
+    yield put(loadMoreNasheedsSuccess(result));
+  } catch (error) {
+    yield put(loadMoreNasheedsError(error.response.data));
+  }
+}
+
 export default function* rootSaga() {
   yield takeEvery(fetchNasheed, fetchNasheedSaga);
   yield takeEvery(fetchNasheeds, fetchNasheedsSaga);
   yield takeEvery(fetchPageNasheeds, fetchPageNasheedsSaga);
   yield takeEvery(addNasheed, requestAddNasheedSaga);
+  yield takeEvery(loadMoreNasheeds, loadMoreNasheedsSaga);
 }
