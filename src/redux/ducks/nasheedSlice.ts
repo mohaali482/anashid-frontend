@@ -11,6 +11,8 @@ const initialState: NasheedsState = {
   previous: null,
   limit: 10,
   nasheed: null,
+  loadedIds: [],
+  loadMoreLoading: false,
 };
 
 export const nasheedsSlice = createSlice({
@@ -25,6 +27,7 @@ export const nasheedsSlice = createSlice({
       state.items.push(action.payload);
       state.loading = false;
       state.formErrors = null;
+      state.loadedIds.push(action.payload.id);
     },
     addNasheedError: (state, action: PayloadAction<NasheedError>) => {
       state.loading = false;
@@ -48,6 +51,7 @@ export const nasheedsSlice = createSlice({
       state.previous = action.payload.previous;
       state.loading = false;
       state.error = null;
+      state.loadedIds = state.items.map((item) => item.id);
     },
     fetchNasheedsError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -55,10 +59,31 @@ export const nasheedsSlice = createSlice({
       state.previous = null;
       state.items = [];
       state.loading = false;
+      state.loadedIds = [];
     },
     fetchPageNasheeds: (state, action: PayloadAction<string>) => {
       state.loading = true;
       state.error = null;
+    },
+    loadMoreNasheeds: (state) => {
+      state.loadMoreLoading = true;
+      state.error = null;
+    },
+    loadMoreNasheedsSuccess: (state, action: PayloadAction<Response>) => {
+      const newItems = action.payload.results.filter(
+        (item) => !state.loadedIds.includes(item.id)
+      );
+      state.loadedIds.push(...state.items.map((item) => item.id));
+
+      state.items.push(...newItems);
+      state.next = action.payload.next;
+      state.previous = action.payload.previous;
+      state.loadMoreLoading = false;
+      state.error = null;
+    },
+    loadMoreNasheedsError: (state, action: PayloadAction<string>) => {
+      state.error = action.payload;
+      state.loadMoreLoading = false;
     },
     setPageLimit: (state, action: PayloadAction<number>) => {
       state.limit = action.payload;
@@ -94,6 +119,9 @@ export const {
   fetchNasheed,
   fetchNasheedSuccess,
   fetchNasheedError,
+  loadMoreNasheeds,
+  loadMoreNasheedsSuccess,
+  loadMoreNasheedsError,
 } = nasheedsSlice.actions;
 
 export default nasheedsSlice.reducer;
