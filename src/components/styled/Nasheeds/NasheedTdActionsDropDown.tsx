@@ -43,6 +43,7 @@ export const StyledDropDownLink = styled(Link)`
         :hover {
             background-color: ${(props) => props.theme.palette.primary.darkGray};
             color: ${(props) => props.theme.palette.primary.light};
+        }
         
     }
 `
