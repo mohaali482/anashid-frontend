@@ -2,7 +2,8 @@ import { Link } from "react-router-dom"
 import styled from "styled-components"
 
 const StyledUserDropDownMenu = styled.div`
-    display: none;
+    position: absolute;
+    right: 2rem;
     z-index: 50;
     background-color: ${(props) => props.theme.palette.primary.light};
     border-radius: ${(props) => props.theme.borderRadius};
@@ -14,15 +15,16 @@ const StyledUserDropDownMenu = styled.div`
 `
 
 const StyledUserDropdrownUl = styled.ul`
-    padding: 0 0.5rem;
+    padding: 0;
     list-style: none;
 `
 
 const StyledUserDropdownLink = styled(Link)`
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 2rem;
     text-decoration: none;
     color: ${(props) => props.theme.palette.primary.darkGray};
     font-size: 0.875rem;
+    width: 100%;
 
     &:hover{
         background-color: ${(props) => props.theme.palette.primary.lightGray};
@@ -38,16 +40,18 @@ const StyledUserDropdownLink = styled(Link)`
 `
 
 
-const UserDropdown = () => {
+const UserDropdown = ({ dropdownPosition }: { dropdownPosition: { top: number } }) => {
     return (
-        <StyledUserDropDownMenu>
+        <StyledUserDropDownMenu style={{ ...dropdownPosition }}>
             <StyledUserDropdrownUl>
                 <li>
                     <StyledUserDropdownLink to={'/'}>
-
+                        Link
                     </StyledUserDropdownLink>
                 </li>
             </StyledUserDropdrownUl>
         </StyledUserDropDownMenu>
     )
 }
+
+export default UserDropdown;

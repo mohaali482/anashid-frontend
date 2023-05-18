@@ -63,8 +63,8 @@ const NavBar = ({ handleClick }: { handleClick: any }) => {
                 <SidebarButton onClick={handleClick}>
                     <HiMenuAlt2 size={25} />
                 </SidebarButton>
+                <UserIcon />
             </StyledDiv2>
-            <UserIcon />
         </StyledNav>
     )
 }
