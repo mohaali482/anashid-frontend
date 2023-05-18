@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Nasheed } from '../../types/store';
+import { Nasheed } from '../../../types/store';
 import NasheedTd from './NasheedTd';
 
 const Container = styled.div`

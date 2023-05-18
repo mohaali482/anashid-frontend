@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Nasheed } from "../../types/store";
+import { Nasheed } from "../../../types/store";
 import { BsDownload, BsPlayCircleFill, BsShareFill, BsThreeDots } from 'react-icons/bs'
 import NasheedTdActionsDropDown from "./NasheedTdActionsDropDown";
 import React, { useEffect, useId, useRef, useState } from "react";
