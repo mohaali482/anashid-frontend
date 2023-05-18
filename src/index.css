@@ -13,4 +13,8 @@ html {
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-feature-settings: normal;
   font-variation-settings: normal;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: black;
+  }
 }
