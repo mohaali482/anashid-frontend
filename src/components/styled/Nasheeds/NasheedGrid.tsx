@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Nasheed } from '../../../types/store';
 
 const NasheedGridDiv = styled.div`
     display: flex;
@@ -6,20 +7,37 @@ const NasheedGridDiv = styled.div`
     justify-content: center;
 `
 
-const Nasheed = styled.div`
-    max-width: 14rem;
-    background-color:  ${(props) => props.theme.palette.primary.main};
-    border-radius: ${(props) => props.theme.borderRadius};
-    box-shadow: ${(props) => props.theme.boxShadow};
+const NasheedComponent = styled.div`
+    height: 18rem;
+    width: 14rem;
+    background-color: ${(props) => props.theme.palette.primary.light};
+    border-width: 1px;
+    border-color: ${(props) => props.theme.palette.primary.lightGray};
+    border-radius: 0.5rem;
+    box-shadow: ${(props) => props.theme.palette.primary.lightGray} 0px 0px 0px 1px;
 
     @media (prefers-color-scheme: dark) {
         background-color: ${(props) => props.theme.palette.primary.dark};
+        border-color: ${(props) => props.theme.palette.primary.darkGray};
     }
 `
 
 const NasheedPoster = styled.img`
     border-top-left-radius: ${(props) => props.theme.borderRadius}; 
     border-top-right-radius: ${(props) => props.theme.borderRadius};
+    width: 100%;
+    height: 80%;
+    object-fit: contain;
+    background-color:  ${(props) => props.theme.palette.primary.lightGray};
+
+    @media (prefers-color-scheme: dark) {
+        background-color: ${(props) => props.theme.palette.primary.darkGray};
+    }
+
+`
+
+const NasheedContent = styled.div`
+    padding: 0.25rem;
 `
 
 const NasheedTitle = styled.p`
@@ -31,13 +49,19 @@ const NasheedTitle = styled.p`
     }
 `
 
+interface NasheedGridProps {
+    nasheed: Nasheed;
+}
+
 const NasheedGrid = (props: NasheedGridProps) => {
     return (
         <NasheedGridDiv>
-            <Nasheed>
-                <NasheedPoster src={props.poster} alt="Nasheed" />
-                <NasheedTitle>{props.title}"</NasheedTitle>
-            </Nasheed>
+            <NasheedComponent>
+                <NasheedPoster src={props.nasheed.poster} alt="Nasheed" />
+                <NasheedContent>
+                    <NasheedTitle>{props.nasheed.name}</NasheedTitle>
+                </NasheedContent>
+            </NasheedComponent>
         </NasheedGridDiv>
     )
 }
