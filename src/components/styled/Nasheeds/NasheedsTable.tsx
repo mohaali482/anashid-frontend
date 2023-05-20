@@ -2,14 +2,6 @@ import styled from 'styled-components';
 import { Nasheed } from '../../../types/store';
 import NasheedTd from './NasheedTd';
 
-const Container = styled.div`
-  display: none;
-
-  @media (min-width: 1024px) {
-    display: block;
-  }
-`
-
 const StyledTable = styled.table`
     width: 100%;
     font-size: 0.875rem;
@@ -47,7 +39,7 @@ const NasheedsTable = (props: NasheedsTableProps) => {
   const tableHeaders = ['', '', 'Name', 'Created', 'Owner', 'Duration', 'Actions']
 
   return (
-    <Container>
+    <>
       <StyledTable>
         <StyledThead>
           <tr>
@@ -63,7 +55,7 @@ const NasheedsTable = (props: NasheedsTableProps) => {
           ))}
         </tbody>
       </StyledTable>
-    </Container>
+    </>
   )
 }
 
