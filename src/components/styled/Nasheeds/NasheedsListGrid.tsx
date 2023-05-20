@@ -1,8 +1,10 @@
 import styled from "styled-components";
+import { Nasheed } from "../../../types/store";
+import NasheedGrid from "./NasheedGrid";
 
 const Grid = styled.div`
   display: grid;
-  grid-template-colums: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
   margin-top: 1rem;
   
@@ -11,10 +13,19 @@ const Grid = styled.div`
   }
 `
 
-const NasheedsListGrid = ({ children }: any) => {
+interface NasheedGridProps {
+  data: Nasheed[];
+}
+
+const NasheedsListGrid = (props: NasheedGridProps) => {
+  return (
     <Grid>
-        {children}
+      {props.data.map((nasheed) => (
+        <NasheedGrid key={nasheed.id} nasheed={nasheed} />
+      ))
+      }
     </Grid>
+  )
 }
 
 export default NasheedsListGrid;
