@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const StyledAudioPlayer = styled.audio`
+export const StyledAudioPlayer = styled.audio`
     width: 100%;
     padding-right: 2rem;
   
@@ -34,11 +34,12 @@ const StyledAudioPoster = styled.img`
 interface AudioPlayerProps {
     audio: string;
     poster: string;
+    onClick: any;
 }
 
 const AudioPlayer = (props: AudioPlayerProps) => {
     return (
-        <StyledAudioPlayerContainer>
+        <StyledAudioPlayerContainer onClick={props.onClick}>
             <StyledAudioPoster src={props.poster} />
             <StyledAudioPlayer controls>
                 <source src={props.audio} type="audio/mpeg" />
