@@ -19,6 +19,7 @@ html {
 
   @media (prefers-color-scheme: dark) {
     background-color: black;
+    color: white;
   }
 }
 
