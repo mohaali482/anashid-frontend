@@ -40,6 +40,7 @@ const StyledPosterContainer = styled.div`
 const StyledPoster = styled.img`
     border-radius: ${(props) => props.theme.borderRadius};
     height: 6rem;
+    width: 6rem;
     object-fit: contain;
 `
 
@@ -66,7 +67,6 @@ const NasheedTd = ({ nasheed }: { nasheed: Nasheed }) => {
         setOpen(!open);
         const target = event.target as HTMLElement
         const rect = target.getBoundingClientRect();
-        console.log(rect.bottom);
         if (window.innerHeight - rect.bottom < 200) {
             setDropdownPosition({ top: rect.bottom + window.scrollY - 200 })
         }
