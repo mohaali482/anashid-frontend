@@ -6,6 +6,7 @@ const StyledSection = styled.section`
     background-blend-mode: multiply;
     height: 40%;
     background-size: cover;
+    margin-bottom: 0.1rem;
 `
 
 const StyledDiv = styled.div`
