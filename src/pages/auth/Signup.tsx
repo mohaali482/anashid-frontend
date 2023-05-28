@@ -7,6 +7,7 @@ import StyledForm from "../../components/styled/pages/Form"
 import StyledInputDiv from "../../components/styled/pages/auth/Login/InputDiv"
 import { AiOutlineUserAdd } from "react-icons/ai"
 import StyledIcon from "../../components/styled/pages/auth/Login/StyledIcon"
+import StyledTag from "../../components/styled/pages/auth/Login/StyledAnchorTag"
 
 
 const Signup = () => {
@@ -37,6 +38,7 @@ const Signup = () => {
                         <StyledButton type="submit">Signup</StyledButton>
                     </StyledInputDiv>
                 </StyledForm>
+                <StyledText style={{ fontSize: "1rem" }}>Already have an account? <StyledTag to={'/auth/login'}>Login.</StyledTag></StyledText>
             </FormContainer>
         </Container>
     )

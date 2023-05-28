@@ -29,9 +29,12 @@ const Login = () => {
                         <StyledButton type="submit">Login</StyledButton>
                     </StyledInputDiv>
                 </StyledForm>
-                <StyledText style={{ fontSize: "1rem" }}>Don't have an account? <StyledTag to={'/auth/signup'}>Create account.</StyledTag></StyledText>
+                <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <StyledText style={{ fontSize: "1rem" }}>Don't have an account? <StyledTag to={'/auth/signup'}>Create account.</StyledTag></StyledText>
+                    <StyledText style={{ fontSize: "1rem" }}><StyledTag to={'/auth/forgot-password'}>Forgot password?</StyledTag></StyledText>
+                </div>
             </FormContainer>
-        </Container>
+        </Container >
     )
 }
 
