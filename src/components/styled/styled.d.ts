@@ -6,6 +6,7 @@ interface IPalette {
   light: string;
   lightGray: string;
   darkGray: string;
+  danger: string;
 }
 
 declare module "styled-components" {

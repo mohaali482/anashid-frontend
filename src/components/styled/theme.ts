@@ -8,6 +8,7 @@ export const defaultTheme: DefaultTheme = {
       dark: "#191414",
       lightGray: "#F5F5F5",
       darkGray: "#878787",
+      danger: "	#df4759",
     },
   },
   boxShadow: "0 35px 60px -15px",
