@@ -9,7 +9,7 @@ import StyledButton from "../../components/styled/common/Button";
 import StyledFileUpload from "../../components/styled/common/form/StyledFileUpload";
 import { FiUpload } from "react-icons/fi";
 
-const CreateNasheede = () => {
+const CreateNasheed = () => {
     return (
         <FormContainer>
             <StyledIcon>
@@ -42,4 +42,4 @@ const CreateNasheede = () => {
     )
 }
 
-export default CreateNasheede;
+export default CreateNasheed;
