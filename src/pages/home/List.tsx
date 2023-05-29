@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
-import { RootState } from "../redux/store";
-import { fetchNasheeds, loadMoreNasheeds, setPageLimit } from "../redux/ducks/nasheedSlice";
-import NasheedsList from "../components/styled/Nasheeds/NasheedsList";
-import BackgroundCover from "../components/styled/layout/BackgroundCover";
+import { RootState } from "../../redux/store";
+import { fetchNasheeds, loadMoreNasheeds, setPageLimit } from "../../redux/ducks/nasheedSlice";
+import NasheedsList from "../../components/styled/Nasheeds/NasheedsList";
+import BackgroundCover from "../../components/styled/layout/BackgroundCover";
 
 // function List() {
 //     const dispatch = useDispatch();
