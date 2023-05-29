@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const StyledLabel = styled.label`
-    font-size:  1.2rem;
+    font-size:  1rem;
     font-weight: bold;
     padding: 1rem;
     color: ${(props) => props.theme.palette.primary.dark};
