@@ -1,5 +1,5 @@
-import { Route, Routes, createBrowserRouter } from "react-router-dom";
-import List from "../pages/List";
+import { Route, Routes } from "react-router-dom";
+import List from "../pages/home/List";
 import HomeSharedLayout from "../pages/home/HomeSharedLayout";
 
 const HomeRouter = () => {
