@@ -3,6 +3,8 @@ import NavBar from "../../components/styled/layout/Navbar";
 import Sidebar from "../../components/styled/layout/Sidebar";
 import Container from "../../components/styled/Nasheeds/Container";
 import { useEffect, useRef, useState } from "react";
+import BackgroundCover from "../../components/styled/layout/BackgroundCover";
+import Footer from "../../components/styled/layout/Footer";
 
 const HomeSharedLayout = () => {
     const [open, setOpen] = useState(false)
@@ -48,7 +50,9 @@ const HomeSharedLayout = () => {
             <NavBar handleClick={toggleSidebar} />
             <Sidebar reference={sidebarRef} open={open} links={[]} />
             <Container>
+                <BackgroundCover />
                 <Outlet />
+                <Footer />
             </Container>
         </>
     )
