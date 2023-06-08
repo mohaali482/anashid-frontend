@@ -13,8 +13,8 @@ const HomeRouter = () => {
                 <Route path="add" element={<NasheedForm />} />
                 <Route path="edit/:id" element={<NasheedForm />} />
                 <Route path="user" element={<Account />} />
-                <Route path="*" element={<PageNotFound />} />
             </Route>
+            <Route path="*" element={<PageNotFound />} />
         </Routes>
     )
 }
