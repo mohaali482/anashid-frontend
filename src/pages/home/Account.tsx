@@ -12,7 +12,6 @@ import Input from "../../components/styled/pages/account/Input";
 const Account = () => {
     return (
         <>
-            <BackgroundCover />
             <Container>
                 <div style={{ padding: "1.5rem" }}>
                     <h1>Profile Picture</h1>
