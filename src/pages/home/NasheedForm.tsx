@@ -1,4 +1,4 @@
-import { AiOutlineUserAdd } from "react-icons/ai";
+import { AiFillFileAdd } from "react-icons/ai";
 import FormContainer from "../../components/styled/common/form/FormContainer";
 import StyledIcon from "../../components/styled/common/form/StyledIcon";
 import StyledText from "../../components/styled/common/Text";
@@ -13,7 +13,7 @@ const NasheedForm = () => {
     return (
         <FormContainer>
             <StyledIcon>
-                <AiOutlineUserAdd size={50} />
+                <AiFillFileAdd size={50} />
             </StyledIcon>
             <StyledText>New Nasheed</StyledText>
             <StyledForm>
