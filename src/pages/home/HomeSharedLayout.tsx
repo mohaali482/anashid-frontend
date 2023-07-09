@@ -8,6 +8,8 @@ import Footer from "../../components/styled/layout/Footer";
 import {IoAddCircle, IoHome, IoSave} from 'react-icons/io5'
 import {FaUserAlt} from 'react-icons/fa'
 import {BsMusicNoteList} from 'react-icons/bs'
+import AudioPlayerDrawer from "../../components/styled/Nasheeds/AudioPlayerDrawer";
+import AudioPlayer from "../../components/styled/Nasheeds/AudioPlayer";
 
 const links = [
     { 
@@ -44,34 +46,39 @@ const HomeSharedLayout = () => {
         setOpen(!open)
     }
 
-    // useEffect(() => {
-    //     if (open) {
-    //         document.body.style.overflow = 'hidden'
-    //     }
-    //     else {
-    //         document.body.style.overflow = 'unset'
-    //     }
-    // }, [open])
+    const [drawerOpen, setDrawerOpen] = useState(false)
+    const toggleDrawer = () => {
+        setDrawerOpen(!drawerOpen)
+    }
 
-    // useEffect(() => {
-    //     document.addEventListener('keydown', (event) => {
-    //         if (event.key == 'Escape')
-    //             setOpen(false)
-    //     })
+    useEffect(() => {
+        if (drawerOpen) {
+            document.body.style.overflow = 'hidden'
+        }
+        else {
+            document.body.style.overflow = 'unset'
+        }
+    }, [open])
 
-    //     return () => {
-    //         document.removeEventListener('keydown', (event) => {
-    //             if (event.key == 'Escape')
-    //                 setOpen(false)
-    //         })
+    useEffect(() => {
+        document.addEventListener('keydown', (event) => {
+            if (event.key == 'Escape')
+                setDrawerOpen(false)
+        })
 
-    //     }
-    // }, [])
+        return () => {
+            document.removeEventListener('keydown', (event) => {
+                if (event.key == 'Escape')
+                    setDrawerOpen(false)
+            })
+
+        }
+    }, [])
 
     useEffect(() => {
         document.addEventListener('mousedown', (event) => {
             if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
-                setOpen(false)
+                setDrawerOpen(false)
             }
         })
     })
@@ -84,7 +91,9 @@ const HomeSharedLayout = () => {
                 <BackgroundCover />
                 <Outlet />
                 <Footer />
+                <AudioPlayer audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" poster="https://www.soundhelix.com/examples/images/1.jpg" onClick={toggleDrawer} />
             </Container>
+            <AudioPlayerDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
         </>
     )
 }
