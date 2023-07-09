@@ -77,7 +77,7 @@ const AudioPlayerDrawer = (props: AudioPlayerDrawerProps) => {
         <Drawer style={props.open ? { height: '100%' } : {}}>
             <AudioPlayerDrawerContainer onClick={props.toggleDrawer}>
                 <StyledCloseButton>
-                    <IoClose size={40} />
+                    <IoClose size={30} />
                 </StyledCloseButton>
                 <AudioDrawerPoster src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="audio-poster" />
                 <AudioDrawerTitle>Title</AudioDrawerTitle>
