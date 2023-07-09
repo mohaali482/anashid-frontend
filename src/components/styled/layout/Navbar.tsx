@@ -32,6 +32,7 @@ const StyledDiv2 = styled.div`
     justify-content: space-between;
     margin: 0 auto;
     padding: 1rem;
+    margin-right: 0.5rem;
 `
 
 const SidebarButton = styled.button`

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const StyledFooter = styled.footer`
     background-color: ${(props) => props.theme.palette.primary.lightGray};
     margin-top: 2rem;
-    margin-bottom: 0;
+    margin-bottom: 4rem;
     border-radius: 0.5rem;
     padding: 1.25rem;
 
