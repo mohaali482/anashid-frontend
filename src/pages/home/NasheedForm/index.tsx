@@ -1,16 +1,16 @@
 import { AiFillFileAdd } from "react-icons/ai";
-import FormContainer from "../../components/styled/common/form/FormContainer";
-import StyledIcon from "../../components/styled/common/form/StyledIcon";
-import StyledText from "../../components/styled/common/Text";
-import StyledForm from "../../components/styled/pages/Form";
-import StyledInputDiv from "../../components/styled/common/form/InputDiv";
-import StyledInput from "../../components/styled/common/form/Input";
-import StyledButton from "../../components/styled/common/Button";
-import StyledFileUpload from "../../components/styled/common/form/StyledFileUpload";
+import FormContainer from "../../../components/styled/common/form/FormContainer";
+import StyledIcon from "../../../components/styled/common/form/StyledIcon";
+import StyledText from "../../../components/styled/common/Text";
+import StyledForm from "../../../components/styled/pages/Form";
+import StyledInputDiv from "../../../components/styled/common/form/InputDiv";
+import StyledInput from "../../../components/styled/common/form/Input";
+import StyledButton from "../../../components/styled/common/Button";
+import StyledFileUpload from "../../../components/styled/common/form/StyledFileUpload";
 import { FiUpload } from "react-icons/fi";
 import React, { useEffect, useRef, useState } from "react";
-import Image from "../../components/styled/common/form/Image";
-import { StyledAudioPlayer } from "../../components/styled/Nasheeds/AudioPlayer";
+import Image from "../../../components/styled/common/form/Image";
+import { StyledAudioPlayer } from "../../../components/styled/Nasheeds/AudioPlayer";
 
 const NasheedForm = () => {
     const [poster, setPoster] = useState<File | null>()
