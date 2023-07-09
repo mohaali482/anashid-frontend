@@ -61,12 +61,17 @@ const StyledLink = styled(Link)`
     color: ${(props) => props.theme.palette.primary.dark};
     text-decoration: none;
     border-radius: 0.5rem;
+
+    @media(prefers-color-scheme: dark) {
+        color: ${(props) => props.theme.palette.primary.light};
+    }
 `
 
 const StyledLi = styled.li`
     display: flex;
     align-items: center;
-    color:  ${(props) => props.theme.palette.primary.dark};
+    color:  ${(props) => props.theme.palette.primary.main};
+    padding: 0.5rem;
 `
 
 const SidebarOverlay = styled.div`
@@ -104,7 +109,6 @@ const Sidebar = (props: { reference: any, open: boolean, links: { title: string,
                             <StyledLi key={link.title}>
                                 {link.icon}
                                 <StyledLink to={link.link}>{link.title}</StyledLink>
-                                <hr />
                             </StyledLi>
                         ))}
                     </StyledAsideUl>
