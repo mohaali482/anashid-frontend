@@ -5,14 +5,14 @@ import Container from "../../components/styled/Nasheeds/Container";
 import { useEffect, useRef, useState } from "react";
 import BackgroundCover from "../../components/styled/layout/BackgroundCover";
 import Footer from "../../components/styled/layout/Footer";
-import {IoAddCircle, IoHome, IoSave} from 'react-icons/io5'
-import {FaUserAlt} from 'react-icons/fa'
-import {BsMusicNoteList} from 'react-icons/bs'
+import { IoAddCircle, IoHome, IoSave } from 'react-icons/io5'
+import { FaUserAlt } from 'react-icons/fa'
+import { BsMusicNoteList } from 'react-icons/bs'
 import AudioPlayerDrawer from "../../components/styled/Nasheeds/AudioPlayerDrawer";
 import AudioPlayer from "../../components/styled/Nasheeds/AudioPlayer";
 
 const links = [
-    { 
+    {
         title: 'Home',
         link: '/',
         icon: <IoHome />
@@ -47,6 +47,7 @@ const HomeSharedLayout = () => {
     }
 
     const [drawerOpen, setDrawerOpen] = useState(false)
+    const drawerRef = useRef<HTMLDivElement>(null)
     const toggleDrawer = () => {
         setDrawerOpen(!drawerOpen)
     }
@@ -78,9 +79,23 @@ const HomeSharedLayout = () => {
     useEffect(() => {
         document.addEventListener('mousedown', (event) => {
             if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+                setOpen(false)
+            }
+            if (drawerRef.current && !drawerRef.current.contains(event.target as Node)) {
                 setDrawerOpen(false)
             }
         })
+
+        return () => {
+            document.removeEventListener('mousedown', (event) => {
+                if (sidebarRef.current && !sidebarRef.current.contains(event.target as Node)) {
+                    setOpen(false)
+                }
+                if (drawerRef.current && !drawerRef.current.contains(event.target as Node)) {
+                    setDrawerOpen(false)
+                }
+            })
+        }
     })
 
     return (
@@ -93,7 +108,7 @@ const HomeSharedLayout = () => {
                 <Footer />
                 <AudioPlayer audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" poster="https://www.soundhelix.com/examples/images/1.jpg" onClick={toggleDrawer} />
             </Container>
-            <AudioPlayerDrawer open={drawerOpen} toggleDrawer={toggleDrawer} />
+            <AudioPlayerDrawer open={drawerOpen} toggleDrawer={toggleDrawer} reference={drawerRef} />
         </>
     )
 }

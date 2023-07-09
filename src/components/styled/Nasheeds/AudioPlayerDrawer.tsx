@@ -69,12 +69,13 @@ const StyledCloseButton = styled.button`
 interface AudioPlayerDrawerProps {
     open: boolean;
     toggleDrawer: any;
+    reference: any;
 }
 
 const AudioPlayerDrawer = (props: AudioPlayerDrawerProps) => {
 
     return (
-        <Drawer style={props.open ? { height: '100%' } : {}}>
+        <Drawer ref={props.reference} style={props.open ? { height: '100%' } : {}}>
             <AudioPlayerDrawerContainer onClick={props.toggleDrawer}>
                 <StyledCloseButton>
                     <IoClose size={30} />
