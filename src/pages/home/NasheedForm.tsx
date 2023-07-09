@@ -63,8 +63,14 @@ const NasheedForm = () => {
         setAudioFile((e.target as HTMLInputElement).files![0])
     }
 
+    const onSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        const data = new FormData(e.target as HTMLFormElement)
+        console.log([...data.entries()])
+    }
+
     return (
-        <FormContainer>
+        <FormContainer onSubmit={onSubmit}>
             <StyledIcon>
                 <AiFillFileAdd size={50} />
             </StyledIcon>
@@ -90,7 +96,7 @@ const NasheedForm = () => {
                                 </>
                             )
                         }
-                        <input required type="file" accept="image/*" name="poster" id="poster" onChange={onSelectFile} style={{ display: "none" }} />
+                        <input type="file" accept="image/*" name="poster" id="poster" onChange={onSelectFile} style={{ display: "none" }} />
                     </StyledFileUpload>
                 </StyledInputDiv>
                 <StyledInputDiv>
@@ -102,7 +108,7 @@ const NasheedForm = () => {
                     <StyledFileUpload>
                         <FiUpload style={{ paddingRight: '0.5rem' }} />
                         Audio Upload
-                        <input required type="file" accept=".mp3,audio/mpeg" name="audio" id="audio" onChange={onSelectAudioFile} style={{ display: "none" }} />
+                        <input type="file" accept=".mp3,audio/mpeg" name="audio" id="audio" onChange={onSelectAudioFile} style={{ display: "none" }} />
                     </StyledFileUpload>
                 </StyledInputDiv>
                 <StyledInputDiv>
