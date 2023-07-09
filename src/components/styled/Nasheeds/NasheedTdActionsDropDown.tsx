@@ -55,6 +55,7 @@ const NasheedTdActionsDropDown = ({ dropdownPosition }: { dropdownPosition: { to
             <StyledDropDownUl>
                 <StyledDropDownLink to="/">Detail</StyledDropDownLink>
                 <StyledDropDownLink to="/">Edit</StyledDropDownLink>
+                <StyledDropDownLink to="/">Save to my playlist</StyledDropDownLink>
                 <StyledDropDownLink to="/">Delete</StyledDropDownLink>
             </StyledDropDownUl>
         </StyledDropDown>
