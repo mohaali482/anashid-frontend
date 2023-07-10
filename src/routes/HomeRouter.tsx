@@ -4,6 +4,7 @@ import HomeSharedLayout from "../pages/home/HomeSharedLayout";
 import NasheedForm from "../pages/home/NasheedForm";
 import Account from "../pages/home/Account";
 import PageNotFound from "../pages/common/404";
+import SavedNasheeds from "../pages/home/savedNasheeds";
 
 const HomeRouter = () => {
     return (
@@ -12,6 +13,7 @@ const HomeRouter = () => {
                 <Route path="" index element={<List />} />
                 <Route path="add" element={<NasheedForm />} />
                 <Route path="edit/:id" element={<NasheedForm />} />
+                <Route path="saved-nasheeds" element={<SavedNasheeds />} />
                 <Route path="user" element={<Account />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
