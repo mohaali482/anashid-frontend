@@ -6,6 +6,7 @@ import Account from "../pages/home/Account";
 import PageNotFound from "../pages/common/404";
 import SavedNasheeds from "../pages/home/savedNasheeds";
 import MyNasheeds from "../pages/home/myNasheeds";
+import Detail from "../pages/home/Detail";
 
 const HomeRouter = () => {
     return (
@@ -14,6 +15,7 @@ const HomeRouter = () => {
                 <Route path="" index element={<List />} />
                 <Route path="add" element={<NasheedForm />} />
                 <Route path="edit/:id" element={<NasheedForm />} />
+                <Route path="nasheeds/:id" element={<Detail />} />
                 <Route path="my-nasheeds" element={<MyNasheeds />} />
                 <Route path="saved-nasheeds" element={<SavedNasheeds />} />
                 <Route path="user" element={<Account />} />

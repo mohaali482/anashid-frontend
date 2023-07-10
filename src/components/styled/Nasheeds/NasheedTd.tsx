@@ -3,6 +3,7 @@ import { Nasheed } from "../../../types/store";
 import { BsDownload, BsPlayCircleFill, BsShareFill, BsThreeDots } from 'react-icons/bs'
 import NasheedTdActionsDropDown from "./NasheedTdActionsDropDown";
 import React, { useEffect, useId, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 
 const StyledTr = styled.tr`
     background-color:  ${(props) => props.theme.palette.primary.light};
@@ -99,7 +100,9 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
             </StyledTdPlayButton>
             <StyledTd>
                 <StyledPosterContainer>
-                    <StyledPoster src={nasheed.poster} />
+                    <Link to={`/nasheeds/${nasheed.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                        <StyledPoster src={nasheed.poster} />
+                    </Link>
                 </StyledPosterContainer>
             </StyledTd>
             <StyledTitleTd>

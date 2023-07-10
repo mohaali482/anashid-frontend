@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Nasheed } from '../../../types/store';
+import { Link } from 'react-router-dom';
 
 const NasheedGridDiv = styled.div`
     display: flex;
@@ -57,7 +58,9 @@ const NasheedGrid = (props: NasheedGridProps) => {
     return (
         <NasheedGridDiv>
             <NasheedComponent>
-                <NasheedPoster src={props.nasheed.poster} alt="Nasheed" />
+                <Link to={`/nasheeds/${props.nasheed.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <NasheedPoster src={props.nasheed.poster} alt="Nasheed" />
+                </Link>
                 <NasheedContent>
                     <NasheedTitle>{props.nasheed.name}</NasheedTitle>
                 </NasheedContent>
