@@ -107,7 +107,7 @@ const NasheedForm = () => {
                 <StyledInputDiv>
                     <StyledFileUpload>
                         <FiUpload style={{ paddingRight: '0.5rem' }} />
-                        Audio Upload
+                        {audioFile ? "Change Audio" : "Audio Upload"}
                         <input type="file" accept=".mp3,audio/mpeg" name="audio" id="audio" onChange={onSelectAudioFile} style={{ display: "none" }} />
                     </StyledFileUpload>
                 </StyledInputDiv>
