@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledAside = styled.aside`
@@ -54,13 +54,24 @@ const StyledAsideUl = styled.ul`
     margin: 0;
 `
 
-const StyledLink = styled(Link)`
+const StyledLink = styled(NavLink)`
     display: flex;
     align-items: center;
-    padding: 0.5rem;
+    padding: .75rem;
     color: ${(props) => props.theme.palette.primary.dark};
     text-decoration: none;
     border-radius: 0.5rem;
+    width: 100%;
+
+    &.active{
+        background-color: ${(props) => props.theme.palette.primary.lightWhite};
+    }
+
+    svg{
+        color: ${(props) => props.theme.palette.primary.main};
+        padding-right: 0.5rem;
+    }
+    
 
     @media(prefers-color-scheme: dark) {
         color: ${(props) => props.theme.palette.primary.light};
@@ -71,7 +82,8 @@ const StyledLi = styled.li`
     display: flex;
     align-items: center;
     color:  ${(props) => props.theme.palette.primary.main};
-    padding: 0.5rem;
+    padding: 0.5rem 0;
+    border-radius: ${(props) => props.theme.borderRadius};
 `
 
 const SidebarOverlay = styled.div`
@@ -107,8 +119,10 @@ const Sidebar = (props: { reference: any, open: boolean, links: { title: string,
                     <StyledAsideUl>
                         {props.links.map((link) => (
                             <StyledLi key={link.title}>
-                                {link.icon}
-                                <StyledLink to={link.link}>{link.title}</StyledLink>
+                                <StyledLink to={link.link}>
+                                    {link.icon}
+                                    {link.title}
+                                </StyledLink>
                             </StyledLi>
                         ))}
                     </StyledAsideUl>
