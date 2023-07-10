@@ -30,7 +30,7 @@ const StyledAsideContent = styled.div`
     height: fit-content;
     padding: 1rem 0.75rem;
     overflow-y: auto;
-    background-color: ${(props) => props.theme.palette.primary.light};
+    background-color: ${(props) => props.theme.palette.primary.lightGray};
 
     @media (prefers-color-scheme: dark) {
         background-color: ${(props) => props.theme.palette.primary.dark};
