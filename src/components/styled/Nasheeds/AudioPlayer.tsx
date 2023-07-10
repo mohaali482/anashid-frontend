@@ -13,6 +13,8 @@ const StyledAudioPlayerContainer = styled.div`
     display: flex;
     align-items: center;
     width: -webkit-fill-available;
+    width: -moz-available;
+    width: fill-available;
     height: 4rem;
     background-color:  ${(props) => props.theme.palette.primary.light};
     position: fixed;
