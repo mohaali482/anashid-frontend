@@ -10,7 +10,7 @@ export const StyledDropDown = styled.div`
     border-radius: 0.5rem;
     border-top-width: 1px; 
     border-color: ${(props) => props.theme.palette.primary.lightGray};
-    shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+    box-shadow: 0 0.5rem 1rem rgba(255,255,255,0.1);
     transition: all 0.3s ease-in-out;
 
 
@@ -41,19 +41,18 @@ export const StyledDropDownLink = styled(Link)`
     }
     @media(prefers-color-scheme: dark) {
         :hover {
-            background-color: ${(props) => props.theme.palette.primary.darkGray};
-            color: ${(props) => props.theme.palette.primary.light};
+            background-color: ${(props) => props.theme.palette.primary.lightWhite};
+color: ${(props) => props.theme.palette.primary.light};
         }
         
     }
 `
 interface dropDownProps {
     dropdownPosition: {
-        top: string;
-        left: string;
+        top: number;
     }
     links: {
-        to: string;
+        link: string;
         text: string;
     }[]
 }
@@ -64,7 +63,7 @@ const NasheedTdActionsDropDown = ({ dropdownPosition, links }: dropDownProps) =>
         <StyledDropDown style={{ ...dropdownPosition }}>
             <StyledDropDownUl>
                 {links.map((link, index) => (
-                    <StyledDropDownLink key={index} to={link.to}>{link.text}</StyledDropDownLink>
+                    <StyledDropDownLink key={index} to={link.link}>{link.text}</StyledDropDownLink>
                 ))}
             </StyledDropDownUl>
         </StyledDropDown>
