@@ -40,6 +40,8 @@ const NasheedForm = () => {
 
         const objectUrl = URL.createObjectURL(audioFile)
         setAudioFilePreview(objectUrl)
+        if (audioRef.current)
+            audioRef.current.src = objectUrl
         audioRef.current?.load()
 
         return () => URL.revokeObjectURL(objectUrl)
@@ -80,6 +82,9 @@ const NasheedForm = () => {
                     <StyledInput required placeholder="Nasheed Title" type="text" name="name" id="name" />
                 </StyledInputDiv>
                 <StyledInputDiv>
+                    <StyledInput required placeholder="Nasheed Description" type="text" name="description" id="description" />
+                </StyledInputDiv>
+                <StyledInputDiv>
                     <StyledFileUpload style={{
                         width: "200px",
                         height: "200px",
@@ -100,8 +105,8 @@ const NasheedForm = () => {
                     </StyledFileUpload>
                 </StyledInputDiv>
                 <StyledInputDiv>
-                    <StyledAudioPlayer ref={audioRef} controls style={{ padding: "0" }}>
-                        <source src={audioFilePreview} type="audio/mpeg" />
+                    <StyledAudioPlayer ref={audioRef} controls style={{ padding: "0", width: "70%" }}>
+                        <source type="audio/mpeg" />
                     </StyledAudioPlayer>
                 </StyledInputDiv>
                 <StyledInputDiv>
