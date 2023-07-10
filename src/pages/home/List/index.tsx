@@ -31,9 +31,28 @@ import NasheedsList from "../../../components/styled/Nasheeds/NasheedsList";
 // }
 
 const List = () => {
+
+    const dropdownLinks = [
+        {
+            link: "/",
+            text: "Detail",
+        },
+        {
+            link: "/",
+            text: "Save to my playlist",
+        },
+        {
+            link: "/",
+            text: "Delete",
+        },
+        {
+            link: "/",
+            text: "Edit",
+        },
+    ]
     return (
         <>
-            <NasheedsList data={[{
+            <NasheedsList dropdownLinks={dropdownLinks} data={[{
                 "id": 19,
                 "owner": {
                     "id": 1,

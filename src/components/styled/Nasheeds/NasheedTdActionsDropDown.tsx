@@ -47,16 +47,25 @@ export const StyledDropDownLink = styled(Link)`
         
     }
 `
+interface dropDownProps {
+    dropdownPosition: {
+        top: string;
+        left: string;
+    }
+    links: {
+        to: string;
+        text: string;
+    }[]
+}
 
-const NasheedTdActionsDropDown = ({ dropdownPosition }: { dropdownPosition: { top: number } }) => {
+const NasheedTdActionsDropDown = ({ dropdownPosition, links }: dropDownProps) => {
 
     return (
         <StyledDropDown style={{ ...dropdownPosition }}>
             <StyledDropDownUl>
-                <StyledDropDownLink to="/">Detail</StyledDropDownLink>
-                <StyledDropDownLink to="/">Edit</StyledDropDownLink>
-                <StyledDropDownLink to="/">Save to my playlist</StyledDropDownLink>
-                <StyledDropDownLink to="/">Delete</StyledDropDownLink>
+                {links.map((link, index) => (
+                    <StyledDropDownLink key={index} to={link.to}>{link.text}</StyledDropDownLink>
+                ))}
             </StyledDropDownUl>
         </StyledDropDown>
     )

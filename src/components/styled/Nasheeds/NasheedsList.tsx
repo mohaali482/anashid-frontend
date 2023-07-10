@@ -22,13 +22,17 @@ const GridContainer = styled.div`
 
 interface NasheedsListProps {
     data: Nasheed[];
+    dropdownLinks: {
+        link: string;
+        text: string;
+    }[]
 }
 
 const NasheedsList = (props: NasheedsListProps) => {
     return (
         <>
             <TableContainer>
-                <NasheedsTable tableData={props.data} />
+                <NasheedsTable tableData={props.data} dropdownLinks={props.dropdownLinks} />
             </TableContainer>
             <GridContainer>
                 <NasheedsListGrid data={props.data} />

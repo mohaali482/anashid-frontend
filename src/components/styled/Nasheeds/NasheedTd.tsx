@@ -44,7 +44,7 @@ const StyledPoster = styled.img`
     object-fit: contain;
 `
 
-const StyledDivIcons = styled.div`
+export const StyledDivIcons = styled.div`
     color:  ${(props) => props.theme.palette.primary.main};
 `
 
@@ -53,7 +53,15 @@ const StyledDiv = styled.div`
     justify-content: space-evenly;
 `
 
-const NasheedTd = ({ nasheed }: { nasheed: Nasheed }) => {
+interface NasheedTdProps {
+    nasheed: Nasheed,
+    dropdownLinks: {
+        link: string,
+        text: string
+    }[]
+}
+
+const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
     const [open, setOpen] = useState(false);
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0 });
     // const audio = new Audio(nasheed.audio);
@@ -126,7 +134,7 @@ const NasheedTd = ({ nasheed }: { nasheed: Nasheed }) => {
                         <button onClick={handleClick} style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none' }}>
                             <BsThreeDots size={20} />
                         </button>
-                        {open && <NasheedTdActionsDropDown dropdownPosition={dropdownPosition} />}
+                        {open && <NasheedTdActionsDropDown dropdownPosition={dropdownPosition} links={dropdownLinks} />}
                     </StyledDivIcons>
                 </StyledDiv>
             </StyledTd>

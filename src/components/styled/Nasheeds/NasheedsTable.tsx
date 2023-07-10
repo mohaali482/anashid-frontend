@@ -33,6 +33,10 @@ const StyledTh = styled.th`
 
 interface NasheedsTableProps {
   tableData: Nasheed[];
+  dropdownLinks: {
+    link: string;
+    text: string;
+  }[]
 }
 
 const NasheedsTable = (props: NasheedsTableProps) => {
@@ -51,7 +55,7 @@ const NasheedsTable = (props: NasheedsTableProps) => {
 
         <tbody>
           {props.tableData.map((nasheed, index) => (
-            <NasheedTd nasheed={nasheed} key={index} />
+            <NasheedTd nasheed={nasheed} key={index} dropdownLinks={props.dropdownLinks} />
           ))}
         </tbody>
       </StyledTable>
