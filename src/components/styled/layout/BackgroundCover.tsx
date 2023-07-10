@@ -1,3 +1,4 @@
+import { useState } from "react";
 import styled, { StyledComponent } from "styled-components";
 
 const StyledSection = styled.section`
@@ -93,8 +94,10 @@ const BackgroundCover = () => {
 
         return { image: images.at(Math.floor(Math.random() * images.length)), greeting: gretting }
     }
+
+    const [image, setImage] = useState(getStyles().image)
     return (
-        <StyledSection style={{ backgroundImage: `url(${getStyles().image})` }}>
+        <StyledSection style={{ backgroundImage: `url(${image})` }}>
             <StyledDiv>
                 <StyledH1>
                     {getStyles().greeting}
