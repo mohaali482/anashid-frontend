@@ -39,14 +39,6 @@ const List = () => {
         },
         {
             link: "/",
-            text: "Save to my playlist",
-        },
-        {
-            link: "/",
-            text: "Delete",
-        },
-        {
-            link: "/",
             text: "Edit",
         },
     ]

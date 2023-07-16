@@ -40,7 +40,7 @@ interface NasheedsTableProps {
 }
 
 const NasheedsTable = (props: NasheedsTableProps) => {
-  const tableHeaders = ['', '', 'Name', 'Created', 'Owner', 'Duration', 'Actions']
+  const tableHeaders = ['', '', 'Name', 'Created', 'Duration', 'Actions']
 
   return (
     <>

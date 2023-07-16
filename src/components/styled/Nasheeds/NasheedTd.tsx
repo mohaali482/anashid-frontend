@@ -4,6 +4,7 @@ import { BsDownload, BsPlayCircleFill, BsShareFill, BsThreeDots } from 'react-ic
 import NasheedTdActionsDropDown from "./NasheedTdActionsDropDown";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 
 const StyledTr = styled.tr`
     background-color:  ${(props) => props.theme.palette.primary.light};
@@ -51,7 +52,14 @@ export const StyledDivIcons = styled.div`
 
 const StyledDiv = styled.div`
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
+
+    & div{
+        margin: 0 auto;
+    }
+    & :nth-child(1){
+        margin-left: 0;
+    }
 `
 
 interface NasheedTdProps {
@@ -116,17 +124,22 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
                 })}
             </StyledTd>
             <StyledTd>
-                {`${nasheed.owner.first_name} ${nasheed.owner.last_name}`}
-            </StyledTd>
-            <StyledTd>
                 {"00:00"}
                 {/* TODO:  Make this depend on the data recieved */}
             </StyledTd>
 
             <StyledTd>
                 <StyledDiv>
-                    <StyledDivIcons>
+                    {/* <StyledDivIcons>
                         <BsShareFill size={20} />
+                    </StyledDivIcons> */}
+                    <StyledDivIcons>
+                        {/* <button style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none', cursor: "pointer" }}>
+                            <MdFavorite size={20} />
+                        </button> */}
+                        <button style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none', cursor: "pointer" }}>
+                            <MdFavoriteBorder size={20} />
+                        </button>
                     </StyledDivIcons>
                     <StyledDivIcons>
                         <a href={nasheed.audio} download style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -134,7 +147,7 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
                         </a>
                     </StyledDivIcons>
                     <StyledDivIcons ref={dropdown}>
-                        <button onClick={handleClick} style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none' }}>
+                        <button onClick={handleClick} style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none', cursor: "pointer" }}>
                             <BsThreeDots size={20} />
                         </button>
                         {open && <NasheedTdActionsDropDown dropdownPosition={dropdownPosition} links={dropdownLinks} />}
