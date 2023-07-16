@@ -4,6 +4,7 @@ import { RootState } from "../../../redux/store";
 import { fetchNasheeds, loadMoreNasheeds, setPageLimit } from "../../../redux/ducks/nasheedSlice";
 import NasheedsList from "../../../components/styled/Nasheeds/NasheedsList";
 import Filter from "../../../components/styled/Nasheeds/Filter";
+import Button from "../../../components/styled/pages/detail/button";
 
 // function List() {
 //     const dispatch = useDispatch();
@@ -63,6 +64,7 @@ const List = () => {
                 "created_at": new Date("2023-04-25T18:03:08.038130Z"),
                 "updated_at": new Date("2023-04-25T18:03:08.038130Z")
             }]} />
+            <Button style={{ marginRight: "auto", marginTop: "2rem", borderRadius: "25rem" }}>Load more...</Button>
         </>
     )
 }
