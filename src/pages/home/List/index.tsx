@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../redux/store";
 import { fetchNasheeds, loadMoreNasheeds, setPageLimit } from "../../../redux/ducks/nasheedSlice";
 import NasheedsList from "../../../components/styled/Nasheeds/NasheedsList";
+import Filter from "../../../components/styled/Nasheeds/Filter";
 
 // function List() {
 //     const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const List = () => {
     ]
     return (
         <>
+            <Filter />
             <NasheedsList dropdownLinks={dropdownLinks} data={[{
                 "id": 19,
                 "owner": {
