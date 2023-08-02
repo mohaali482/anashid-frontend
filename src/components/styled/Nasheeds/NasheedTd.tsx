@@ -146,12 +146,13 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
                             <BsDownload size={20} />
                         </a>
                     </StyledDivIcons>
-                    <StyledDivIcons ref={dropdown}>
-                        <button onClick={handleClick} style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none', cursor: "pointer" }}>
-                            <BsThreeDots size={20} />
-                        </button>
-                        {open && <NasheedTdActionsDropDown dropdownPosition={dropdownPosition} links={dropdownLinks} />}
-                    </StyledDivIcons>
+                    {dropdownLinks.length > 0 &&
+                        <StyledDivIcons ref={dropdown}>
+                            <button onClick={handleClick} style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none', cursor: "pointer" }}>
+                                <BsThreeDots size={20} />
+                            </button>
+                            {open && <NasheedTdActionsDropDown nasheedId={nasheed.id} dropdownPosition={dropdownPosition} links={dropdownLinks} />}
+                        </StyledDivIcons>}
                 </StyledDiv>
             </StyledTd>
         </StyledTr>

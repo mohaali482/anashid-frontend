@@ -50,20 +50,21 @@ color: ${(props) => props.theme.palette.primary.light};
 interface dropDownProps {
     dropdownPosition: {
         top: number;
-    }
+    },
+    nasheedId: number,
     links: {
         link: string;
         text: string;
     }[]
 }
 
-const NasheedTdActionsDropDown = ({ dropdownPosition, links }: dropDownProps) => {
+const NasheedTdActionsDropDown = ({ dropdownPosition, links, nasheedId: id }: dropDownProps) => {
 
     return (
         <StyledDropDown style={{ ...dropdownPosition }}>
             <StyledDropDownUl>
                 {links.map((link, index) => (
-                    <StyledDropDownLink key={index} to={link.link}>{link.text}</StyledDropDownLink>
+                    <StyledDropDownLink key={index} to={link.link.replace(":id", id.toString())}>{link.text}</StyledDropDownLink>
                 ))}
             </StyledDropDownUl>
         </StyledDropDown>
