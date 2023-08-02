@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../redux/store";
 import { fetchNasheeds, loadMoreNasheeds, setPageLimit } from "../../../redux/ducks/nasheedSlice";
-import NasheedsList from "../../../components/styled/Nasheeds/NasheedsList";
+import NasheedsList, { NasheedsListProps } from "../../../components/styled/Nasheeds/NasheedsList";
 import Filter from "../../../components/styled/Nasheeds/Filter";
 import Button from "../../../components/styled/pages/detail/button";
 
@@ -33,16 +33,12 @@ import Button from "../../../components/styled/pages/detail/button";
 // }
 
 const SavedNasheeds = () => {
-    const dropdownLinks = [
-        {
-            link: "/",
-            text: "Remove",
-        },
-    ]
+    const dropdownLinks: NasheedsListProps["dropdownLinks"] = []
+
     return (
         <>
             <Filter />
-            <NasheedsList dropdownLinks={dropdownLinks} data={[{
+            <NasheedsList data={[{
                 "id": 19,
                 "owner": {
                     "id": 1,
@@ -58,7 +54,7 @@ const SavedNasheeds = () => {
                 "audio": "https://storage.googleapis.com/nasheeds-198d4.appspot.com/nasheeds/audios/Free_Test_Data_2MB_MP3.mp3?X-Goog-Algorithm=GOOG4-RSA-SHA256&X-Goog-Credential=firebase-adminsdk-fxr94%40nasheeds-198d4.iam.gserviceaccount.com%2F20230528%2Fauto%2Fstorage%2Fgoog4_request&X-Goog-Date=20230528T044523Z&X-Goog-Expires=86400&X-Goog-SignedHeaders=host&X-Goog-Signature=0abc46aaa9a0277b3bf966664dcab86f110dd4843cb9d7abe3ab918ec4dbd1c7fdc79613581a08b973cc62d558d7a916923798bb17081e53077e1dbf289a84ede154a57e6cf23174c7a0c68f26b41d8891b93d881533914dad144766d548f629520390d9286515e35f67da746a5749598441af4579868d283dc7931227aa880ffbe441031caf9d60330692ccdd86633bf680d06ab14d2a5fa5de26c6c887096fd75589ecb9c9458c90b09f5da56e7ad5d8beb71eb433cc5e18d413cc09508939cce0686077403a5e5ec728cd70c9c03c32c84b8bff92844e318e04e24171bccdadfc0a675bd0939f369a19aa44900034afb89a7e52b5ba9d26be7a90c7286bb0",
                 "created_at": new Date("2023-04-25T18:03:08.038130Z"),
                 "updated_at": new Date("2023-04-25T18:03:08.038130Z")
-            }]} />
+            }]} dropdownLinks={dropdownLinks} />
             <Button style={{ marginRight: "auto", marginTop: "2rem", borderRadius: "25rem" }}>Load more...</Button>
         </>
     )
