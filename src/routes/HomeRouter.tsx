@@ -14,7 +14,7 @@ const HomeRouter = () => {
             <Route element={<HomeSharedLayout />}>
                 <Route path="" index element={<List />} />
                 <Route path="add" element={<NasheedForm />} />
-                <Route path="edit/:id" element={<NasheedForm />} />
+                <Route path="nasheeds/edit/:id" element={<NasheedForm />} />
                 <Route path="nasheeds/:id" element={<Detail />} />
                 <Route path="my-nasheeds" element={<MyNasheeds />} />
                 <Route path="saved-nasheeds" element={<SavedNasheeds />} />
