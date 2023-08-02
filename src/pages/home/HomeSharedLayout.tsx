@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "../../components/styled/layout/Navbar";
 import Sidebar from "../../components/styled/layout/Sidebar";
 import Container from "../../components/styled/Nasheeds/Container";
@@ -40,6 +40,7 @@ const links = [
 ]
 
 const HomeSharedLayout = () => {
+    const route = useLocation()
     const [open, setOpen] = useState(false)
     const sidebarRef = useRef<HTMLDivElement>(null)
     const toggleSidebar = () => {
@@ -100,7 +101,7 @@ const HomeSharedLayout = () => {
 
     return (
         <>
-            <NavBar handleClick={toggleSidebar} />
+            <NavBar handleClick={toggleSidebar} title={links.find((link) => link.link === route.pathname)?.title || "Anashid"} />
             <Sidebar reference={sidebarRef} open={open} links={links} />
             <Container>
                 <BackgroundCover />

@@ -60,7 +60,8 @@ const SidebarButton = styled.button`
     }
 `
 
-const NavBar = ({ handleClick }: { handleClick: any }) => {
+const NavBar = ({ handleClick, title }: { handleClick: any, title: string }) => {
+    document.title = title;
     return (
         <StyledNav>
             <StyledDiv />
@@ -68,6 +69,7 @@ const NavBar = ({ handleClick }: { handleClick: any }) => {
                 <SidebarButton onClick={handleClick}>
                     <HiMenuAlt2 size={25} />
                 </SidebarButton>
+                {title}
                 <UserIcon />
             </StyledDiv2>
         </StyledNav>
