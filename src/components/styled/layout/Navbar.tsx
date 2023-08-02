@@ -33,6 +33,10 @@ const StyledDiv2 = styled.div`
     margin: 0 auto;
     padding: 1rem;
     margin-right: 0.5rem;
+
+    @media (min-width: 1024px) {
+        margin-left: 16rem;
+    }
 `
 
 const SidebarButton = styled.button`
