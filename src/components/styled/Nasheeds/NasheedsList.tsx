@@ -20,7 +20,7 @@ const GridContainer = styled.div`
 `
 
 
-interface NasheedsListProps {
+export interface NasheedsListProps {
     data: Nasheed[];
     dropdownLinks: {
         link: string;
