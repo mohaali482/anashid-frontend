@@ -36,11 +36,11 @@ const List = () => {
 
     const dropdownLinks = [
         {
-            link: "/",
+            link: "/nasheeds/:id",
             text: "Detail",
         },
         {
-            link: "/",
+            link: "/nasheeds/edit/:id",
             text: "Edit",
         },
     ]
