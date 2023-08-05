@@ -12,6 +12,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Image from "../../../components/styled/common/form/Image";
 import { StyledAudioPlayer } from "../../../components/styled/Nasheeds/AudioPlayer";
 
+
 const NasheedForm = () => {
     const [poster, setPoster] = useState<File | null>()
     const [posterPreview, setPosterPreview] = useState<string>()
