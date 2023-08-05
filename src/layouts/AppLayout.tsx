@@ -1,15 +1,14 @@
 import { Outlet, useLocation } from "react-router-dom";
-import NavBar from "../../components/styled/layout/Navbar";
-import Sidebar from "../../components/styled/layout/Sidebar";
-import Container from "../../components/styled/Nasheeds/Container";
+import NavBar from "../components/styled/layout/Navbar";
+import Sidebar from "../components/styled/layout/Sidebar";
+import Container from "../components/styled/Nasheeds/Container";
 import { useEffect, useRef, useState } from "react";
-import BackgroundCover from "../../components/styled/layout/BackgroundCover";
-import Footer from "../../components/styled/layout/Footer";
+import Footer from "../components/styled/layout/Footer";
 import { IoAddCircle, IoHome, IoSave } from 'react-icons/io5'
 import { FaUserAlt } from 'react-icons/fa'
 import { BsMusicNoteList } from 'react-icons/bs'
-import AudioPlayerDrawer from "../../components/styled/Nasheeds/AudioPlayerDrawer";
-import AudioPlayer from "../../components/styled/Nasheeds/AudioPlayer";
+import AudioPlayerDrawer from "../components/styled/Nasheeds/AudioPlayerDrawer";
+import AudioPlayer from "../components/styled/Nasheeds/AudioPlayer";
 
 const links = [
     {
@@ -19,7 +18,7 @@ const links = [
     },
     {
         title: 'Add Nasheed',
-        link: '/add',
+        link: '/nasheeds/add',
         icon: <IoAddCircle />
     },
     {
@@ -34,12 +33,12 @@ const links = [
     },
     {
         title: 'Account',
-        link: '/user',
+        link: '/accounts/profile',
         icon: <FaUserAlt />
     }
 ]
 
-const HomeSharedLayout = () => {
+const AppLayout = () => {
     const route = useLocation()
     const [open, setOpen] = useState(false)
     const sidebarRef = useRef<HTMLDivElement>(null)
@@ -104,7 +103,6 @@ const HomeSharedLayout = () => {
             <NavBar handleClick={toggleSidebar} title={links.find((link) => link.link === route.pathname)?.title || "Anashid"} />
             <Sidebar reference={sidebarRef} open={open} links={links} />
             <Container>
-                <BackgroundCover />
                 <Outlet />
                 <Footer />
                 <AudioPlayer audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" poster="https://www.soundhelix.com/examples/images/1.jpg" onClick={toggleDrawer} />
@@ -114,4 +112,4 @@ const HomeSharedLayout = () => {
     )
 }
 
-export default HomeSharedLayout;
+export default AppLayout;
