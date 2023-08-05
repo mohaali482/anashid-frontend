@@ -1,12 +1,12 @@
-import StyledButton from "../../../components/styled/pages/account/StyledButton";
-import Container from "../../../components/styled/pages/account/Container";
-import UserImage from "../../../components/styled/pages/account/UserImage";
-import StyledDangerButton from "../../../components/styled/pages/account/StyledDangerButton";
-import StyledHr from "../../../components/styled/pages/account/StyledHr";
-import FormContainer from "../../../components/styled/common/form/FormContainer";
-import StyledForm from "../../../components/styled/pages/Form";
-import InputDiv from "../../../components/styled/pages/account/InputDiv";
-import Input from "../../../components/styled/pages/account/Input";
+import StyledButton from "../../components/styled/pages/account/StyledButton";
+import Container from "../../components/styled/pages/account/Container";
+import UserImage from "../../components/styled/pages/account/UserImage";
+import StyledDangerButton from "../../components/styled/pages/account/StyledDangerButton";
+import StyledHr from "../../components/styled/pages/account/StyledHr";
+import FormContainer from "../../components/styled/common/form/FormContainer";
+import StyledForm from "../../components/styled/pages/Form";
+import InputDiv from "../../components/styled/pages/account/InputDiv";
+import Input from "../../components/styled/pages/account/Input";
 
 const Account = () => {
     return (
