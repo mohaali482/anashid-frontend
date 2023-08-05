@@ -32,7 +32,7 @@ const links = [
         icon: <IoSave />
     },
     {
-        title: 'Account',
+        title: 'Profile',
         link: '/accounts/profile',
         icon: <FaUserAlt />
     }
