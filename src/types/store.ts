@@ -23,6 +23,7 @@ export interface Nasheed {
   audio: string;
   created_at: Date;
   updated_at: Date;
+  saved: Boolean | null;
 }
 
 export interface NasheedError {
@@ -42,4 +43,9 @@ export interface NasheedsState {
   limit: number;
   loadedIds: Array<number>;
   loadMoreLoading: boolean;
+  query: string;
+}
+
+export interface Query {
+  query: string;
 }
