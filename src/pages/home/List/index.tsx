@@ -74,7 +74,7 @@ const List = () => {
     ]
     return (
         <>
-            <Filter onChangeHandler={setFilter} />
+            <Filter onChangeHandler={setFilter} query={query} />
             {error && <p>Oops an error occurred.</p>}
             {loading && <Spinner />}
             {!loading && data && data.length === 0 && <p>No items found.</p>}

@@ -37,13 +37,13 @@ const Input = styled.input`
 `
 
 
-const Filter = ({ onChangeHandler }: { onChangeHandler: React.ChangeEventHandler<HTMLInputElement> }) => {
+const Filter = ({ onChangeHandler, query }: { onChangeHandler: React.ChangeEventHandler<HTMLInputElement>, query: string }) => {
     return (
         <Container>
             <StyledIcon>
                 <FiSearch />
             </StyledIcon>
-            <Input type="text" placeholder="Filter" onChange={onChangeHandler} />
+            <Input type="text" placeholder="Filter" onChange={onChangeHandler} defaultValue={query} autoComplete="off" />
         </Container>
     )
 }
