@@ -1,6 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
-import { Nasheed, NasheedError, NasheedsState, Response } from "../../types";
+import {
+  Nasheed,
+  NasheedError,
+  NasheedsState,
+  Response,
+} from "../../types/store";
 
 const initialState: NasheedsState = {
   items: [],
@@ -13,6 +18,7 @@ const initialState: NasheedsState = {
   nasheed: null,
   loadedIds: [],
   loadMoreLoading: false,
+  query: "",
 };
 
 export const nasheedsSlice = createSlice({
@@ -34,10 +40,10 @@ export const nasheedsSlice = createSlice({
       state.formErrors = action.payload;
     },
     removeNasheed: (state, action: PayloadAction<number>) => {
-      state.items.filter((nasheed) => nasheed.id !== action.payload);
+      state.items.filter((nasheed: Nasheed) => nasheed.id !== action.payload);
     },
     updateNasheed: (state, action: PayloadAction<Nasheed>) => {
-      state.items.map((nasheed) =>
+      state.items.map((nasheed: Nasheed) =>
         nasheed.id === action.payload.id ? action.payload : nasheed
       );
     },
@@ -51,7 +57,7 @@ export const nasheedsSlice = createSlice({
       state.previous = action.payload.previous;
       state.loading = false;
       state.error = null;
-      state.loadedIds = state.items.map((item) => item.id);
+      state.loadedIds = state.items.map((item: Nasheed) => item.id);
     },
     fetchNasheedsError: (state, action: PayloadAction<string>) => {
       state.error = action.payload;
@@ -71,9 +77,9 @@ export const nasheedsSlice = createSlice({
     },
     loadMoreNasheedsSuccess: (state, action: PayloadAction<Response>) => {
       const newItems = action.payload.results.filter(
-        (item) => !state.loadedIds.includes(item.id)
+        (item: Nasheed) => !state.loadedIds.includes(item.id)
       );
-      state.loadedIds.push(...state.items.map((item) => item.id));
+      state.loadedIds.push(...state.items.map((item: Nasheed) => item.id));
 
       state.items.push(...newItems);
       state.next = action.payload.next;
