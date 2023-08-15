@@ -1,35 +1,23 @@
+import { defaultKeyGenerator } from "axios-cache-interceptor";
 import { Response } from "../types/store";
 import axios from "./config";
+import { CustomMemoryStorage } from "./cacheStorage";
 
-let nasheeds_cache_keys = new Set<string>();
+axios.generateKey = (config) => {
+  return defaultKeyGenerator(config) + "-" + "list-nasheeds";
+};
 
 export async function requestListNasheeds(
   limit: number,
   query: string
 ): Promise<Response> {
-  nasheeds_cache_keys.add(`list-nasheeds-limit-${limit}-query-${query}`);
   return (
-    await axios(`/nasheed/nasheeds/?limit=${limit}&name__contains=${query}`, {
-      id: `list-nasheeds-limit-${limit}-query-${query}`,
-      cache: {
-        update: {
-          "list-nasheeds": () => {
-            console.log(nasheeds_cache_keys);
-            return "ignore";
-          },
-        },
-      },
-    })
+    await axios(`/nasheed/nasheeds/?limit=${limit}&name__contains=${query}`)
   ).data;
 }
 
 export async function requestPageNasheeds(link: string): Promise<Response> {
-  nasheeds_cache_keys.add(`list-nasheeds-link-${link}`);
-  return (
-    await axios(link, {
-      id: `list-nasheeds-link-${link}`,
-    })
-  ).data;
+  return (await axios(link)).data;
 }
 
 export async function requestAddNasheed(formData: FormData) {
@@ -39,10 +27,8 @@ export async function requestAddNasheed(formData: FormData) {
   });
 
   if (response.status === 201) {
-    nasheeds_cache_keys.forEach(async (key) => {
-      await axios.storage.remove(key);
-    });
-    nasheeds_cache_keys.clear();
+    const storage = axios.storage as CustomMemoryStorage;
+    storage.removeByGroup("list-nasheeds");
   }
 
   return response;

@@ -1,5 +1,6 @@
 import Axios from "axios";
-import { buildWebStorage, setupCache } from "axios-cache-interceptor";
+import { setupCache } from "axios-cache-interceptor";
+import { buildCustomMemoryStorage } from "./cacheStorage";
 
 const axios = setupCache(
   Axios.create({
@@ -7,6 +8,7 @@ const axios = setupCache(
   }),
   {
     cacheTakeover: false,
+    storage: buildCustomMemoryStorage(),
   }
 );
 
