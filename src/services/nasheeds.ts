@@ -1,8 +1,13 @@
-import { Response } from "../types";
+import { Response } from "../types/store";
 import axios from "./config";
 
-export async function requestListNasheeds(limit: number): Promise<Response> {
-  return (await axios(`/nasheed/nasheeds/?limit=${limit}`)).data;
+export async function requestListNasheeds(
+  limit: number,
+  query: string
+): Promise<Response> {
+  return (
+    await axios(`/nasheed/nasheeds/?limit=${limit}&name__contains=${query}`)
+  ).data;
 }
 
 export async function requestPageNasheeds(link: string): Promise<Response> {
