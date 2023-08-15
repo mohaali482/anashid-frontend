@@ -35,5 +35,5 @@ export async function requestAddNasheed(formData: FormData) {
 }
 
 export async function requestNasheed(id: number): Promise<Response> {
-  return (await axios(`/nasheed/nasheeds/${id}`)).data;
+  return await axios(`/nasheed/nasheeds/${id}`);
 }
