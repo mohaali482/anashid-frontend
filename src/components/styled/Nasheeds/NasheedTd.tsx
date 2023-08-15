@@ -117,7 +117,7 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
                 {nasheed.name}
             </StyledTitleTd>
             <StyledTd>
-                {nasheed.created_at.toLocaleDateString("en-US", {
+                {new Date(nasheed.created_at).toLocaleDateString("en-US", {
                     month: "long",
                     day: "numeric",
                     year: "numeric"
@@ -134,12 +134,12 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
                         <BsShareFill size={20} />
                     </StyledDivIcons> */}
                     <StyledDivIcons>
-                        {/* <button style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none', cursor: "pointer" }}>
+                        {nasheed.saved ? <button style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none', cursor: "pointer" }}>
                             <MdFavorite size={20} />
-                        </button> */}
-                        <button style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none', cursor: "pointer" }}>
+                        </button> : <button style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none', cursor: "pointer" }}>
                             <MdFavoriteBorder size={20} />
-                        </button>
+                        </button>}
+
                     </StyledDivIcons>
                     <StyledDivIcons>
                         <a href={nasheed.audio} download style={{ textDecoration: 'none', color: 'inherit' }}>
