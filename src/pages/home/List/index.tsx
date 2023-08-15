@@ -77,7 +77,7 @@ const List = () => {
             <Filter onChangeHandler={setFilter} query={query} />
             {error && <p>Oops an error occurred.</p>}
             {loading && <Spinner />}
-            {!loading && data && data.length === 0 && <p>No items found.</p>}
+            {!error && !loading && data && data.length === 0 && <p>No items found.</p>}
             {!loading && data && data.length > 0 &&
                 <>
                     <NasheedsList dropdownLinks={dropdownLinks} data={data} />
