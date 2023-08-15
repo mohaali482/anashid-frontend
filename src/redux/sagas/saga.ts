@@ -1,4 +1,4 @@
-import { call, takeEvery, put, select } from "Redux-Saga/effects";
+import { call, takeLatest, put, select } from "Redux-Saga/effects";
 import {
   addNasheed,
   addNasheedError,
@@ -22,7 +22,7 @@ import {
 } from "../../services/nasheeds";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { Response } from "../../types";
+import { Response } from "../../types/store";
 
 export function* fetchNasheedsSaga() {
   try {
@@ -30,10 +30,17 @@ export function* fetchNasheedsSaga() {
     const limit: number = yield select(
       (state: RootState) => state.nasheeds.limit
     );
-    let result: Response = yield call(requestListNasheeds, limit);
+    const query: string = yield select(
+      (state: RootState) => state.nasheeds.query
+    );
+    let result: Response = yield call(requestListNasheeds, limit, query);
     yield put(fetchNasheedsSuccess(result));
   } catch (error) {
-    yield put(fetchNasheedsError(error.response.data));
+    if (error.response) {
+      yield put(fetchNasheedsError(error.response.data));
+    } else {
+      yield put(fetchNasheedError(error.message));
+    }
   }
 }
 
@@ -85,9 +92,9 @@ export function* loadMoreNasheedsSaga() {
 }
 
 export default function* rootSaga() {
-  yield takeEvery(fetchNasheed, fetchNasheedSaga);
-  yield takeEvery(fetchNasheeds, fetchNasheedsSaga);
-  yield takeEvery(fetchPageNasheeds, fetchPageNasheedsSaga);
-  yield takeEvery(addNasheed, requestAddNasheedSaga);
-  yield takeEvery(loadMoreNasheeds, loadMoreNasheedsSaga);
+  yield takeLatest(fetchNasheed, fetchNasheedSaga);
+  yield takeLatest(fetchNasheeds, fetchNasheedsSaga);
+  yield takeLatest(fetchPageNasheeds, fetchPageNasheedsSaga);
+  yield takeLatest(addNasheed, requestAddNasheedSaga);
+  yield takeLatest(loadMoreNasheeds, loadMoreNasheedsSaga);
 }
