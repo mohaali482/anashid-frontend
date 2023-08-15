@@ -108,6 +108,9 @@ export const nasheedsSlice = createSlice({
       state.error = action.payload;
       state.nasheed = null;
     },
+    setFilterQuery: (state, action: PayloadAction<string>) => {
+      state.query = action.payload;
+    },
   },
 });
 
@@ -128,6 +131,7 @@ export const {
   loadMoreNasheeds,
   loadMoreNasheedsSuccess,
   loadMoreNasheedsError,
+  setFilterQuery,
 } = nasheedsSlice.actions;
 
 export default nasheedsSlice.reducer;
