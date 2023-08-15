@@ -7,19 +7,34 @@ import FlexDiv from "../../../components/styled/pages/detail/header";
 import NasheedImage from "../../../components/styled/pages/detail/image";
 import Title from "../../../components/styled/pages/detail/title";
 import { FaPlay } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { fetchNasheed } from "../../../redux/ducks/nasheedSlice";
+import { RootState } from "../../../redux/store";
 
 const Detail = () => {
+    const dispatch = useDispatch()
+    const { id } = useParams()
+
+    const nasheedId = Number(id)
+
+    const { nasheed } = useSelector((state: RootState) => state.nasheeds)
+
+    useEffect(() => {
+        dispatch(fetchNasheed(nasheedId))
+    }, [dispatch, nasheedId])
 
     return (
         <Container>
             <FlexDiv>
-                <NasheedImage src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="User Image" />
-                <Title>Nasheed</Title>
+                <NasheedImage src={nasheed?.poster} alt={nasheed?.name} />
+                <Title>{nasheed?.name}</Title>
                 <Button><FaPlay /> Play</Button>
             </FlexDiv>
             <Description>
                 <Title>About</Title>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum itaque eveniet veritatis, id voluptatibus fugiat velit. Eum qui nostrum facilis recusandae maxime neque dolorem odio expedita, facere iusto, ad atque.
+                {nasheed?.description}
             </Description>
             <Footer>
                 <Button><AiFillSave /> Save to my playlist</Button>
