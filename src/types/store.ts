@@ -21,6 +21,8 @@ export interface Nasheed {
   name: string;
   poster: string;
   audio: string;
+  description: string;
+  duration: number;
   created_at: Date;
   updated_at: Date;
   saved: Boolean | null;
