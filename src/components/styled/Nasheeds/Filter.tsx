@@ -1,6 +1,7 @@
 import { FiSearch } from "react-icons/fi";
 import styled from "styled-components";
 import StyledIcon from "../common/form/StyledIcon";
+import React from "react";
 
 const Container = styled.div`
     display: flex;
@@ -36,13 +37,13 @@ const Input = styled.input`
 `
 
 
-const Filter = () => {
+const Filter = ({ onChangeHandler }: { onChangeHandler: React.ChangeEventHandler<HTMLInputElement> }) => {
     return (
         <Container>
             <StyledIcon>
                 <FiSearch />
             </StyledIcon>
-            <Input type="text" placeholder="Filter" />
+            <Input type="text" placeholder="Filter" onChange={onChangeHandler} />
         </Container>
     )
 }

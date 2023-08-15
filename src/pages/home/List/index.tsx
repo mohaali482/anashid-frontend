@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../redux/store";
-import { fetchNasheeds, loadMoreNasheeds, setPageLimit } from "../../../redux/ducks/nasheedSlice";
+import { fetchNasheeds, loadMoreNasheeds, setFilterQuery, setPageLimit } from "../../../redux/ducks/nasheedSlice";
 import NasheedsList from "../../../components/styled/Nasheeds/NasheedsList";
 import Filter from "../../../components/styled/Nasheeds/Filter";
 import Button from "../../../components/styled/pages/detail/button";
+import Spinner from "../../../components/styled/common/Spinner";
 
 // function List() {
 //     const dispatch = useDispatch();
@@ -31,21 +32,34 @@ import Button from "../../../components/styled/pages/detail/button";
 //         </div>
 //     )
 // }
+function debounce(callback: CallableFunction, delay = 500) {
+    let timeout: number;
+    return (...args: any[]) => {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+            callback(...args)
+        }, delay)
+    }
+}
 
 const List = () => {
     const dispatch = useDispatch();
-    const { items: data, loading, error, next, limit, query, loadMoreLoading } = useSelector((state: RootState) => state.nasheeds)
+    const { items: data, loading, error, next, query, loadMoreLoading } = useSelector((state: RootState) => state.nasheeds)
+
     useEffect(() => {
         dispatch(fetchNasheeds())
-    }, [dispatch])
+    }, [dispatch, query])
+
     const loadMore = () => {
         dispatch(loadMoreNasheeds())
     }
-    if (error) {
-        return <p>Oops an error occurred.</p>
-    }
-    if (loading) {
-        return <p>Loading...</p>
+
+    const setQueryDebounce = debounce((query: string) => {
+        dispatch(setFilterQuery(query))
+    })
+
+    const setFilter: React.ChangeEventHandler<HTMLInputElement> = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setQueryDebounce(event.target.value)
     }
 
     const dropdownLinks = [
@@ -60,14 +74,21 @@ const List = () => {
     ]
     return (
         <>
-            <Filter />
-            <NasheedsList dropdownLinks={dropdownLinks} data={data} />
+            <Filter onChangeHandler={setFilter} />
+            {error && <p>Oops an error occurred.</p>}
+            {loading && <Spinner />}
+            {!loading && data && data.length === 0 && <p>No items found.</p>}
+            {!loading && data && data.length > 0 &&
+                <>
+                    <NasheedsList dropdownLinks={dropdownLinks} data={data} />
 
-            {next && <Button
-                style={{ marginRight: "auto", marginTop: "2rem", borderRadius: "25rem", opacity: loadMoreLoading ? 0.7 : 1 }}
-                disabled={loadMoreLoading} onClick={loadMore}>
-                {loadMoreLoading ? "Loading..." : "Load more..."}
-            </Button>
+                    {next && <Button
+                        style={{ marginRight: "auto", marginTop: "2rem", borderRadius: "25rem", opacity: loadMoreLoading ? 0.7 : 1 }}
+                        disabled={loadMoreLoading} onClick={loadMore}>
+                        {loadMoreLoading ? "Loading..." : "Load more..."}
+                    </Button>
+                    }
+                </>
             }
         </>
     )
