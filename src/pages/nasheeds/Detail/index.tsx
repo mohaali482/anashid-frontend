@@ -10,7 +10,7 @@ import { FaPlay } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchNasheed } from "../../../redux/ducks/nasheedSlice";
+import { fetchNasheed, setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
 import { RootState } from "../../../redux/store";
 
 const Detail = () => {
@@ -21,6 +21,12 @@ const Detail = () => {
 
     const { nasheed } = useSelector((state: RootState) => state.nasheeds)
 
+    const setCurrentPlayingNasheed = () => {
+        if (nasheed) {
+            dispatch(setCurrentPlaying(nasheed))
+        }
+    }
+
     useEffect(() => {
         dispatch(fetchNasheed(nasheedId))
     }, [dispatch, nasheedId])
@@ -30,7 +36,7 @@ const Detail = () => {
             <FlexDiv>
                 <NasheedImage src={nasheed?.poster} alt={nasheed?.name} />
                 <Title>{nasheed?.name}</Title>
-                <Button><FaPlay /> Play</Button>
+                <Button onClick={setCurrentPlayingNasheed} disabled={!nasheed?.audio}><FaPlay /> Play</Button>
             </FlexDiv>
             <Description>
                 <Title>About</Title>

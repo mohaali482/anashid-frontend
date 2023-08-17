@@ -2,13 +2,15 @@ import { Outlet, useLocation } from "react-router-dom";
 import NavBar from "../components/styled/layout/Navbar";
 import Sidebar from "../components/styled/layout/Sidebar";
 import Container from "../components/styled/Nasheeds/Container";
-import { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Footer from "../components/styled/layout/Footer";
 import { IoAddCircle, IoHome, IoSave } from 'react-icons/io5'
 import { FaUserAlt } from 'react-icons/fa'
 import { BsMusicNoteList } from 'react-icons/bs'
 import AudioPlayerDrawer from "../components/styled/Nasheeds/AudioPlayerDrawer";
 import AudioPlayer from "../components/styled/Nasheeds/AudioPlayer";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const links = [
     {
@@ -45,6 +47,19 @@ const AppLayout = () => {
     const toggleSidebar = () => {
         setOpen(!open)
     }
+    const { currentPlaying } = useSelector((state: RootState) => state.nasheeds)
+
+    const audioRef = useRef<HTMLAudioElement>(null);
+    const audioRefDrawer = useRef<HTMLAudioElement>(null);
+
+    useEffect(() => {
+        if (currentPlaying?.audio) {
+            audioRef.current?.load();
+            audioRefDrawer.current?.load();
+            audioRef.current?.play();
+        }
+    }, [currentPlaying])
+
 
     const [drawerOpen, setDrawerOpen] = useState(false)
     const drawerRef = useRef<HTMLDivElement>(null)
@@ -55,11 +70,15 @@ const AppLayout = () => {
     useEffect(() => {
         if (drawerOpen) {
             document.body.style.overflow = 'hidden'
+            audioRefDrawer.current!.currentTime = audioRef.current!.currentTime
+            audioRef.current!.pause()
         }
         else {
+            audioRef.current!.currentTime = audioRefDrawer.current!.currentTime
             document.body.style.overflow = 'unset'
+            audioRefDrawer.current!.pause()
         }
-    }, [open])
+    }, [drawerOpen])
 
     useEffect(() => {
         document.addEventListener('keydown', (event) => {
@@ -105,9 +124,9 @@ const AppLayout = () => {
             <Container>
                 <Outlet />
                 <Footer />
-                <AudioPlayer audio="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" poster="https://www.soundhelix.com/examples/images/1.jpg" onClick={toggleDrawer} />
+                <AudioPlayer audioRef={audioRef} audio={currentPlaying?.audio || ''} poster={currentPlaying?.poster || ''} onClick={toggleDrawer} />
             </Container>
-            <AudioPlayerDrawer open={drawerOpen} toggleDrawer={toggleDrawer} reference={drawerRef} />
+            <AudioPlayerDrawer audioRef={audioRefDrawer} open={drawerOpen} toggleDrawer={toggleDrawer} reference={drawerRef} />
         </>
     )
 }

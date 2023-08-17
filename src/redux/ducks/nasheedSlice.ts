@@ -19,6 +19,7 @@ const initialState: NasheedsState = {
   loadedIds: [],
   loadMoreLoading: false,
   query: "",
+  currentPlaying: null,
 };
 
 export const nasheedsSlice = createSlice({
@@ -111,6 +112,9 @@ export const nasheedsSlice = createSlice({
     setFilterQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
+    setCurrentPlaying: (state, action: PayloadAction<Nasheed>) => {
+      state.currentPlaying = action.payload;
+    },
   },
 });
 
@@ -132,6 +136,7 @@ export const {
   loadMoreNasheedsSuccess,
   loadMoreNasheedsError,
   setFilterQuery,
+  setCurrentPlaying,
 } = nasheedsSlice.actions;
 
 export default nasheedsSlice.reducer;

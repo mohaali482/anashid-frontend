@@ -46,6 +46,7 @@ export interface NasheedsState {
   loadedIds: Array<number>;
   loadMoreLoading: boolean;
   query: string;
+  currentPlaying: Nasheed | null;
 }
 
 export interface Query {

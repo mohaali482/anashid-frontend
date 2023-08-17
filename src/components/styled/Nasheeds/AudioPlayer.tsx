@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 export const StyledAudioPlayer = styled.audio`
@@ -35,6 +36,7 @@ const StyledAudioPoster = styled.img`
 `
 
 interface AudioPlayerProps {
+    audioRef: React.RefObject<HTMLAudioElement>;
     audio: string;
     poster: string;
     onClick: any;
@@ -44,7 +46,7 @@ const AudioPlayer = (props: AudioPlayerProps) => {
     return (
         <StyledAudioPlayerContainer onClick={props.onClick}>
             <StyledAudioPoster src={props.poster} />
-            <StyledAudioPlayer controls>
+            <StyledAudioPlayer controls ref={props.audioRef}>
                 <source src={props.audio} type="audio/mpeg" />
             </StyledAudioPlayer>
         </StyledAudioPlayerContainer>
