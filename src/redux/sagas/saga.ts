@@ -74,7 +74,6 @@ export function* fetchNasheedSaga(action: PayloadAction<number>) {
   try {
     yield put(fetchNasheed);
     let { data } = yield call(requestNasheed, action.payload);
-    console.log(data);
     yield put(fetchNasheedSuccess(data));
   } catch (error) {
     yield put(fetchNasheedError(error.response.data));
