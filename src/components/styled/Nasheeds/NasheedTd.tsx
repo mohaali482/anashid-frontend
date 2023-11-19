@@ -5,6 +5,8 @@ import NasheedTdActionsDropDown from "./NasheedTdActionsDropDown";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { useDispatch } from "react-redux";
+import { setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
 
 const StyledTr = styled.tr`
     background-color:  ${(props) => props.theme.palette.primary.light};
@@ -43,11 +45,11 @@ const StyledPoster = styled.img`
     border-radius: ${(props) => props.theme.borderRadius};
     height: 6rem;
     width: 6rem;
-    object-fit: contain;
 `
 
 export const StyledDivIcons = styled.div`
     color:  ${(props) => props.theme.palette.primary.main};
+    cursor: pointer;
 `
 
 const StyledDiv = styled.div`
@@ -83,7 +85,6 @@ interface NasheedTdProps {
 const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
     const [open, setOpen] = useState(false);
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0 });
-    // const audio = new Audio(nasheed.audio);
     const dropdown = useRef<HTMLDivElement>(null);
     const closeDropDown = (e: MouseEvent) => {
         if (dropdown.current && !dropdown.current.contains(e.target as Node)) {
@@ -102,6 +103,14 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
         }
     }
 
+    const dispatch = useDispatch();
+
+    const setCurrentPlayingNasheed = () => {
+        if (nasheed) {
+            dispatch(setCurrentPlaying(nasheed))
+        }
+    }
+
 
     useEffect(() => {
         document.addEventListener('mousedown', closeDropDown)
@@ -113,7 +122,7 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
         <StyledTr>
             <StyledTdPlayButton>
                 <StyledDivIcons>
-                    <BsPlayCircleFill size={40} />
+                    <BsPlayCircleFill size={40} onClick={setCurrentPlayingNasheed} />
                 </StyledDivIcons>
             </StyledTdPlayButton>
             <StyledTd>
