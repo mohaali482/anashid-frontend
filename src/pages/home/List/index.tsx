@@ -6,6 +6,7 @@ import NasheedsList from "../../../components/styled/Nasheeds/NasheedsList";
 import Filter from "../../../components/styled/Nasheeds/Filter";
 import Button from "../../../components/styled/pages/detail/button";
 import Spinner from "../../../components/styled/common/Spinner";
+import { useSearchParams } from "react-router-dom";
 
 // function List() {
 //     const dispatch = useDispatch();
@@ -45,6 +46,14 @@ function debounce(callback: CallableFunction, delay = 500) {
 const List = () => {
     const dispatch = useDispatch();
     const { items: data, loading, error, next, query, loadMoreLoading } = useSelector((state: RootState) => state.nasheeds)
+    const [searchParams, setSearchParams] = useSearchParams({name:""});
+    
+    useEffect(() => {
+        const query = searchParams.get("name")
+        if (query != null){
+            dispatch(setFilterQuery(query))
+        }
+    },[searchParams])
 
     useEffect(() => {
         dispatch(fetchNasheeds())
@@ -55,7 +64,7 @@ const List = () => {
     }
 
     const setQueryDebounce = debounce((query: string) => {
-        dispatch(setFilterQuery(query))
+        setSearchParams({name:query})
     })
 
     const setFilter: React.ChangeEventHandler<HTMLInputElement> = (event: React.ChangeEvent<HTMLInputElement>) => {
