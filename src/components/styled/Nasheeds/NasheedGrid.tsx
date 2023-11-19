@@ -15,7 +15,6 @@ const NasheedComponent = styled.div`
     border-width: 1px;
     border-color: ${(props) => props.theme.palette.primary.lightGray};
     border-radius: 0.5rem;
-    box-shadow: ${(props) => props.theme.palette.primary.lightGray} 0px 0px 0px 1px;
 
     @media (prefers-color-scheme: dark) {
         background-color: ${(props) => props.theme.palette.primary.dark};
@@ -28,12 +27,6 @@ const NasheedPoster = styled.img`
     border-top-right-radius: ${(props) => props.theme.borderRadius};
     width: 100%;
     height: 80%;
-    object-fit: contain;
-    background-color:  ${(props) => props.theme.palette.primary.lightGray};
-
-    @media (prefers-color-scheme: dark) {
-        background-color: ${(props) => props.theme.palette.primary.darkGray};
-    }
 
 `
 
