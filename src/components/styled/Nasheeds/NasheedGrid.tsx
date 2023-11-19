@@ -27,6 +27,7 @@ const NasheedPoster = styled.img`
     border-top-right-radius: ${(props) => props.theme.borderRadius};
     width: 100%;
     height: 80%;
+    object-fit: cover;
 
 `
 

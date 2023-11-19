@@ -45,6 +45,7 @@ const StyledPoster = styled.img`
     border-radius: ${(props) => props.theme.borderRadius};
     height: 6rem;
     width: 6rem;
+    object-fit: cover;
 `
 
 export const StyledDivIcons = styled.div`
