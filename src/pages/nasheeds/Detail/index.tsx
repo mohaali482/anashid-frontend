@@ -27,6 +27,10 @@ const Detail = () => {
         }
     }
 
+    if (nasheed) {
+        document.title = "Nasheed - " + nasheed.name
+    }
+
     useEffect(() => {
         dispatch(fetchNasheed(nasheedId))
     }, [dispatch, nasheedId])
