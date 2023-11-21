@@ -7,7 +7,7 @@ const StyledTable = styled.table`
     font-size: 0.875rem;
     text-align: left;
     border-spacing: 0;
-    color: ${(props) => props.theme.palette.primary.darkGray};
+    color: ${(props) => props.theme.palette.primary.dark};
 
     @media (prefers-color-scheme: dark) {
         color: ${(props) => props.theme.palette.primary.lightGray};
@@ -16,7 +16,7 @@ const StyledTable = styled.table`
 
 const StyledThead = styled.thead`
     font-size: 0.75rem;
-    color: ${(props) => props.theme.palette.primary.darkGray};
+    color: ${(props) => props.theme.palette.primary.dark};
     text-transform: uppercase;
     background-color: ${(props) => props.theme.palette.primary.light};
 
