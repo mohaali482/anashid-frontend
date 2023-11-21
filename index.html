@@ -9,5 +9,12 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      window.addEventListener("keydown", function (e) {
+        if (e.keyCode == 32 && e.target == document.body) {
+          e.preventDefault();
+        }
+      });
+    </script>
   </body>
 </html>
