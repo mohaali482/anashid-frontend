@@ -2,16 +2,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledFooter = styled.footer`
-    background-color: ${(props) => props.theme.palette.primary.lightGray};
+    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
     margin-top: 2rem;
     margin-bottom: 4rem;
     border-radius: 0.5rem;
     padding: 1.25rem;
-
-
-    @media (prefers-color-scheme: dark) {
-        background-color: ${(props) => props.theme.palette.primary.dark};
-    }
 `
 
 const Container = styled.div`
@@ -27,11 +22,7 @@ const Container = styled.div`
 
 const StyledCopyright = styled.span`
     font-size: 0.875rem;
-    color: ${(props) => props.theme.palette.primary.darkGray};
-
-    @media (prefers-color-scheme: dark) {
-        color: ${(props) => props.theme.palette.primary.lightGray};
-    }
+    color: ${(props) => props.theme.palette.primary.textPrimary};
 
     @media (min-width: 768px) {
         text-align: center;
@@ -42,22 +33,13 @@ const StyledUl = styled.ul`
     display: flex;
     align-items: center;
     font-size: 0.875rem;
-    color: ${(props) => props.theme.palette.primary.darkGray};
+    color: ${(props) => props.theme.palette.primary.textPrimary};
     list-style: none;
-
-    @media (prefers-color-scheme: dark) {
-        color: ${(props) => props.theme.palette.primary.lightGray};
-    }
 `
 
 const StyledLink = styled(Link)`
     text-decoration: none;
-
-    color: ${(props) => props.theme.palette.primary.darkGray};
-
-    @media (prefers-color-scheme: dark) {
-        color: ${(props) => props.theme.palette.primary.lightGray};
-    }
+    color: ${(props) => props.theme.palette.primary.textPrimary};
 
     &:hover {
         text-decoration: underline;

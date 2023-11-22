@@ -8,21 +8,16 @@ const StyledContainer = styled.div`
     align-items: center;
     justify-content: center;
     padding: 2rem;
-    background-color: ${(props) => props.theme.palette.primary.lightGray};
+    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
     border-radius: 0.5rem;
     height: 60%;
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-
-
-    @media(prefers-color-scheme: dark) {
-        background-color: ${(props) => props.theme.palette.primary.dark};
-    }
     
     & a{
         text-decoration: none;
-        color: ${(props) => props.theme.palette.primary.main};
+        color: ${(props) => props.theme.main};
         &:hover{
             text-decoration: underline;
         }

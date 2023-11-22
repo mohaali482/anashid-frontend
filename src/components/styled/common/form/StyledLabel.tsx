@@ -4,11 +4,7 @@ const StyledLabel = styled.label`
     font-size:  1rem;
     font-weight: bold;
     padding: 1rem;
-    color: ${(props) => props.theme.palette.primary.dark};
-    
-    @media (prefers-color-scheme: dark) {
-        color: ${(props) => props.theme.palette.primary.light};
-    }
+    color: ${(props) => props.theme.palette.primary.textPrimary};
 `
 
 export default StyledLabel;

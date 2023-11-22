@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 const Button = styled.button`
     
-    background-color: ${(props) => props.theme.palette.primary.main};
-    color: ${(props) => props.theme.palette.primary.dark};
+    background-color: ${(props) => props.theme.main};
+    color: ${(props) => props.theme.palette.primary.textPrimary};
     border: none;
     border-radius: ${(props) => props.theme.borderRadius};
     padding: .5rem 2rem;
@@ -16,12 +16,8 @@ const Button = styled.button`
     max-height: 40px;
     margin-left: auto;
 
-    @media (prefers-color-scheme: dark) {
-        color: ${(props) => props.theme.palette.primary.light};
-    }
-
     svg {
-        color: ${(props) => props.theme.palette.primary.dark};
+        color: ${(props) => props.theme.palette.primary.textPrimary};
     }
 `
 

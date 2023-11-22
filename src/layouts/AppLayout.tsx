@@ -10,6 +10,8 @@ import { BsMusicNoteList } from 'react-icons/bs'
 import AudioPlayer from "../components/styled/Nasheeds/AudioPlayer";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import Dialog from "../components/styled/common/Dialog";
+import Spinner from "../components/styled/common/Spinner";
 
 const links = [
     {
@@ -46,7 +48,7 @@ const AppLayout = () => {
     const toggleSidebar = () => {
         setOpen(!open)
     }
-    const { currentPlaying } = useSelector((state: RootState) => state.nasheeds)
+    const { currentPlaying, loading } = useSelector((state: RootState) => state.nasheeds)
 
     const audioRef = useRef<HTMLAudioElement>(null);
 
@@ -97,6 +99,9 @@ const AppLayout = () => {
             <NavBar handleClick={toggleSidebar} title={links.find((link) => link.link === route.pathname)?.title || "Anashid"} />
             <Sidebar reference={sidebarRef} open={open} links={links} />
             <Container>
+                {loading && <Dialog onClose={null}>
+                    <Spinner />
+                </Dialog>}
                 <Outlet />
                 <Footer />
                 <AudioPlayer audioRef={audioRef} audio={currentPlaying?.audio || ''} poster={currentPlaying?.poster || ''} setDrawerOpen={setDrawerOpen} open={drawerOpen} />

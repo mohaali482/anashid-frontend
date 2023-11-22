@@ -19,16 +19,12 @@ const AudioDrawerTitle = styled.h3`
     font-weight: 500;
     margin-bottom: 1rem;
     text-align: center;
-    color: ${(props) => props.theme.palette.primary.dark};
-
-    @media (prefers-color-scheme: dark) {
-        color: ${(props) => props.theme.palette.primary.lightGray};
-    }
+    color: ${(props) => props.theme.palette.primary.textPrimary};
 `
 
 
 const StyledCloseButton = styled.button`
-    color: ${(props) => props.theme.palette.primary.main};
+    color: ${(props) => props.theme.main};
     position: absolute;
     top: 1rem;
     left: 1rem;
@@ -51,7 +47,7 @@ export const StyledAudioPlayer = styled.audio`
     padding-right: 2rem;
   
     &::-webkit-media-controls-panel {
-        background-color: ${(props) => props.theme.palette.primary.main};
+        background-color: ${(props) => props.theme.main};
     }
 `;
 
@@ -65,20 +61,16 @@ const StyledAudioPlayerContainer = styled.div<{ open: boolean }>`
     width: fill-available;
     width: ${props => props.open ? "100vw" : ""};
     height: ${props => props.open ? "100vh" : "4rem"};
-    background-color:  ${(props) => props.theme.palette.primary.light};
+    background-color:  ${(props) => props.theme.palette.primary.backgroundPrimary};
     position: fixed;
     bottom: 0;
     left: ${props => props.open ? "0" : ""};
     right: ${props => props.open ? "0" : ""};
     border-radius: ${(props) => props.theme.borderRadius};
-    margin-right: 0.5rem;
+    margin-right: 1.58rem;
     z-index: 100;
     transition: all 0.5s ease;
     overflow-y: ${(props) => props.open ? "scroll" : ""};
-    
-    @media (prefers-color-scheme: dark) {
-        background-color: ${(props) => props.theme.palette.primary.dark};
-    }
 `
 
 const StyledAudioPoster = styled.img`
@@ -132,6 +124,7 @@ const AudioPlayer = (props: AudioPlayerProps) => {
     useEffect(() => {
         const keyboardEventListener = (ev: KeyboardEvent) => {
             if (props.audioRef.current) {
+                if (!(((ev.target as HTMLElement)).matches("body"))) return;
                 switch (ev.key.toLowerCase()) {
                     case " ":
                     case "k":
@@ -153,6 +146,10 @@ const AudioPlayer = (props: AudioPlayerProps) => {
                     case "j":
                         props.audioRef.current.currentTime -= 10;
                         break;
+                    case "r":
+                        props.audioRef.current.currentTime = 0;
+                        props.audioRef.current.play();
+                        break;
                     case "f":
                         props.setDrawerOpen((open) => !open)
                         break;
@@ -163,11 +160,11 @@ const AudioPlayer = (props: AudioPlayerProps) => {
             }
         }
         if (currentPlaying !== null) {
-            document.body.addEventListener('keyup', keyboardEventListener)
+            document.body.addEventListener('keydown', keyboardEventListener)
         }
 
         return () => {
-            document.body.removeEventListener('keyup', keyboardEventListener)
+            document.body.removeEventListener('keydown', keyboardEventListener)
         }
 
     }, [currentPlaying])

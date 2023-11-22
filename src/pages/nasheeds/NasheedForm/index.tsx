@@ -11,6 +11,7 @@ import { FiUpload } from "react-icons/fi";
 import React, { useEffect, useRef, useState } from "react";
 import Image from "../../../components/styled/common/form/Image";
 import { StyledAudioPlayer } from "../../../components/styled/Nasheeds/AudioPlayer";
+import StyledTextArea from "../../../components/styled/common/form/StyledTextArea";
 
 
 const NasheedForm = () => {
@@ -80,12 +81,6 @@ const NasheedForm = () => {
             <StyledText>New Nasheed</StyledText>
             <StyledForm>
                 <StyledInputDiv>
-                    <StyledInput required placeholder="Nasheed Title" type="text" name="name" id="name" />
-                </StyledInputDiv>
-                <StyledInputDiv>
-                    <StyledInput required placeholder="Nasheed Description" type="text" name="description" id="description" />
-                </StyledInputDiv>
-                <StyledInputDiv>
                     <StyledFileUpload style={{
                         width: "200px",
                         height: "200px",
@@ -104,6 +99,13 @@ const NasheedForm = () => {
                         }
                         <input type="file" accept="image/*" name="poster" id="poster" onChange={onSelectFile} style={{ display: "none" }} />
                     </StyledFileUpload>
+                </StyledInputDiv>
+                <StyledInputDiv>
+                    <StyledInput required placeholder="Nasheed Title" type="text" name="name" id="name" />
+                </StyledInputDiv>
+                <StyledInputDiv>
+                    <StyledTextArea required placeholder="Nasheed Description" name="description" id="description" rows={10}>
+                    </StyledTextArea>
                 </StyledInputDiv>
                 <StyledInputDiv>
                     <StyledAudioPlayer ref={audioRef} controls style={{ padding: "0", width: "70%" }}>

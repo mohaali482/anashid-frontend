@@ -6,7 +6,7 @@ const StyledIcon = styled.div`
     justify-content: center;
     width: 100%;
     height: 100%;
-    color: ${(props) => props.theme.palette.primary.main};
+    color: ${(props) => props.theme.main};
 `
 
 export default StyledIcon;

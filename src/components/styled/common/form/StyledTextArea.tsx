@@ -1,9 +1,8 @@
 import styled from "styled-components";
 
-const StyledInput = styled.input`
+const StyledTextArea = styled.textarea`
     border-radius: ${(props) => props.theme.borderRadius};
     width: 100%;
-    height: 35px;
     border: none;
     padding: 0.25rem 0.5rem;
     background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
@@ -14,4 +13,4 @@ const StyledInput = styled.input`
     }    
 `
 
-export default StyledInput;
+export default StyledTextArea;

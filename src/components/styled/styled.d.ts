@@ -1,13 +1,11 @@
 import "styled-components";
 
 interface IPalette {
-  main: string;
-  dark: string;
-  lightWhite: string;
-  light: string;
-  lightGray: string;
-  darkGray: string;
-  danger: string;
+  backgroundPrimary: string;
+  backgroundSecondary: string;
+
+  textPrimary: string;
+  textSecondary: string;
 }
 
 declare module "styled-components" {
@@ -15,6 +13,12 @@ declare module "styled-components" {
     palette: {
       primary: IPalette;
     };
+
+    main: string;
+    light: string;
+    danger: string;
+    gray: string;
+    lightWhite: string;
     boxShadow: string;
     borderRadius: string;
   }

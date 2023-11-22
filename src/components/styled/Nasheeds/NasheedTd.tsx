@@ -9,13 +9,9 @@ import { useDispatch } from "react-redux";
 import { setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
 
 const StyledTr = styled.tr`
-    background-color:  ${(props) => props.theme.palette.primary.light};
+    background-color:  ${(props) => props.theme.palette.primary.backgroundPrimary};
     border-bottom: 1px;
-    
-    @media (prefers-color-scheme: dark) {
-        background-color: ${(props) => props.theme.palette.primary.dark};
-        color: ${(props) => props.theme.palette.primary.light};
-    }
+    color: ${(props) => props.theme.palette.primary.textPrimary};
 `
 
 const StyledTd = styled.td`
@@ -35,10 +31,7 @@ const StyledPosterContainer = styled.div`
     display: flex;
     justify-content: center;
     border-radius: ${(props) => props.theme.borderRadius};
-    
-    @media (prefers-color-scheme: dark) {
-        background-color: ${(props) => props.theme.palette.primary.dark};
-    }
+    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
 `
 
 const StyledPoster = styled.img`
@@ -49,7 +42,7 @@ const StyledPoster = styled.img`
 `
 
 export const StyledDivIcons = styled.div`
-    color:  ${(props) => props.theme.palette.primary.main};
+    color:  ${(props) => props.theme.main};
     cursor: pointer;
 `
 

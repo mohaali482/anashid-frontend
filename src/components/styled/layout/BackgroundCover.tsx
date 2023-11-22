@@ -45,7 +45,7 @@ const StyledP = styled.p`
     font-size: 1.125rem;
     line-height: 1.75rem;
     font-weight: 400;
-    color: ${(props) => props.theme.palette.primary.lightGray};
+    color: white;
 
     
     @media (min-width: 1024px) {

@@ -6,34 +6,23 @@ import React from "react";
 const Container = styled.div`
     display: flex;
     align-items: center;
-    background-color: ${(props) => props.theme.palette.primary.light};
-    color: ${(props) => props.theme.palette.primary.dark};
+    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
+    color: ${(props) => props.theme.palette.primary.textPrimary};
     border-radius: 10px;
     padding: 0 10px;
     margin: 10px;
     width: fit-content;
     margin-left: auto;
-
-    @media (prefers-color-scheme: dark) {
-        color: ${(props) => props.theme.palette.primary.lightGray};
-        background-color: ${(props) => props.theme.palette.primary.dark};
-    }
 `
 
 const Input = styled.input`
-    background-color: ${(props) => props.theme.palette.primary.light};
-    color: ${(props) => props.theme.palette.primary.dark};
-    color: ${(props) => props.theme.palette.primary.dark};
+    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
+    color: ${(props) => props.theme.palette.primary.textPrimary};
+    color: ${(props) => props.theme.palette.primary.textPrimary};
     border-radius: 5px;
-    border: ${(props) => props.theme.palette.primary.dark};
+    border: ${(props) => props.theme.palette.primary.textPrimary};
     padding: 10px;
     margin: 10px;
-
-    @media (prefers-color-scheme: dark) {
-        border: ${(props) => props.theme.palette.primary.light};
-        color: ${(props) => props.theme.palette.primary.lightGray};
-        background-color: ${(props) => props.theme.palette.primary.dark};
-    }
 `
 
 

@@ -10,15 +10,9 @@ const FormContainer = styled.div`
     align-items: center;
     text-align: center;
     flex-direction: column;
-    background-color: ${(props) => props.theme.palette.primary.light};
+    background-color: ${(props) => props.theme.palette.primary.backgroundSecondary};
     border-radius: 1rem;
-    color: ${(props) => props.theme.palette.primary.dark};
-
-    @media (prefers-color-scheme: dark) {
-        background-color: ${(props) => props.theme.palette.primary.dark};
-        color: ${(props) => props.theme.palette.primary.light};
-    }
-    
+    color: ${(props) => props.theme.palette.primary.textPrimary};
 `
 
 

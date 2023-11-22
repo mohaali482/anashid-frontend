@@ -8,21 +8,15 @@ const StyledAside = styled.aside`
     z-index: 40;
     width: 16rem;
     height: 100vh;
-    background-color: ${(props) => props.theme.palette.primary.lightGray};
-    color: ${(props) => props.theme.palette.primary.dark};
+    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
+    color: ${(props) => props.theme.palette.primary.textPrimary};
     overflow-x: hidden;
     overflow-y: auto;
-    transition: all 0.3s ease-in-out;
+    transition: width 0.3s ease-in-out;
 
     @media (max-width: 1024px) {
         width: 0;
     };
-
-    @media (prefers-color-scheme: dark) {
-        background-color: ${(props) => props.theme.palette.primary.dark};
-        color: ${(props) => props.theme.palette.primary.lightGray};
-    };
-
 `;
 
 
@@ -30,11 +24,7 @@ const StyledAsideContent = styled.div`
     height: fit-content;
     padding: 1rem 0.75rem;
     overflow-y: auto;
-    background-color: ${(props) => props.theme.palette.primary.lightGray};
-
-    @media (prefers-color-scheme: dark) {
-        background-color: ${(props) => props.theme.palette.primary.dark};
-    }
+    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
 `
 
 const StyledAsideHeader = styled.div`
@@ -58,30 +48,29 @@ const StyledLink = styled(NavLink)`
     display: flex;
     align-items: center;
     padding: .75rem;
-    color: ${(props) => props.theme.palette.primary.dark};
+    color: ${(props) => props.theme.palette.primary.textPrimary};
     text-decoration: none;
     border-radius: 0.5rem;
     width: 100%;
 
     &.active{
-        background-color: ${(props) => props.theme.palette.primary.lightWhite};
+        background-color: ${(props) => props.theme.main};
+        color: ${(props) => props.theme.light};
+        svg{
+            color: ${(props) => props.theme.light}
+        }
     }
 
     svg{
-        color: ${(props) => props.theme.palette.primary.main};
+        color: ${(props) => props.theme.main};
         padding-right: 0.5rem;
-    }
-    
-
-    @media(prefers-color-scheme: dark) {
-        color: ${(props) => props.theme.palette.primary.light};
     }
 `
 
 const StyledLi = styled.li`
     display: flex;
     align-items: center;
-    color:  ${(props) => props.theme.palette.primary.main};
+    color:  ${(props) => props.theme.main};
     padding: 0.5rem 0;
     border-radius: ${(props) => props.theme.borderRadius};
 `
@@ -94,16 +83,9 @@ const SidebarOverlay = styled.div`
     z-index: 30;
     width: 100vw;
     height: 100vh;
-    background-color: ${(props) => props.theme.palette.primary.light};
+    background-color: ${(props) => props.theme.palette.primary.backgroundSecondary};
     opacity: 0.5;
     transition: all 0.3s ease-in-out;
-
-    
-
-    @media (prefers-color-scheme: dark) {
-        background-color: ${(props) => props.theme.palette.primary.dark};
-    }
-    
 `
 
 const Sidebar = (props: { reference: any, open: boolean, links: { title: string, link: string, icon: JSX.Element }[] }) => {
