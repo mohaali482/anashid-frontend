@@ -8,35 +8,42 @@ import { IoAddCircle, IoHome, IoSave } from 'react-icons/io5'
 import { FaUserAlt } from 'react-icons/fa'
 import { BsMusicNoteList } from 'react-icons/bs'
 import AudioPlayer from "../components/styled/Nasheeds/AudioPlayer";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import Dialog from "../components/styled/common/Dialog";
 import Spinner from "../components/styled/common/Spinner";
+import toast from "react-hot-toast";
+import { clearMessage } from "../redux/ducks/nasheedSlice";
 
 const links = [
     {
         title: 'Home',
         link: '/',
+        protect: false,
         icon: <IoHome />
     },
     {
         title: 'Add Nasheed',
         link: '/nasheeds/add',
+        protect: true,
         icon: <IoAddCircle />
     },
     {
         title: 'My Nasheeds',
         link: '/my-nasheeds',
+        protect: true,
         icon: <BsMusicNoteList />
     },
     {
         title: 'Saved Nasheeds',
         link: '/saved-nasheeds',
+        protect: true,
         icon: <IoSave />
     },
     {
         title: 'Profile',
         link: '/accounts/profile',
+        protect: true,
         icon: <FaUserAlt />
     }
 ]
@@ -48,20 +55,20 @@ const AppLayout = () => {
     const toggleSidebar = () => {
         setOpen(!open)
     }
-    const { currentPlaying, loading } = useSelector((state: RootState) => state.nasheeds)
-
-    const audioRef = useRef<HTMLAudioElement>(null);
-
-    useEffect(() => {
-        if (currentPlaying?.audio) {
-            audioRef.current?.load();
-            audioRef.current?.play();
-        }
-    }, [currentPlaying])
-
+    const { loading, message } = useSelector((state: RootState) => state.nasheeds)
 
     const [drawerOpen, setDrawerOpen] = useState(false)
     const drawerRef = useRef<HTMLDivElement>(null)
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        if (message !== null) {
+            toast.success(message, {
+                position: "bottom-right",
+            })
+            dispatch(clearMessage())
+        }
+    }, [message])
 
     useEffect(() => {
         if (drawerOpen) {
@@ -104,7 +111,7 @@ const AppLayout = () => {
                 </Dialog>}
                 <Outlet />
                 <Footer />
-                <AudioPlayer audioRef={audioRef} audio={currentPlaying?.audio || ''} poster={currentPlaying?.poster || ''} setDrawerOpen={setDrawerOpen} open={drawerOpen} />
+                <AudioPlayer setDrawerOpen={setDrawerOpen} open={drawerOpen} />
             </Container>
         </>
     )

@@ -1,5 +1,8 @@
-import { Link } from "react-router-dom"
+import React from "react"
+import { useDispatch } from "react-redux"
 import styled from "styled-components"
+import { logoutUser } from "../../../redux/ducks/user-slice"
+import { Link } from "react-router-dom"
 
 const StyledUserDropDownMenu = styled.div`
     position: absolute;
@@ -15,7 +18,24 @@ const StyledUserDropdrownUl = styled.ul`
     list-style: none;
 `
 
+const StyledUserDropdownButton = styled.button`
+    background: none;
+    border: none;
+    padding: 0.5rem 2rem;
+    text-decoration: none;
+    color: ${(props) => props.theme.gray};
+    font-size: 0.875rem;
+    width: 100%;
+    color: ${(props) => props.theme.palette.primary.textPrimary};
+
+    &:hover{
+        background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
+    }
+`
+
 const StyledUserDropdownLink = styled(Link)`
+    background: none;
+    border: none;
     padding: 0.5rem 2rem;
     text-decoration: none;
     color: ${(props) => props.theme.gray};
@@ -30,12 +50,21 @@ const StyledUserDropdownLink = styled(Link)`
 
 
 const UserDropdown = ({ dropdownPosition }: { dropdownPosition: { top: number } }) => {
+    const dispatch = useDispatch()
+    const handleClick = (ev: React.MouseEvent) => {
+        dispatch(logoutUser())
+    }
     return (
         <StyledUserDropDownMenu style={{ ...dropdownPosition }}>
             <StyledUserDropdrownUl>
                 <li>
-                    <StyledUserDropdownLink to={'/'}>
-                        Link
+                    <StyledUserDropdownButton onClick={handleClick}>
+                        Logout
+                    </StyledUserDropdownButton>
+                </li>
+                <li>
+                    <StyledUserDropdownLink to={"/accounts/profile"}>
+                        Profile
                     </StyledUserDropdownLink>
                 </li>
             </StyledUserDropdrownUl>

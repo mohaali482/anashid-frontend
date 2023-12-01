@@ -1,32 +1,34 @@
-import { call, takeLatest, put, select } from "Redux-Saga/effects";
+import { call, put, select } from "redux-saga/effects";
 import {
-  addNasheed,
   addNasheedError,
   addNasheedSuccess,
-  fetchNasheed,
   fetchNasheedError,
   fetchNasheedSuccess,
-  fetchNasheeds,
   fetchNasheedsError,
   fetchNasheedsSuccess,
-  fetchPageNasheeds,
-  loadMoreNasheeds,
   loadMoreNasheedsError,
   loadMoreNasheedsSuccess,
+  removeSavedNasheedError,
+  removeSavedNasheedSuccess,
+  saveNasheedError,
+  saveNasheedSuccess,
 } from "../ducks/nasheedSlice";
 import {
   requestAddNasheed,
   requestListNasheeds,
+  requestMyNasheeds,
   requestNasheed,
   requestPageNasheeds,
+  requestRemoveSavedNasheed,
+  requestSaveNasheed,
+  requestSavedNasheeds,
 } from "../../services/nasheeds";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { Response } from "../../types/store";
+import { Nasheed, Response } from "../../types/nasheed-store";
 
 export function* fetchNasheedsSaga() {
   try {
-    yield put(fetchNasheeds);
     const limit: number = yield select(
       (state: RootState) => state.nasheeds.limit
     );
@@ -34,6 +36,44 @@ export function* fetchNasheedsSaga() {
       (state: RootState) => state.nasheeds.query
     );
     let result: Response = yield call(requestListNasheeds, limit, query);
+    yield put(fetchNasheedsSuccess(result));
+  } catch (error) {
+    if (error.response) {
+      yield put(fetchNasheedsError(error.response.data));
+    } else {
+      yield put(fetchNasheedError(error.message));
+    }
+  }
+}
+
+export function* fetchMyNasheedsSaga() {
+  try {
+    const limit: number = yield select(
+      (state: RootState) => state.nasheeds.limit
+    );
+    const query: string = yield select(
+      (state: RootState) => state.nasheeds.query
+    );
+    let result: Response = yield call(requestMyNasheeds, limit, query);
+    yield put(fetchNasheedsSuccess(result));
+  } catch (error) {
+    if (error.response) {
+      yield put(fetchNasheedsError(error.response.data));
+    } else {
+      yield put(fetchNasheedError(error.message));
+    }
+  }
+}
+
+export function* fetchSavedNasheedsSaga() {
+  try {
+    const limit: number = yield select(
+      (state: RootState) => state.nasheeds.limit
+    );
+    const query: string = yield select(
+      (state: RootState) => state.nasheeds.query
+    );
+    let result: Response = yield call(requestSavedNasheeds, limit, query);
     yield put(fetchNasheedsSuccess(result));
   } catch (error) {
     if (error.response) {
@@ -52,7 +92,6 @@ export function* fetchPageNasheedsSaga(action: PayloadAction<string>) {
     } else {
       link = yield select((state: RootState) => state.nasheeds.next);
     }
-    yield put(fetchNasheeds);
     let result: Response = yield call(requestPageNasheeds, link);
     yield put(fetchNasheedsSuccess(result));
   } catch (error) {
@@ -62,7 +101,6 @@ export function* fetchPageNasheedsSaga(action: PayloadAction<string>) {
 
 export function* requestAddNasheedSaga(action: PayloadAction<FormData>) {
   try {
-    yield put(addNasheed);
     let { data } = yield call(requestAddNasheed, action.payload);
     yield put(addNasheedSuccess(data));
   } catch (error) {
@@ -72,7 +110,6 @@ export function* requestAddNasheedSaga(action: PayloadAction<FormData>) {
 
 export function* fetchNasheedSaga(action: PayloadAction<number>) {
   try {
-    yield put(fetchNasheed);
     let { data } = yield call(requestNasheed, action.payload);
     yield put(fetchNasheedSuccess(data));
   } catch (error) {
@@ -83,7 +120,6 @@ export function* fetchNasheedSaga(action: PayloadAction<number>) {
 export function* loadMoreNasheedsSaga() {
   try {
     let link: string = yield select((state: RootState) => state.nasheeds.next);
-    yield put(loadMoreNasheeds);
     let result: Response = yield call(requestPageNasheeds, link);
     yield put(loadMoreNasheedsSuccess(result));
   } catch (error) {
@@ -91,10 +127,20 @@ export function* loadMoreNasheedsSaga() {
   }
 }
 
-export default function* rootSaga() {
-  yield takeLatest(fetchNasheed, fetchNasheedSaga);
-  yield takeLatest(fetchNasheeds, fetchNasheedsSaga);
-  yield takeLatest(fetchPageNasheeds, fetchPageNasheedsSaga);
-  yield takeLatest(addNasheed, requestAddNasheedSaga);
-  yield takeLatest(loadMoreNasheeds, loadMoreNasheedsSaga);
+export function* saveNasheedSaga(action: PayloadAction<number>) {
+  try {
+    const response: Nasheed = yield call(requestSaveNasheed, action.payload);
+    yield put(saveNasheedSuccess(response));
+  } catch (error) {
+    yield put(saveNasheedError(error.response.data));
+  }
+}
+
+export function* removeSavedNasheedSaga(action: PayloadAction<number>) {
+  try {
+    yield call(requestRemoveSavedNasheed, action.payload);
+    yield put(removeSavedNasheedSuccess(action.payload));
+  } catch (error) {
+    yield put(removeSavedNasheedError(error.response.data));
+  }
 }

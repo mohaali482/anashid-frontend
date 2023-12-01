@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { Nasheed } from '../../../types/store';
+import { Nasheed } from '../../../types/nasheed-store';
 import { Link } from 'react-router-dom';
 import { setCurrentPlaying } from '../../../redux/ducks/nasheedSlice';
 import { useDispatch } from 'react-redux';

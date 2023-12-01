@@ -6,7 +6,7 @@ const StyledInput = styled.input`
     height: 35px;
     border: none;
     padding: 0.25rem 0.5rem;
-    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
+    background-color: ${(props) => props.theme.palette.primary.backgroundSecondary};
     color: ${(props) => props.theme.palette.primary.textPrimary};
 
     &:focus{

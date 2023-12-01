@@ -24,7 +24,15 @@ const Input = styled.input`
     padding: 10px;
     margin: 10px;
 `
-
+export function debounce(callback: CallableFunction, delay = 500) {
+    let timeout: number;
+    return (...args: any[]) => {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
+            callback(...args)
+        }, delay)
+    }
+}
 
 const Filter = ({ onChangeHandler, query }: { onChangeHandler: React.ChangeEventHandler<HTMLInputElement>, query: string }) => {
     return (

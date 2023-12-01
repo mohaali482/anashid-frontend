@@ -7,6 +7,10 @@ import { Provider } from 'react-redux'
 import { ThemeProvider } from 'styled-components'
 import { darkTheme, defaultTheme } from './components/styled/theme'
 import ToggleContext, { ToggleProvider } from './toggler'
+import { injectStore } from './services/config'
+import StyledToaster from './components/styled/toaster'
+
+injectStore(store)
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
@@ -15,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         {(value) => (
           <ThemeProvider theme={value.theme === "light" ? defaultTheme : darkTheme} >
             <Provider store={store}>
+              <StyledToaster />
               <App />
             </Provider>
           </ThemeProvider>)

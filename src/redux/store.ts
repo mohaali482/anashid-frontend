@@ -1,15 +1,29 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { Middleware, configureStore } from "@reduxjs/toolkit";
 import nasheedsReducer from "./ducks/nasheedSlice";
+import userReducer from "./ducks/user-slice";
 import createSagaMiddleware from "redux-saga";
-import rootSaga from "./sagas/saga";
+import rootSaga from "./sagas/rootsaga";
 
 let sagaMiddleware = createSagaMiddleware();
-const middleware = [sagaMiddleware];
+const localStorageMiddleware: Middleware = (storeApi) => (next) => (action) => {
+  const result = next(action);
+  localStorage.setItem("redux-state", JSON.stringify(storeApi.getState()));
+  return result;
+};
+
+const middleware = [sagaMiddleware, localStorageMiddleware];
+const reHydrateStore = () => {
+  if (localStorage.getItem("redux-state") !== null) {
+    return JSON.parse(localStorage.getItem("redux-state")!); // re-hydrate the store
+  }
+};
 
 export const store = configureStore({
   reducer: {
     nasheeds: nasheedsReducer,
+    user: userReducer,
   },
+  preloadedState: reHydrateStore(),
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({ serializableCheck: false }).concat(middleware),
 });

@@ -5,7 +5,7 @@ const StyledTextArea = styled.textarea`
     width: 100%;
     border: none;
     padding: 0.25rem 0.5rem;
-    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
+    background-color: ${(props) => props.theme.palette.primary.backgroundSecondary};
     color: ${(props) => props.theme.palette.primary.textPrimary};
 
     &:focus{

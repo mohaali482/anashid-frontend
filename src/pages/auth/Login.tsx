@@ -8,17 +8,63 @@ import StyledInputDiv from "../../components/styled/common/form/InputDiv"
 import { FaUserAlt } from "react-icons/fa"
 import StyledIcon from "../../components/styled/common/form/StyledIcon"
 import StyledTag from "../../components/styled/common/form/StyledAnchorTag"
-
+import { useDispatch, useSelector } from "react-redux"
+import { loginRequest, resetErrors } from "../../redux/ducks/user-slice"
+import { FormEvent, useEffect } from "react"
+import { RootState } from "../../redux/store"
+import { useNavigate } from "react-router-dom"
+import Dialog from "../../components/styled/common/Dialog"
+import Spinner from "../../components/styled/common/Spinner"
+import toast from "react-hot-toast"
 
 const Login = () => {
+    const dispatch = useDispatch()
+    const { isLoggedIn, loading, error } = useSelector((state: RootState) => state.user)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if (isLoggedIn) {
+            navigate("/")
+        }
+    }, [isLoggedIn])
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const formData = new FormData(e.target as HTMLFormElement);
+        dispatch(loginRequest(formData))
+    }
+
+    const toastError = () => {
+        if (error) {
+            if (typeof (error) === "object") {
+                return toast.error("Wrong username or password")
+            }
+            return toast.error(error)
+        }
+    }
+    useEffect(() => {
+        toastError()
+    }, [error])
+
+    useEffect(() => {
+        return () => {
+            dispatch(resetErrors())
+        }
+    }, [])
+
     return (
         <Container>
             <FormContainer>
                 <StyledIcon>
                     <FaUserAlt size={50} />
                 </StyledIcon>
-                <StyledText>Welcome</StyledText>
-                <StyledForm>
+                {loading && <Dialog onClose={null}>
+                    <Spinner />
+                </Dialog>}
+                <StyledText>
+                    Welcome
+                </StyledText>
+                <StyledForm onSubmit={handleSubmit}>
                     <StyledInputDiv>
                         <StyledInput required placeholder="Username" type="text" name="username" id="username" />
                     </StyledInputDiv>

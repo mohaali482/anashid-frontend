@@ -1,5 +1,5 @@
 import { defaultKeyGenerator } from "axios-cache-interceptor";
-import { Response } from "../types/store";
+import { Nasheed, Response } from "../types/nasheed-store";
 import axios from "./config";
 import { CustomMemoryStorage } from "./cacheStorage";
 
@@ -13,6 +13,26 @@ export async function requestListNasheeds(
 ): Promise<Response> {
   return (
     await axios(`/nasheed/nasheeds/?limit=${limit}&name__contains=${query}`)
+  ).data;
+}
+
+export async function requestMyNasheeds(
+  limit: number,
+  query: string
+): Promise<Response> {
+  return (
+    await axios(`/nasheed/my-nasheeds/?limit=${limit}&name__contains=${query}`)
+  ).data;
+}
+
+export async function requestSavedNasheeds(
+  limit: number,
+  query: string
+): Promise<Response> {
+  return (
+    await axios(
+      `/nasheed/saved-nasheeds/?limit=${limit}&name__contains=${query}`
+    )
   ).data;
 }
 
@@ -36,4 +56,23 @@ export async function requestAddNasheed(formData: FormData) {
 
 export async function requestNasheed(id: number): Promise<Response> {
   return await axios(`/nasheed/nasheeds/${id}`);
+}
+
+export async function requestSaveNasheed(id: number): Promise<Nasheed> {
+  const response = await axios(`/nasheed/saved-nasheeds/`, {
+    method: "POST",
+    data: {
+      nasheed: id,
+    },
+  });
+
+  return response.data;
+}
+
+export async function requestRemoveSavedNasheed(id: number) {
+  const response = await axios(`/nasheed/saved-nasheeds/${id}/`, {
+    method: "DELETE",
+  });
+
+  return response;
 }

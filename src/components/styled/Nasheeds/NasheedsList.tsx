@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Nasheed } from "../../../types/store";
+import { Nasheed } from "../../../types/nasheed-store";
 import NasheedsTable from "./NasheedsTable";
 import NasheedsListGrid from "./NasheedsListGrid";
 

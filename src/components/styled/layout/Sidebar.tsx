@@ -1,5 +1,8 @@
+import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { RootState } from "../../../redux/store";
+import { FaLock } from "react-icons/fa";
 
 const StyledAside = styled.aside`
     position: fixed;
@@ -88,8 +91,8 @@ const SidebarOverlay = styled.div`
     transition: all 0.3s ease-in-out;
 `
 
-const Sidebar = (props: { reference: any, open: boolean, links: { title: string, link: string, icon: JSX.Element }[] }) => {
-
+const Sidebar = (props: { reference: React.RefObject<HTMLDivElement>, open: boolean, links: { title: string, link: string, protect: boolean, icon: JSX.Element }[] }) => {
+    const { isLoggedIn } = useSelector((state: RootState) => state.user)
     return (
         <>
             {props.open ? <SidebarOverlay /> : null}
@@ -100,6 +103,7 @@ const Sidebar = (props: { reference: any, open: boolean, links: { title: string,
                 <StyledAsideContent>
                     <StyledAsideUl>
                         {props.links.map((link) => (
+                            (link.protect && isLoggedIn || !link.protect) &&
                             <StyledLi key={link.title}>
                                 <StyledLink to={link.link}>
                                     {link.icon}
@@ -107,6 +111,15 @@ const Sidebar = (props: { reference: any, open: boolean, links: { title: string,
                                 </StyledLink>
                             </StyledLi>
                         ))}
+
+                        {!isLoggedIn &&
+                            <StyledLi>
+                                <StyledLink to={'/auth/login'}>
+                                    <FaLock />
+                                    Login
+                                </StyledLink>
+                            </StyledLi>
+                        }
                     </StyledAsideUl>
                 </StyledAsideContent >
             </StyledAside >

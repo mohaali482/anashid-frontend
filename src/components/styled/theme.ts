@@ -17,7 +17,7 @@ export const defaultTheme: DefaultTheme = {
   gray: "#878787", // dark gray light for dark theme
   lightWhite: "#ffffff1a",
 
-  boxShadow: "0 35px 60px -15px",
+  boxShadow: "0 35px 60px -30px",
   borderRadius: ".5rem",
 };
 
@@ -38,7 +38,7 @@ export const darkTheme: DefaultTheme = {
   gray: "#F5F5F5",
   lightWhite: "#ffffff1a",
 
-  boxShadow: "0 35px 60px -15px",
+  boxShadow: "0 35px 60px -30px",
   borderRadius: ".5rem",
 };
 

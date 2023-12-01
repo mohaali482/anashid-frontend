@@ -1,8 +1,10 @@
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { IoClose } from 'react-icons/io5';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
+import StyledIcon from '../common/form/StyledIcon';
+import { setCurrentPlaying } from '../../../redux/ducks/nasheedSlice';
 
 
 
@@ -44,7 +46,7 @@ const Description = styled.div`
 
 export const StyledAudioPlayer = styled.audio`
     width: 100%;
-    padding-right: 2rem;
+    padding-right: 0.5rem;
   
     &::-webkit-media-controls-panel {
         background-color: ${(props) => props.theme.main};
@@ -79,6 +81,18 @@ const StyledAudioPoster = styled.img`
     padding: 1rem;
 `
 
+const StyledLoadingContainer = styled.div`
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`
+
 const Drawer = styled.div<{ open: boolean }>`
     ${props => props.open ? "position: absolute; top: 1rem; left: 0; right: 0;" : "width: 100%"}
 `
@@ -90,9 +104,6 @@ const AudioPlayerContainer = styled.div`
 `
 
 interface AudioPlayerProps {
-    audioRef: React.RefObject<HTMLAudioElement>;
-    audio: string;
-    poster: string;
     open: boolean;
     setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -115,6 +126,38 @@ const MemoizedAudioPlayer = memo(InternalAudioPlayer)
 
 const AudioPlayer = (props: AudioPlayerProps) => {
     const { currentPlaying } = useSelector((state: RootState) => state.nasheeds)
+    const [loading, setLoading] = useState(false)
+    const audioRef = useRef<HTMLAudioElement>(null)
+
+    useEffect(() => {
+        const loaded = () => {
+            setLoading(false)
+        }
+
+        if (audioRef.current !== null && currentPlaying !== null) {
+            audioRef.current.addEventListener('loadeddata', loaded)
+        }
+
+        return () => {
+            audioRef.current?.removeEventListener('loadeddata', loaded)
+        }
+    }, [currentPlaying])
+
+
+    useEffect(() => {
+        if (currentPlaying?.audio) {
+            audioRef.current?.load();
+            audioRef.current?.play();
+            setLoading(true)
+        } else {
+            audioRef.current?.load()
+        }
+    }, [currentPlaying])
+
+    const dispatch = useDispatch();
+    const handleRemoveAudio = () => {
+        dispatch(setCurrentPlaying(null))
+    }
     if (props.open) {
         document.body.style.overflow = 'hidden';
         document.title = "Nasheeds - " + currentPlaying?.name
@@ -123,32 +166,32 @@ const AudioPlayer = (props: AudioPlayerProps) => {
     }
     useEffect(() => {
         const keyboardEventListener = (ev: KeyboardEvent) => {
-            if (props.audioRef.current) {
+            if (audioRef.current) {
                 if (!(((ev.target as HTMLElement)).matches("body"))) return;
                 switch (ev.key.toLowerCase()) {
                     case " ":
                     case "k":
-                        if (props.audioRef.current.paused) {
-                            props.audioRef.current.play()
-                        } else if (props.audioRef.current) {
-                            props.audioRef.current.pause();
+                        if (audioRef.current.paused) {
+                            audioRef.current.play()
+                        } else if (audioRef.current) {
+                            audioRef.current.pause();
                         }
                         break;
                     case "arrowright":
-                        props.audioRef.current.currentTime += 5;
+                        audioRef.current.currentTime += 5;
                         break;
                     case "l":
-                        props.audioRef.current.currentTime += 10;
+                        audioRef.current.currentTime += 10;
                         break;
                     case "arrowleft":
-                        props.audioRef.current.currentTime -= 5;
+                        audioRef.current.currentTime -= 5;
                         break
                     case "j":
-                        props.audioRef.current.currentTime -= 10;
+                        audioRef.current.currentTime -= 10;
                         break;
                     case "r":
-                        props.audioRef.current.currentTime = 0;
-                        props.audioRef.current.play();
+                        audioRef.current.currentTime = 0;
+                        audioRef.current.play();
                         break;
                     case "f":
                         props.setDrawerOpen((open) => !open)
@@ -169,20 +212,39 @@ const AudioPlayer = (props: AudioPlayerProps) => {
 
     }, [currentPlaying])
     return (
-        <StyledAudioPlayerContainer open={props.open} onClick={() => props.audioRef.current !== null ?? props.setDrawerOpen(true)}>
+        <StyledAudioPlayerContainer open={props.open} onClick={() => audioRef.current !== null ?? props.setDrawerOpen(true)}>
+            {loading &&
+                <StyledLoadingContainer>
+                    <p>Loading...</p>
+                </StyledLoadingContainer>
+            }
             {props.open &&
                 <StyledCloseButton>
                     <IoClose size={30} />
-                </StyledCloseButton>}
+                </StyledCloseButton>
+            }
 
-            {!props.open && <StyledAudioPoster src={props.poster} />}
+            {!props.open && <StyledAudioPoster src={currentPlaying?.poster} />}
             <Drawer open={props.open}>
                 {props.open &&
                     <center>
                         <AudioDrawerPoster src={currentPlaying?.poster} alt="audio-poster" />
                     </center>}
                 <AudioPlayerContainer>
-                    <MemoizedAudioPlayer audioRef={props.audioRef} audio={props.audio} open={props.open} />
+                    <MemoizedAudioPlayer audioRef={audioRef} audio={currentPlaying ? currentPlaying.audio : ''} open={props.open} />
+                    {!props.open &&
+                        <StyledIcon onClick={handleRemoveAudio} style={
+                            {
+                                width: "25px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                marginRight: "0.5rem",
+                                cursor: "pointer",
+                            }}>
+                            <IoClose size={50} />
+                        </StyledIcon>
+                    }
                 </AudioPlayerContainer>
 
                 {props.open &&

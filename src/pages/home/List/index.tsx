@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../redux/store";
 import { fetchNasheeds, loadMoreNasheeds, setFilterQuery, setPageLimit } from "../../../redux/ducks/nasheedSlice";
 import NasheedsList from "../../../components/styled/Nasheeds/NasheedsList";
-import Filter from "../../../components/styled/Nasheeds/Filter";
+import Filter, { debounce } from "../../../components/styled/Nasheeds/Filter";
 import Button from "../../../components/styled/pages/detail/button";
 import Spinner from "../../../components/styled/common/Spinner";
 import { useSearchParams } from "react-router-dom";
@@ -33,27 +33,18 @@ import { useSearchParams } from "react-router-dom";
 //         </div>
 //     )
 // }
-function debounce(callback: CallableFunction, delay = 500) {
-    let timeout: number;
-    return (...args: any[]) => {
-        clearTimeout(timeout)
-        timeout = setTimeout(() => {
-            callback(...args)
-        }, delay)
-    }
-}
 
 const List = () => {
     const dispatch = useDispatch();
     const { items: data, loading, error, next, query, loadMoreLoading } = useSelector((state: RootState) => state.nasheeds)
-    const [searchParams, setSearchParams] = useSearchParams({name:""});
-    
+    const [searchParams, setSearchParams] = useSearchParams({ name: "" });
+
     useEffect(() => {
         const query = searchParams.get("name")
-        if (query != null){
+        if (query != null) {
             dispatch(setFilterQuery(query))
         }
-    },[searchParams])
+    }, [searchParams])
 
     useEffect(() => {
         dispatch(fetchNasheeds())
@@ -64,7 +55,7 @@ const List = () => {
     }
 
     const setQueryDebounce = debounce((query: string) => {
-        setSearchParams({name:query})
+        setSearchParams({ name: query })
     })
 
     const setFilter: React.ChangeEventHandler<HTMLInputElement> = (event: React.ChangeEvent<HTMLInputElement>) => {

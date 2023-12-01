@@ -5,6 +5,9 @@ import StyledIcon from "../common/form/StyledIcon";
 import { FaMoon, FaSun } from "react-icons/fa";
 import { useContext } from "react";
 import ToggleContext from "../../../toggler";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../redux/store";
+import { Link } from "react-router-dom";
 
 const StyledNav = styled.nav`
     position: fixed;
@@ -33,6 +36,7 @@ const StyledDiv2 = styled.div`
     margin: 0 auto;
     padding: 1rem;
     margin-right: 0.5rem;
+    height: 40px;
 
     @media (min-width: 1024px) {
         margin-left: 16rem;
@@ -59,6 +63,7 @@ const SidebarButton = styled.button`
 const NavBar = ({ handleClick, title }: { handleClick: any, title: string }) => {
     document.title = title;
     const { theme, updateTheme } = useContext(ToggleContext)
+    const { isLoggedIn } = useSelector((state: RootState) => state.user)
 
     return (
         <StyledNav>
@@ -72,7 +77,7 @@ const NavBar = ({ handleClick, title }: { handleClick: any, title: string }) => 
                     <StyledIcon onClick={() => updateTheme(theme === "dark" ? "light" : "dark")} style={{ cursor: "pointer" }}>
                         {theme === "light" ? <FaMoon /> : <FaSun />}
                     </StyledIcon>
-                    <UserIcon />
+                    {isLoggedIn && <UserIcon />}
                 </div>
             </StyledDiv2>
         </StyledNav>

@@ -5,7 +5,7 @@ import {
   NasheedError,
   NasheedsState,
   Response,
-} from "../../types/store";
+} from "../../types/nasheed-store";
 
 const initialState: NasheedsState = {
   items: [],
@@ -20,6 +20,7 @@ const initialState: NasheedsState = {
   loadMoreLoading: false,
   query: "",
   currentPlaying: null,
+  message: null,
 };
 
 export const nasheedsSlice = createSlice({
@@ -35,6 +36,7 @@ export const nasheedsSlice = createSlice({
       state.loading = false;
       state.formErrors = null;
       state.loadedIds.push(action.payload.id);
+      state.message = "Added successfully";
     },
     addNasheedError: (state, action: PayloadAction<NasheedError>) => {
       state.loading = false;
@@ -49,6 +51,14 @@ export const nasheedsSlice = createSlice({
       );
     },
     fetchNasheeds: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchMyNasheeds: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    fetchSavedNasheeds: (state) => {
       state.loading = true;
       state.error = null;
     },
@@ -112,8 +122,43 @@ export const nasheedsSlice = createSlice({
     setFilterQuery: (state, action: PayloadAction<string>) => {
       state.query = action.payload;
     },
-    setCurrentPlaying: (state, action: PayloadAction<Nasheed>) => {
+    setCurrentPlaying: (state, action: PayloadAction<Nasheed | null>) => {
       state.currentPlaying = action.payload;
+    },
+    saveNasheedRequest: (state, action: PayloadAction<number>) => {
+      state.error = null;
+    },
+    saveNasheedError: (state, action) => {
+      state.error = action.payload;
+    },
+    saveNasheedSuccess: (state, action: PayloadAction<Nasheed>) => {
+      state.error = null;
+      const nasheed = state.items.find(
+        (nasheed) => nasheed.id === action.payload.id
+      );
+      nasheed!.saved_id = action.payload.saved_id;
+      nasheed!.saved = action.payload.saved;
+      state.message = "Saved successfully";
+    },
+    removeSavedNasheedRequest: (state, action: PayloadAction<number>) => {
+      state.error = null;
+    },
+    removeSavedNasheedError: (state, action) => {
+      state.error = action.payload;
+    },
+    removeSavedNasheedSuccess: (state, action: PayloadAction<number>) => {
+      state.error = null;
+      state.message = "Removed successfully";
+      const nasheed = state.items.find(
+        (nasheed) => nasheed.saved_id === action.payload
+      );
+      if (nasheed) {
+        nasheed.saved = false;
+        nasheed.saved_id = undefined;
+      }
+    },
+    clearMessage: (state) => {
+      state.message = null;
     },
   },
 });
@@ -124,19 +169,39 @@ export const {
   addNasheedError,
   removeNasheed,
   updateNasheed,
+
   fetchNasheeds,
   fetchNasheedsSuccess,
   fetchNasheedsError,
+
+  fetchMyNasheeds,
+
+  fetchSavedNasheeds,
+
   fetchPageNasheeds,
+
   setPageLimit,
+
   fetchNasheed,
   fetchNasheedSuccess,
   fetchNasheedError,
+
   loadMoreNasheeds,
   loadMoreNasheedsSuccess,
   loadMoreNasheedsError,
+
   setFilterQuery,
   setCurrentPlaying,
+
+  saveNasheedRequest,
+  saveNasheedSuccess,
+  saveNasheedError,
+
+  removeSavedNasheedRequest,
+  removeSavedNasheedSuccess,
+  removeSavedNasheedError,
+
+  clearMessage,
 } = nasheedsSlice.actions;
 
 export default nasheedsSlice.reducer;

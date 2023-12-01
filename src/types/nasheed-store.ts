@@ -26,6 +26,7 @@ export interface Nasheed {
   created_at: Date;
   updated_at: Date;
   saved: Boolean | null;
+  saved_id?: number;
 }
 
 export interface NasheedError {
@@ -47,6 +48,7 @@ export interface NasheedsState {
   loadMoreLoading: boolean;
   query: string;
   currentPlaying: Nasheed | null;
+  message: string | null;
 }
 
 export interface Query {

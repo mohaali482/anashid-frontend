@@ -10,7 +10,7 @@ const FormContainer = styled.div`
     align-items: center;
     text-align: center;
     flex-direction: column;
-    background-color: ${(props) => props.theme.palette.primary.backgroundSecondary};
+    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
     border-radius: 1rem;
     color: ${(props) => props.theme.palette.primary.textPrimary};
 `
