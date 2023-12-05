@@ -83,7 +83,7 @@ const MyNasheeds = () => {
             text: "Edit",
         },
         {
-            link: "/nasheeds/delete/:id",
+            link: "",
             text: "Delete",
             action: true,
         },

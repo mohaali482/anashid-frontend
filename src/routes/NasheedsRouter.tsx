@@ -1,5 +1,6 @@
 import { Route, Routes } from "react-router-dom"
-import NasheedForm from "../pages/nasheeds/NasheedForm"
+import Add from "../pages/nasheeds/Add"
+import Edit from "../pages/nasheeds/Edit"
 import Detail from "../pages/nasheeds/Detail"
 import CommonLayout from "../layouts/CommonLayout"
 import PageNotFound from "../pages/common/404"
@@ -11,12 +12,12 @@ const NasheedsRouter = () => {
             <Route element={<CommonLayout />}>
                 <Route path="add" element={
                     <ProtectedRoute>
-                        <NasheedForm />
+                        <Add />
                     </ProtectedRoute>
                 } />
                 <Route path="edit/:id" element={
                     <ProtectedRoute>
-                        <NasheedForm />
+                        <Edit />
                     </ProtectedRoute>
                 } />
                 <Route path=":id" element={<Detail />} />

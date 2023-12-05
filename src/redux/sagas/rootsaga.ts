@@ -10,6 +10,7 @@ import {
   removeNasheed,
   removeSavedNasheedRequest,
   saveNasheedRequest,
+  updateNasheed,
 } from "../ducks/nasheedSlice";
 
 import {
@@ -23,6 +24,7 @@ import {
   removeSavedNasheedSaga,
   requestAddNasheedSaga,
   saveNasheedSaga,
+  updateNasheedSaga,
 } from "./nasheed-saga";
 
 import {
@@ -60,6 +62,7 @@ export default function* rootSaga() {
     takeLatest(fetchNasheeds, fetchNasheedsSaga),
     takeLatest(fetchPageNasheeds, fetchPageNasheedsSaga),
     takeLatest(addNasheed, requestAddNasheedSaga),
+    takeLatest(updateNasheed, updateNasheedSaga),
     takeLatest(loadMoreNasheeds, loadMoreNasheedsSaga),
     takeLatest(removeNasheed, removeNasheedSaga),
   ]);

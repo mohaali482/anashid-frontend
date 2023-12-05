@@ -30,16 +30,16 @@ export interface Nasheed {
 }
 
 export interface NasheedError {
-  name: Array<string>;
-  poster: Array<string>;
-  audio: Array<string>;
+  name?: Array<string>;
+  poster?: Array<string>;
+  audio?: Array<string>;
 }
 
 export interface NasheedsState {
   items: Array<Nasheed>;
   nasheed: Nasheed | null;
   loading: boolean;
-  formErrors: NasheedError | null;
+  formErrors: NasheedError;
   error: string | null;
   next: string | null;
   previous: string | null;

@@ -2,6 +2,7 @@ import { defaultKeyGenerator } from "axios-cache-interceptor";
 import { Nasheed, Response } from "../types/nasheed-store";
 import axios from "./config";
 import { CustomMemoryStorage } from "./cacheStorage";
+import { NasheedUpdatePayload } from "../redux/ducks/nasheedSlice";
 
 axios.generateKey = (config) => {
   return defaultKeyGenerator(config) + "-" + "list-nasheeds";
@@ -54,6 +55,18 @@ export async function requestAddNasheed(formData: FormData) {
     const storage = axios.storage as CustomMemoryStorage;
     storage.removeByGroup("list-nasheeds");
   }
+
+  return response;
+}
+
+export async function requestUpdateNasheed(payload: NasheedUpdatePayload) {
+  const response = await axios(`/nasheed/nasheeds/${payload.id}/`, {
+    data: payload.formData,
+    method: "PATCH",
+  });
+
+  const storage = axios.storage as CustomMemoryStorage;
+  storage.removeByGroup("list-nasheeds");
 
   return response;
 }

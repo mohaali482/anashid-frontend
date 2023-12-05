@@ -1,5 +1,6 @@
 import { call, put, select } from "redux-saga/effects";
 import {
+  NasheedUpdatePayload,
   addNasheedError,
   addNasheedSuccess,
   fetchNasheedError,
@@ -13,6 +14,8 @@ import {
   removeSavedNasheedSuccess,
   saveNasheedError,
   saveNasheedSuccess,
+  updateNasheedError,
+  updateNasheedSuccess,
 } from "../ducks/nasheedSlice";
 import {
   requestAddNasheed,
@@ -24,6 +27,7 @@ import {
   requestRemoveSavedNasheed,
   requestSaveNasheed,
   requestSavedNasheeds,
+  requestUpdateNasheed,
 } from "../../services/nasheeds";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
@@ -107,6 +111,17 @@ export function* requestAddNasheedSaga(action: PayloadAction<FormData>) {
     yield put(addNasheedSuccess(data));
   } catch (error) {
     yield put(addNasheedError(error.response.data));
+  }
+}
+
+export function* updateNasheedSaga(
+  action: PayloadAction<NasheedUpdatePayload>
+) {
+  try {
+    let { data } = yield call(requestUpdateNasheed, action.payload);
+    yield put(updateNasheedSuccess(data));
+  } catch (error) {
+    yield put(updateNasheedError(error.response.data));
   }
 }
 

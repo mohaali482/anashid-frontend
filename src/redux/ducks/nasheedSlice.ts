@@ -11,7 +11,7 @@ const initialState: NasheedsState = {
   items: [],
   loading: false,
   error: null,
-  formErrors: null,
+  formErrors: {},
   next: null,
   previous: null,
   limit: 10,
@@ -24,18 +24,23 @@ const initialState: NasheedsState = {
   message: null,
 };
 
+export interface NasheedUpdatePayload {
+  formData: FormData;
+  id: number;
+}
+
 export const nasheedsSlice = createSlice({
   name: "nasheeds",
   initialState,
   reducers: {
     addNasheed: (state, action: PayloadAction<FormData>) => {
       state.loading = true;
-      state.formErrors = null;
+      state.formErrors = {};
     },
     addNasheedSuccess: (state, action: PayloadAction<Nasheed>) => {
       state.items.push(action.payload);
       state.loading = false;
-      state.formErrors = null;
+      state.formErrors = {};
       state.loadedIds.push(action.payload.id);
       state.message = "Added successfully";
     },
@@ -49,10 +54,19 @@ export const nasheedsSlice = createSlice({
         (nasheed: Nasheed) => nasheed.id !== action.payload
       );
     },
-    updateNasheed: (state, action: PayloadAction<Nasheed>) => {
+    updateNasheed: (state, action: PayloadAction<NasheedUpdatePayload>) => {},
+    updateNasheedSuccess: (state, action: PayloadAction<Nasheed>) => {
       state.items.map((nasheed: Nasheed) =>
         nasheed.id === action.payload.id ? action.payload : nasheed
       );
+      state.loading = false;
+      state.formErrors = {};
+      state.message = "Updated successfully";
+      state.nasheed = action.payload;
+    },
+    updateNasheedError: (state, action: PayloadAction<NasheedError>) => {
+      state.loading = false;
+      state.formErrors = action.payload;
     },
     fetchNasheeds: (state) => {
       state.loading = true;
@@ -184,6 +198,9 @@ export const nasheedsSlice = createSlice({
     clearMessage: (state) => {
       state.message = null;
     },
+    resetErrors: (state) => {
+      state.formErrors = {};
+    },
   },
 });
 
@@ -193,7 +210,10 @@ export const {
   addNasheedError,
   removeNasheed,
   removeNasheedSuccess,
+
   updateNasheed,
+  updateNasheedError,
+  updateNasheedSuccess,
 
   fetchNasheeds,
   fetchNasheedsSuccess,
@@ -228,6 +248,7 @@ export const {
   removeSavedNasheedError,
 
   clearMessage,
+  resetErrors,
 } = nasheedsSlice.actions;
 
 export default nasheedsSlice.reducer;

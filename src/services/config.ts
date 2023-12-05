@@ -56,7 +56,6 @@ axios.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.error("Error making request:", error);
     return Promise.reject(error);
   }
 );
