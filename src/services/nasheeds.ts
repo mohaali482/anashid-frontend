@@ -21,7 +21,10 @@ export async function requestMyNasheeds(
   query: string
 ): Promise<Response> {
   return (
-    await axios(`/nasheed/my-nasheeds/?limit=${limit}&name__contains=${query}`)
+    await axios(
+      `/nasheed/my-nasheeds/?limit=${limit}&name__contains=${query}`,
+      { cache: false }
+    )
   ).data;
 }
 
@@ -31,7 +34,8 @@ export async function requestSavedNasheeds(
 ): Promise<Response> {
   return (
     await axios(
-      `/nasheed/saved-nasheeds/?limit=${limit}&name__contains=${query}`
+      `/nasheed/saved-nasheeds/?limit=${limit}&name__contains=${query}`,
+      { cache: false }
     )
   ).data;
 }
@@ -66,6 +70,11 @@ export async function requestSaveNasheed(id: number): Promise<Nasheed> {
     },
   });
 
+  if (response.status === 201) {
+    const storage = axios.storage as CustomMemoryStorage;
+    storage.removeByGroup("list-nasheeds");
+  }
+
   return response.data;
 }
 
@@ -73,6 +82,24 @@ export async function requestRemoveSavedNasheed(id: number) {
   const response = await axios(`/nasheed/saved-nasheeds/${id}/`, {
     method: "DELETE",
   });
+
+  if (response.status === 201) {
+    const storage = axios.storage as CustomMemoryStorage;
+    storage.removeByGroup("list-nasheeds");
+  }
+
+  return response;
+}
+
+export async function requestRemoveNasheed(id: number) {
+  const response = await axios(`/nasheed/nasheeds/${id}/`, {
+    method: "DELETE",
+  });
+
+  if (response.status === 201) {
+    const storage = axios.storage as CustomMemoryStorage;
+    storage.removeByGroup("list-nasheeds");
+  }
 
   return response;
 }

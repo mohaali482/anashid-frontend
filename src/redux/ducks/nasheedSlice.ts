@@ -20,6 +20,7 @@ const initialState: NasheedsState = {
   loadMoreLoading: false,
   query: "",
   currentPlaying: null,
+  currentPlayingPaused: false,
   message: null,
 };
 
@@ -42,8 +43,11 @@ export const nasheedsSlice = createSlice({
       state.loading = false;
       state.formErrors = action.payload;
     },
-    removeNasheed: (state, action: PayloadAction<number>) => {
-      state.items.filter((nasheed: Nasheed) => nasheed.id !== action.payload);
+    removeNasheed: (state, action: PayloadAction<number>) => {},
+    removeNasheedSuccess: (state, action: PayloadAction<number>) => {
+      state.items = state.items.filter(
+        (nasheed: Nasheed) => nasheed.id !== action.payload
+      );
     },
     updateNasheed: (state, action: PayloadAction<Nasheed>) => {
       state.items.map((nasheed: Nasheed) =>
@@ -124,6 +128,10 @@ export const nasheedsSlice = createSlice({
     },
     setCurrentPlaying: (state, action: PayloadAction<Nasheed | null>) => {
       state.currentPlaying = action.payload;
+      state.currentPlayingPaused = false;
+    },
+    pauseCurrentPlaying: (state, action: PayloadAction<boolean>) => {
+      state.currentPlayingPaused = action.payload;
     },
     saveNasheedRequest: (state, action: PayloadAction<number>) => {
       state.error = null;
@@ -138,6 +146,14 @@ export const nasheedsSlice = createSlice({
       );
       nasheed!.saved_id = action.payload.saved_id;
       nasheed!.saved = action.payload.saved;
+      if (state.nasheed?.id === action.payload.id) {
+        state.nasheed.saved = true;
+        state.nasheed.saved_id = action.payload.saved_id;
+      }
+      if (state.currentPlaying?.id === action.payload.id) {
+        state.currentPlaying.saved = true;
+        state.currentPlaying.saved_id = action.payload.saved_id;
+      }
       state.message = "Saved successfully";
     },
     removeSavedNasheedRequest: (state, action: PayloadAction<number>) => {
@@ -156,6 +172,14 @@ export const nasheedsSlice = createSlice({
         nasheed.saved = false;
         nasheed.saved_id = undefined;
       }
+      if (state.nasheed?.saved_id === action.payload) {
+        state.nasheed.saved = false;
+        state.nasheed.saved_id = undefined;
+      }
+      if (state.currentPlaying?.saved_id === action.payload) {
+        state.currentPlaying.saved = false;
+        state.currentPlaying.saved_id = undefined;
+      }
     },
     clearMessage: (state) => {
       state.message = null;
@@ -168,6 +192,7 @@ export const {
   addNasheedSuccess,
   addNasheedError,
   removeNasheed,
+  removeNasheedSuccess,
   updateNasheed,
 
   fetchNasheeds,
@@ -192,6 +217,7 @@ export const {
 
   setFilterQuery,
   setCurrentPlaying,
+  pauseCurrentPlaying,
 
   saveNasheedRequest,
   saveNasheedSuccess,

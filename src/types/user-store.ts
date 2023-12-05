@@ -32,4 +32,8 @@ export interface UserState {
     email?: string[];
     image?: string[];
   };
+  deleteAccountErrors: {
+    username?: string[];
+    password?: string[];
+  };
 }

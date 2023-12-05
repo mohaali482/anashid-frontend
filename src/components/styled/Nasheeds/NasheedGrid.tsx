@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 import { Nasheed } from '../../../types/nasheed-store';
 import { Link } from 'react-router-dom';
-import { setCurrentPlaying } from '../../../redux/ducks/nasheedSlice';
-import { useDispatch } from 'react-redux';
+import { pauseCurrentPlaying, setCurrentPlaying } from '../../../redux/ducks/nasheedSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import StyledIcon from '../common/form/StyledIcon';
-import { BsPlayCircleFill } from 'react-icons/bs';
+import { BsPauseCircleFill, BsPlayCircleFill } from 'react-icons/bs';
+import { RootState } from '../../../redux/store';
 
 const NasheedGridDiv = styled.div`
     display: flex;
@@ -45,12 +46,19 @@ interface NasheedGridProps {
 
 const NasheedGrid = (props: NasheedGridProps) => {
     const dispatch = useDispatch();
+    const { currentPlaying, currentPlayingPaused } = useSelector((state: RootState) => state.nasheeds)
+    const isCurrentlyPlaying = currentPlaying !== null && currentPlaying.id === props.nasheed.id && !currentPlayingPaused
 
     const setCurrentPlayingNasheed = () => {
         if (props.nasheed) {
             dispatch(setCurrentPlaying(props.nasheed))
         }
     }
+
+    const pauseCurrentPlayingNasheed = () => {
+        dispatch(pauseCurrentPlaying(true))
+    }
+
     return (
         <NasheedGridDiv>
             <NasheedComponent>
@@ -58,8 +66,13 @@ const NasheedGrid = (props: NasheedGridProps) => {
                     <Link to={`/nasheeds/${props.nasheed.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                         <NasheedPoster src={props.nasheed.poster} alt={props.nasheed.name} />
                     </Link>
-                    <StyledIcon style={{ position: "absolute", bottom: "0", right: "0", cursor: "pointer" }}>
-                        <BsPlayCircleFill size={40} onClick={setCurrentPlayingNasheed} style={{ position: "absolute", right: "0rem", bottom: "0rem" }} />
+                    <StyledIcon style={{ position: "absolute", bottom: "0", right: "0", cursor: "pointer", height: "fit-content" }}>
+                        {
+                            isCurrentlyPlaying ?
+                                <BsPauseCircleFill size={40} onClick={pauseCurrentPlayingNasheed} style={{ position: "absolute", right: "0rem", bottom: "0rem" }} />
+                                :
+                                <BsPlayCircleFill size={40} onClick={setCurrentPlayingNasheed} style={{ position: "absolute", right: "0rem", bottom: "0rem" }} />
+                        }
                     </StyledIcon>
                 </div>
                 <NasheedContent>

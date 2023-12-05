@@ -8,6 +8,7 @@ import {
   fetchNasheedsSuccess,
   loadMoreNasheedsError,
   loadMoreNasheedsSuccess,
+  removeNasheedSuccess,
   removeSavedNasheedError,
   removeSavedNasheedSuccess,
   saveNasheedError,
@@ -19,6 +20,7 @@ import {
   requestMyNasheeds,
   requestNasheed,
   requestPageNasheeds,
+  requestRemoveNasheed,
   requestRemoveSavedNasheed,
   requestSaveNasheed,
   requestSavedNasheeds,
@@ -140,6 +142,15 @@ export function* removeSavedNasheedSaga(action: PayloadAction<number>) {
   try {
     yield call(requestRemoveSavedNasheed, action.payload);
     yield put(removeSavedNasheedSuccess(action.payload));
+  } catch (error) {
+    yield put(removeSavedNasheedError(error.response.data));
+  }
+}
+
+export function* removeNasheedSaga(action: PayloadAction<number>) {
+  try {
+    yield call(requestRemoveNasheed, action.payload);
+    yield put(removeNasheedSuccess(action.payload));
   } catch (error) {
     yield put(removeSavedNasheedError(error.response.data));
   }

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Container = styled.div`
-    background-color: ${props => props.theme.palette.primary.backgroundSecondary};
+    background-color: ${props => props.theme.palette.primary.backgroundPrimary};
     padding: 5rem;
     padding-left: 2rem;
     display: flex;

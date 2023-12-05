@@ -9,6 +9,7 @@ const initialState: UserState = {
   loading: false,
   passwordChangeFormErrors: {},
   updateFormErrors: {},
+  deleteAccountErrors: {},
 };
 
 export const userSlice = createSlice({
@@ -67,21 +68,21 @@ export const userSlice = createSlice({
       state.loading = false;
       state.passwordChangeFormErrors = action.payload;
     },
-    deleteUserRequest: (state) => {
+    deleteUserRequest: (state, action) => {
       state.loading = true;
-      state.error = null;
+      state.deleteAccountErrors = {};
     },
     deleteUserSuccess: (state) => {
       state.accessToken = null;
       state.user = null;
       state.accessToken = null;
       state.isLoggedIn = false;
-      state.error = null;
+      state.deleteAccountErrors = {};
       state.loading = false;
     },
     deleteUserError: (state, action) => {
       state.loading = false;
-      state.error = action.payload;
+      state.deleteAccountErrors = action.payload;
     },
     deleteUserImageRequest: (state) => {
       state.loading = true;

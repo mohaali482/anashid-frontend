@@ -30,8 +30,11 @@ export async function requestUserUpdate(formData: FormData): Promise<User> {
   return response.data;
 }
 
-export async function requestUserDelete() {
-  const response = await axios.delete("/auth/me");
+export async function requestUserDelete(formData: FormData) {
+  const response = await axios("/auth/me", {
+    data: formData,
+    method: "DELETE",
+  });
 
   return response.data;
 }
@@ -39,7 +42,7 @@ export async function requestUserDelete() {
 export async function requestChangePassword(formData: FormData): Promise<User> {
   const response = await axios("/auth/me/change-password", {
     data: formData,
-    method: "POST",
+    method: "DELETE",
   });
 
   return response.data;

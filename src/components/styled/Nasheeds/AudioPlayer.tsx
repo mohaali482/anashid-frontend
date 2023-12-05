@@ -4,7 +4,9 @@ import { IoClose } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import StyledIcon from '../common/form/StyledIcon';
-import { setCurrentPlaying } from '../../../redux/ducks/nasheedSlice';
+import { pauseCurrentPlaying, removeSavedNasheedRequest, saveNasheedRequest, setCurrentPlaying } from '../../../redux/ducks/nasheedSlice';
+import Button from '../pages/detail/button';
+import { AiFillSave, AiOutlineClose } from 'react-icons/ai';
 
 
 
@@ -73,6 +75,7 @@ const StyledAudioPlayerContainer = styled.div<{ open: boolean }>`
     z-index: 100;
     transition: all 0.5s ease;
     overflow-y: ${(props) => props.open ? "scroll" : ""};
+    cursor: pointer;
 `
 
 const StyledAudioPoster = styled.img`
@@ -125,9 +128,17 @@ const InternalAudioPlayer = (props: InternalAudioPlayerProps) => {
 const MemoizedAudioPlayer = memo(InternalAudioPlayer)
 
 const AudioPlayer = (props: AudioPlayerProps) => {
-    const { currentPlaying } = useSelector((state: RootState) => state.nasheeds)
+    const { currentPlaying, currentPlayingPaused } = useSelector((state: RootState) => state.nasheeds)
     const [loading, setLoading] = useState(false)
     const audioRef = useRef<HTMLAudioElement>(null)
+
+    useEffect(() => {
+        if (currentPlaying && currentPlayingPaused) {
+            audioRef.current?.pause()
+        } else if (currentPlaying && !currentPlayingPaused) {
+            audioRef.current?.play()
+        }
+    }, [currentPlaying, currentPlayingPaused])
 
     useEffect(() => {
         const loaded = () => {
@@ -165,6 +176,24 @@ const AudioPlayer = (props: AudioPlayerProps) => {
         document.body.style.overflow = 'auto';
     }
     useEffect(() => {
+        audioRef.current?.addEventListener('pause', (ev) => {
+            dispatch(pauseCurrentPlaying(true));
+        })
+        audioRef.current?.addEventListener('play', (ev) => {
+            dispatch(pauseCurrentPlaying(false));
+        })
+
+        return () => {
+            audioRef.current?.removeEventListener('pause', (ev) => {
+                dispatch(pauseCurrentPlaying(true));
+            })
+            audioRef.current?.removeEventListener('play', (ev) => {
+                dispatch(pauseCurrentPlaying(false));
+            })
+        }
+    }, [])
+
+    useEffect(() => {
         const keyboardEventListener = (ev: KeyboardEvent) => {
             if (audioRef.current) {
                 if (!(((ev.target as HTMLElement)).matches("body"))) return;
@@ -172,7 +201,7 @@ const AudioPlayer = (props: AudioPlayerProps) => {
                     case " ":
                     case "k":
                         if (audioRef.current.paused) {
-                            audioRef.current.play()
+                            audioRef.current.play();
                         } else if (audioRef.current) {
                             audioRef.current.pause();
                         }
@@ -211,20 +240,29 @@ const AudioPlayer = (props: AudioPlayerProps) => {
         }
 
     }, [currentPlaying])
+
+    const handleUnsaveNasheed = (id: number) => {
+        dispatch(removeSavedNasheedRequest(id))
+    }
+
+    const handleSaveNasheed = (id: number) => {
+        dispatch(saveNasheedRequest(id))
+    }
+
     return (
-        <StyledAudioPlayerContainer open={props.open} onClick={() => audioRef.current !== null ?? props.setDrawerOpen(true)}>
+        <StyledAudioPlayerContainer open={props.open}>
             {loading &&
                 <StyledLoadingContainer>
                     <p>Loading...</p>
                 </StyledLoadingContainer>
             }
             {props.open &&
-                <StyledCloseButton>
+                <StyledCloseButton onClick={() => props.setDrawerOpen(false)}>
                     <IoClose size={30} />
                 </StyledCloseButton>
             }
 
-            {!props.open && <StyledAudioPoster src={currentPlaying?.poster} />}
+            {!props.open && <StyledAudioPoster src={currentPlaying?.poster} onClick={() => !props.open && props.setDrawerOpen(true)} />}
             <Drawer open={props.open}>
                 {props.open &&
                     <center>
@@ -242,7 +280,7 @@ const AudioPlayer = (props: AudioPlayerProps) => {
                                 marginRight: "0.5rem",
                                 cursor: "pointer",
                             }}>
-                            <IoClose size={50} />
+                            {currentPlaying && <IoClose size={50} />}
                         </StyledIcon>
                     }
                 </AudioPlayerContainer>
@@ -253,7 +291,19 @@ const AudioPlayer = (props: AudioPlayerProps) => {
                             <AudioDrawerTitle>{currentPlaying?.name}</AudioDrawerTitle>
                         </div>
                         <Description>
-                            {currentPlaying?.description}
+                            <div>
+                                {currentPlaying?.description}
+                            </div>
+                            <div>
+                                {
+                                    currentPlaying &&
+                                    (currentPlaying.saved_id !== undefined ?
+                                        <Button onClick={() => handleUnsaveNasheed(currentPlaying.saved_id!)}><AiOutlineClose /> Remove from my playlist</Button>
+                                        :
+                                        <Button onClick={() => handleSaveNasheed(currentPlaying.id)}><AiFillSave /> Save to my playlist</Button>
+                                    )
+                                }
+                            </div>
                         </Description>
                     </>
                 }

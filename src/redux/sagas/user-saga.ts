@@ -77,19 +77,20 @@ export function* changePasswordSaga(action: PayloadAction<FormData>) {
   }
 }
 
-export function* deleteUserSaga() {
+export function* deleteUserSaga(action: PayloadAction<FormData>) {
   try {
-    yield call(requestUserDelete);
+    yield call(requestUserDelete, action.payload);
     yield put(deleteUserSuccess());
   } catch (error) {
-    yield put(deleteUserError(error.message));
+    yield put(deleteUserError(error.response.data));
   }
 }
 
 export function* deleteUserImageSaga() {
   try {
     yield call(requestUserImageDelete);
-    yield put(deleteUserImageSuccess);
+    const user: User = yield call(requestPersonalInfo);
+    yield put(deleteUserImageSuccess(user));
   } catch (error) {
     yield put(deleteUserImageError(error.message));
   }

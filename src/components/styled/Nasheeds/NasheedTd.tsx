@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import { Nasheed } from "../../../types/nasheed-store";
-import { BsDownload, BsPlayCircleFill, BsShareFill, BsThreeDots } from 'react-icons/bs'
+import { BsDownload, BsPauseCircleFill, BsPlayCircleFill, BsShareFill, BsThreeDots } from 'react-icons/bs'
 import NasheedTdActionsDropDown from "./NasheedTdActionsDropDown";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
-import { useDispatch } from "react-redux";
-import { removeSavedNasheedRequest, saveNasheedRequest, setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { pauseCurrentPlaying, removeSavedNasheedRequest, saveNasheedRequest, setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
 import StyledIcon from "../common/form/StyledIcon";
+import { RootState } from "../../../redux/store";
 
 const StyledTr = styled.tr`
     background-color:  ${(props) => props.theme.palette.primary.backgroundPrimary};
@@ -73,7 +74,8 @@ interface NasheedTdProps {
     nasheed: Nasheed,
     dropdownLinks: {
         link: string,
-        text: string
+        text: string,
+        action?: boolean;
     }[]
 }
 
@@ -81,12 +83,18 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0 });
+    const { currentPlaying, currentPlayingPaused } = useSelector((state: RootState) => state.nasheeds)
+    const isCurrentlyPlaying = currentPlaying !== null && currentPlaying.id === nasheed.id && !currentPlayingPaused
+
+
     const dropdown = useRef<HTMLDivElement>(null);
+
     const closeDropDown = (e: MouseEvent) => {
         if (dropdown.current && !dropdown.current.contains(e.target as Node)) {
             setOpen(false)
         }
     }
+
     const handleClick: React.MouseEventHandler = (event) => {
         setOpen(!open);
         const target = event.target as HTMLElement
@@ -98,7 +106,6 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
             setDropdownPosition({ top: rect.bottom + window.scrollY })
         }
     }
-
 
     const setCurrentPlayingNasheed = () => {
         if (nasheed) {
@@ -114,6 +121,10 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
         dispatch(saveNasheedRequest(id))
     }
 
+    const pauseCurrentPlayingNasheed = () => {
+        dispatch(pauseCurrentPlaying(true))
+    }
+
 
     useEffect(() => {
         document.addEventListener('mousedown', closeDropDown)
@@ -125,7 +136,12 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
         <StyledTr>
             <StyledTdPlayButton>
                 <StyledDivIcons>
-                    <BsPlayCircleFill size={40} onClick={setCurrentPlayingNasheed} />
+                    {
+                        isCurrentlyPlaying ?
+                            <BsPauseCircleFill size={40} onClick={pauseCurrentPlayingNasheed} />
+                            :
+                            <BsPlayCircleFill size={40} onClick={setCurrentPlayingNasheed} />
+                    }
                 </StyledDivIcons>
             </StyledTdPlayButton>
             <StyledTd>
@@ -136,7 +152,9 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
                 </StyledPosterContainer>
             </StyledTd>
             <StyledTitleTd>
-                {nasheed.name}
+                <Link to={`/nasheeds/${nasheed.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                    {nasheed.name}
+                </Link>
             </StyledTitleTd>
             <StyledTd>
                 {new Date(nasheed.created_at).toLocaleDateString("en-US", {
@@ -175,7 +193,7 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
                             <button onClick={handleClick} style={{ textDecoration: 'none', color: 'inherit', backgroundColor: 'inherit', border: 'none', cursor: "pointer" }}>
                                 <BsThreeDots size={20} />
                             </button>
-                            {open && <NasheedTdActionsDropDown nasheedId={nasheed.id} dropdownPosition={dropdownPosition} links={dropdownLinks} />}
+                            {open && <NasheedTdActionsDropDown setOpen={setOpen} nasheedId={nasheed.id} dropdownPosition={dropdownPosition} links={dropdownLinks} />}
                         </StyledDivIcons>}
                 </StyledDiv>
             </StyledTd>

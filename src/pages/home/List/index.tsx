@@ -61,17 +61,6 @@ const List = () => {
     const setFilter: React.ChangeEventHandler<HTMLInputElement> = (event: React.ChangeEvent<HTMLInputElement>) => {
         setQueryDebounce(event.target.value)
     }
-
-    const dropdownLinks = [
-        {
-            link: "/nasheeds/:id",
-            text: "Detail",
-        },
-        {
-            link: "/nasheeds/edit/:id",
-            text: "Edit",
-        },
-    ]
     return (
         <>
             <Filter onChangeHandler={setFilter} query={query} />
@@ -80,7 +69,7 @@ const List = () => {
             {!error && !loading && data && data.length === 0 && <p>No items found.</p>}
             {!loading && data && data.length > 0 &&
                 <>
-                    <NasheedsList dropdownLinks={dropdownLinks} data={data} />
+                    <NasheedsList dropdownLinks={[]} data={data} />
 
                     {next && <Button
                         style={{ marginRight: "auto", marginTop: "2rem", borderRadius: "25rem", opacity: loadMoreLoading ? 0.7 : 1 }}

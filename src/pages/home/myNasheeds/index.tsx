@@ -85,6 +85,7 @@ const MyNasheeds = () => {
         {
             link: "/nasheeds/delete/:id",
             text: "Delete",
+            action: true,
         },
     ]
     return (

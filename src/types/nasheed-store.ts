@@ -48,6 +48,7 @@ export interface NasheedsState {
   loadMoreLoading: boolean;
   query: string;
   currentPlaying: Nasheed | null;
+  currentPlayingPaused: boolean;
   message: string | null;
 }
 

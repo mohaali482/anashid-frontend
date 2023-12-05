@@ -10,6 +10,10 @@ const StyledDangerButton = styled.button`
     font-weight: bold;
     width: 100%;
     cursor: pointer;
+
+    ${props => props.disabled && `
+        opacity: 0.5;
+    `}
 `
 
 export default StyledDangerButton
