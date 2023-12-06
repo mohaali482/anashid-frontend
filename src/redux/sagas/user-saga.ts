@@ -9,7 +9,7 @@ import {
   deleteUserSuccess,
   loginError,
   loginSuccess,
-  setAccessToken,
+  logoutUserSuccess,
   updateUserError,
   updateUserSuccess,
 } from "../ducks/user-slice";
@@ -22,14 +22,16 @@ import {
   requestUserImageDelete,
   requestUserUpdate,
 } from "../../services/user";
-import { LoginResponse, User } from "../../types/user-store";
+import {
+  LoginResponse,
+  LoginResponseWithUser,
+  User,
+} from "../../types/user-store";
 
 export function* loginSaga(action: PayloadAction<FormData>) {
   try {
-    let data: LoginResponse = yield call(requestLogin, action.payload);
-    yield put(setAccessToken(data.access));
-    let user: User = yield call(requestPersonalInfo);
-    yield put(loginSuccess(user));
+    let data: LoginResponseWithUser = yield call(requestLogin, action.payload);
+    yield put(loginSuccess(data));
   } catch (error) {
     if (error.response !== undefined) {
       yield put(loginError(error.response.data));
@@ -42,6 +44,7 @@ export function* loginSaga(action: PayloadAction<FormData>) {
 export function* logoutSaga() {
   try {
     yield call(requestLogout);
+    yield put(logoutUserSuccess());
   } catch (error) {
     if (error.response !== undefined) {
       yield put(loginError(error.response.data));

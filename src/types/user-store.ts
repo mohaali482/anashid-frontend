@@ -2,10 +2,19 @@ export interface LoginResponse {
   access: string;
 }
 
+export interface LoginResponseWithUser {
+  access: string;
+  user: User;
+}
+
 export interface LoginErrorResponse {
   detail: string;
 }
 
+interface Permission {
+  name: string;
+  codename: string;
+}
 export interface User {
   id: number;
   username: string;
@@ -14,6 +23,8 @@ export interface User {
   email: string | null;
   image: string | null;
   date_joined: Date;
+  is_admin?: boolean;
+  permissions: Permission[];
 }
 
 export interface UserState {

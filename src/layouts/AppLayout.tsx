@@ -26,13 +26,15 @@ const links = [
         title: 'Add Nasheed',
         link: '/nasheeds/add',
         protect: true,
-        icon: <IoAddCircle />
+        icon: <IoAddCircle />,
+        codename: 'add_nasheed',
     },
     {
         title: 'My Nasheeds',
         link: '/my-nasheeds',
         protect: true,
-        icon: <BsMusicNoteList />
+        icon: <BsMusicNoteList />,
+        codename: 'add_nasheed',
     },
     {
         title: 'Saved Nasheeds',

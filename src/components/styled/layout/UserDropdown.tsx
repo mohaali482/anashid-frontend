@@ -58,14 +58,14 @@ const UserDropdown = ({ dropdownPosition }: { dropdownPosition: { top: number } 
         <StyledUserDropDownMenu style={{ ...dropdownPosition }}>
             <StyledUserDropdrownUl>
                 <li>
-                    <StyledUserDropdownButton onClick={handleClick}>
-                        Logout
-                    </StyledUserDropdownButton>
-                </li>
-                <li>
                     <StyledUserDropdownLink to={"/accounts/profile"}>
                         Profile
                     </StyledUserDropdownLink>
+                </li>
+                <li>
+                    <StyledUserDropdownButton onClick={handleClick}>
+                        Logout
+                    </StyledUserDropdownButton>
                 </li>
             </StyledUserDropdrownUl>
         </StyledUserDropDownMenu>

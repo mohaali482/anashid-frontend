@@ -5,6 +5,8 @@ import Detail from "../pages/nasheeds/Detail"
 import CommonLayout from "../layouts/CommonLayout"
 import PageNotFound from "../pages/common/404"
 import ProtectedRoute from "./ProtectedRoute"
+import { useSelector } from "react-redux"
+import { RootState } from "../redux/store"
 
 const NasheedsRouter = () => {
     return (

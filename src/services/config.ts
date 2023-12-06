@@ -38,7 +38,7 @@ async function requestRefreshToken() {
     const newToken = response.data.access;
     store.dispatch(setAccessToken(newToken));
     const personalInfo = await requestPersonalInfo();
-    store.dispatch(loginSuccess(personalInfo));
+    store.dispatch(loginSuccess({ user: personalInfo, access: newToken }));
 
     return response;
   } catch (error) {

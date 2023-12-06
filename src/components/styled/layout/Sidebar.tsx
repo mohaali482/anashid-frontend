@@ -91,8 +91,9 @@ const SidebarOverlay = styled.div`
     transition: all 0.3s ease-in-out;
 `
 
-const Sidebar = (props: { reference: React.RefObject<HTMLDivElement>, open: boolean, links: { title: string, link: string, protect: boolean, icon: JSX.Element }[] }) => {
-    const { isLoggedIn } = useSelector((state: RootState) => state.user)
+const Sidebar = (props: { reference: React.RefObject<HTMLDivElement>, open: boolean, links: { title: string, link: string, protect: boolean, icon: JSX.Element, codename?: string }[] }) => {
+    const { isLoggedIn, user } = useSelector((state: RootState) => state.user)
+
     return (
         <>
             {props.open ? <SidebarOverlay /> : null}
@@ -103,7 +104,7 @@ const Sidebar = (props: { reference: React.RefObject<HTMLDivElement>, open: bool
                 <StyledAsideContent>
                     <StyledAsideUl>
                         {props.links.map((link) => (
-                            (link.protect && isLoggedIn || !link.protect) &&
+                            (link.protect && isLoggedIn && (link.codename && user ? user.permissions.filter(p => p.codename === link.codename).length > 0 : true) || !link.protect) &&
                             <StyledLi key={link.title}>
                                 <StyledLink to={link.link}>
                                     {link.icon}

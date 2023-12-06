@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { UserState } from "../../types/user-store";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { LoginResponseWithUser, UserState } from "../../types/user-store";
 
 const initialState: UserState = {
   user: null,
@@ -19,8 +19,9 @@ export const userSlice = createSlice({
     loginRequest: (state, action) => {
       state.loading = true;
     },
-    loginSuccess: (state, action) => {
-      state.user = action.payload;
+    loginSuccess: (state, action: PayloadAction<LoginResponseWithUser>) => {
+      state.user = action.payload.user;
+      state.accessToken = action.payload.access;
       state.isLoggedIn = true;
       state.error = null;
       state.loading = false;
@@ -42,6 +43,9 @@ export const userSlice = createSlice({
       state.updateFormErrors = action.payload;
     },
     logoutUser: (state) => {
+      state.loading = true;
+    },
+    logoutUserSuccess: (state) => {
       state.accessToken = null;
       state.user = null;
       state.accessToken = null;
@@ -110,7 +114,9 @@ export const {
   loginSuccess,
   loginError,
   setAccessToken,
+
   logoutUser,
+  logoutUserSuccess,
 
   updateUserError,
   updateUserRequest,

@@ -1,15 +1,26 @@
-import { LoginResponse, User } from "../types/user-store";
+import { LoginResponseWithUser, User } from "../types/user-store";
 import axios from "./config";
 import Axios from "axios";
 
-export async function requestLogin(formData: FormData): Promise<LoginResponse> {
+export async function requestLogin(
+  formData: FormData
+): Promise<LoginResponseWithUser> {
   const response = await Axios(axios.defaults.baseURL + "/auth/token", {
     data: formData,
     method: "POST",
     withCredentials: true,
   });
 
-  return response.data;
+  const { data: user } = await Axios.get(axios.defaults.baseURL + "/auth/me", {
+    headers: {
+      Authorization: `Bearer ${response.data.access}`,
+    },
+  });
+
+  return {
+    access: response.data.access,
+    user,
+  };
 }
 
 export async function requestPersonalInfo(): Promise<User> {
