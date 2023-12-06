@@ -33,6 +33,7 @@ import {
   deleteUserRequest,
   loginRequest,
   logoutUser,
+  signupUser,
   updateUserRequest,
 } from "../ducks/user-slice";
 import {
@@ -41,6 +42,7 @@ import {
   deleteUserSaga,
   loginSaga,
   logoutSaga,
+  signupUserSaga,
   updateUserSaga,
 } from "./user-saga";
 
@@ -48,6 +50,9 @@ export default function* rootSaga() {
   yield all([
     takeLatest(loginRequest, loginSaga),
     takeLatest(logoutUser, logoutSaga),
+
+    takeLatest(signupUser, signupUserSaga),
+
     takeLatest(updateUserRequest, updateUserSaga),
     takeLatest(changePasswordRequest, changePasswordSaga),
     takeLatest(deleteUserRequest, deleteUserSaga),

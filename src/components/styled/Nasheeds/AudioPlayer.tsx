@@ -4,14 +4,12 @@ import { IoClose } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import StyledIcon from '../common/form/StyledIcon';
-import { pauseCurrentPlaying, removeSavedNasheedRequest, saveNasheedRequest, setCurrentPlaying } from '../../../redux/ducks/nasheedSlice';
-import Button from '../pages/detail/button';
-import { AiFillSave, AiOutlineClose } from 'react-icons/ai';
+import { pauseCurrentPlaying, setCurrentPlaying } from '../../../redux/ducks/nasheedSlice';
 
 
 
 const AudioDrawerPoster = styled.img`
-    width: 300px;
+    width: 100%;
     height: 300px;
     object-fit: contain;
     object-position: center;
@@ -38,12 +36,6 @@ const StyledCloseButton = styled.button`
     z-index: 1;
 `
 
-const Description = styled.div`
-    max-width: 40rem;
-    margin: 0 auto;
-    padding-bottom: 5rem;
-    padding-top: 5rem;
-`
 
 
 export const StyledAudioPlayer = styled.audio`
@@ -176,18 +168,18 @@ const AudioPlayer = (props: AudioPlayerProps) => {
         document.body.style.overflow = 'auto';
     }
     useEffect(() => {
-        audioRef.current?.addEventListener('pause', (ev) => {
+        audioRef.current?.addEventListener('pause', () => {
             dispatch(pauseCurrentPlaying(true));
         })
-        audioRef.current?.addEventListener('play', (ev) => {
+        audioRef.current?.addEventListener('play', () => {
             dispatch(pauseCurrentPlaying(false));
         })
 
         return () => {
-            audioRef.current?.removeEventListener('pause', (ev) => {
+            audioRef.current?.removeEventListener('pause', () => {
                 dispatch(pauseCurrentPlaying(true));
             })
-            audioRef.current?.removeEventListener('play', (ev) => {
+            audioRef.current?.removeEventListener('play', () => {
                 dispatch(pauseCurrentPlaying(false));
             })
         }
@@ -241,13 +233,7 @@ const AudioPlayer = (props: AudioPlayerProps) => {
 
     }, [currentPlaying])
 
-    const handleUnsaveNasheed = (id: number) => {
-        dispatch(removeSavedNasheedRequest(id))
-    }
 
-    const handleSaveNasheed = (id: number) => {
-        dispatch(saveNasheedRequest(id))
-    }
 
     return (
         <StyledAudioPlayerContainer open={props.open}>
@@ -290,21 +276,6 @@ const AudioPlayer = (props: AudioPlayerProps) => {
                         <div>
                             <AudioDrawerTitle>{currentPlaying?.name}</AudioDrawerTitle>
                         </div>
-                        <Description>
-                            <div>
-                                {currentPlaying?.description}
-                            </div>
-                            <div>
-                                {
-                                    currentPlaying &&
-                                    (currentPlaying.saved_id !== undefined ?
-                                        <Button onClick={() => handleUnsaveNasheed(currentPlaying.saved_id!)}><AiOutlineClose /> Remove from my playlist</Button>
-                                        :
-                                        <Button onClick={() => handleSaveNasheed(currentPlaying.id)}><AiFillSave /> Save to my playlist</Button>
-                                    )
-                                }
-                            </div>
-                        </Description>
                     </>
                 }
             </Drawer>

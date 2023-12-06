@@ -3,7 +3,7 @@ import { Nasheed } from "../../../types/nasheed-store";
 import { BsDownload, BsPauseCircleFill, BsPlayCircleFill, BsShareFill, BsThreeDots } from 'react-icons/bs'
 import NasheedTdActionsDropDown from "./NasheedTdActionsDropDown";
 import React, { useEffect, useId, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { pauseCurrentPlaying, removeSavedNasheedRequest, saveNasheedRequest, setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
@@ -82,8 +82,10 @@ interface NasheedTdProps {
 const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
+    const navigate = useNavigate();
     const [dropdownPosition, setDropdownPosition] = useState({ top: 0 });
     const { currentPlaying, currentPlayingPaused } = useSelector((state: RootState) => state.nasheeds)
+    const { isLoggedIn } = useSelector((state: RootState) => state.user)
     const isCurrentlyPlaying = currentPlaying !== null && currentPlaying.id === nasheed.id && !currentPlayingPaused
 
 
@@ -114,10 +116,12 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
     }
 
     const handleUnsaveNasheed = (id: number) => {
+        if (!isLoggedIn) return navigate('/auth/login')
         dispatch(removeSavedNasheedRequest(id))
     }
 
     const handleSaveNasheed = (id: number) => {
+        if (!isLoggedIn) return navigate('/auth/login')
         dispatch(saveNasheedRequest(id))
     }
 

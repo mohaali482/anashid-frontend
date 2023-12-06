@@ -57,7 +57,7 @@ const AppLayout = () => {
     const toggleSidebar = () => {
         setOpen(!open)
     }
-    const { loading, message } = useSelector((state: RootState) => state.nasheeds)
+    const { loading, message, currentPlaying } = useSelector((state: RootState) => state.nasheeds)
 
     const [drawerOpen, setDrawerOpen] = useState(false)
     const drawerRef = useRef<HTMLDivElement>(null)
@@ -113,7 +113,7 @@ const AppLayout = () => {
                 </Dialog>}
                 <Outlet />
                 <Footer />
-                <AudioPlayer setDrawerOpen={setDrawerOpen} open={drawerOpen} />
+                {currentPlaying && <AudioPlayer setDrawerOpen={setDrawerOpen} open={drawerOpen} />}
             </Container>
         </>
     )

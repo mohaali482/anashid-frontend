@@ -47,4 +47,13 @@ export interface UserState {
     username?: string[];
     password?: string[];
   };
+  signupFormErrors: {
+    username?: string[];
+    email?: string[];
+    password?: string[];
+    confirm_password?: string[];
+    image?: string[];
+    first_name?: string[];
+    last_name?: string[];
+  };
 }

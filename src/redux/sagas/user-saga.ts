@@ -10,6 +10,8 @@ import {
   loginError,
   loginSuccess,
   logoutUserSuccess,
+  signupUserError,
+  signupUserSuccess,
   updateUserError,
   updateUserSuccess,
 } from "../ducks/user-slice";
@@ -20,6 +22,7 @@ import {
   requestPersonalInfo,
   requestUserDelete,
   requestUserImageDelete,
+  requestUserSignup,
   requestUserUpdate,
 } from "../../services/user";
 import {
@@ -63,6 +66,19 @@ export function* updateUserSaga(action: PayloadAction<FormData>) {
       yield put(updateUserError(error.response.data));
     } else {
       yield put(updateUserError(error.message));
+    }
+  }
+}
+
+export function* signupUserSaga(action: PayloadAction<FormData>) {
+  try {
+    let data: User = yield call(requestUserSignup, action.payload);
+    yield put(signupUserSuccess());
+  } catch (error) {
+    if (error.response !== undefined) {
+      yield put(signupUserError(error.response.data));
+    } else {
+      yield put(signupUserError(error.message));
     }
   }
 }

@@ -64,3 +64,12 @@ export async function requestUserImageDelete() {
 
   return response.data;
 }
+
+export async function requestUserSignup(formData: FormData) {
+  const response = await axios("/auth/signup", {
+    data: formData,
+    method: "POST",
+  });
+
+  return response.data;
+}

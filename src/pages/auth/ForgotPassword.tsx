@@ -12,7 +12,7 @@ import StyledIcon from "../../components/styled/common/form/StyledIcon"
 const ForgotPassword = () => {
     return (
         <Container>
-            <FormContainer>
+            {/* <FormContainer>
                 <StyledIcon>
                     <BsFillKeyFill size={50} />
                 </StyledIcon>
@@ -25,7 +25,8 @@ const ForgotPassword = () => {
                         <StyledButton type="submit">Submit</StyledButton>
                     </StyledInputDiv>
                 </StyledForm>
-            </FormContainer>
+            </FormContainer> */}
+            Working on it.
         </Container >
     )
 }

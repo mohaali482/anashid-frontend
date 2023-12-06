@@ -16,6 +16,7 @@ import { useNavigate } from "react-router-dom"
 import Dialog from "../../components/styled/common/Dialog"
 import Spinner from "../../components/styled/common/Spinner"
 import toast from "react-hot-toast"
+import logo from "../../assets/images/logo3.png"
 
 const Login = () => {
     const dispatch = useDispatch()
@@ -55,29 +56,26 @@ const Login = () => {
     return (
         <Container>
             <FormContainer>
-                <StyledIcon>
-                    <FaUserAlt size={50} />
+                <StyledIcon >
+                    <img src={logo} alt="logo" style={{ height: "150px" }} />
                 </StyledIcon>
                 {loading && <Dialog onClose={null}>
                     <Spinner />
                 </Dialog>}
-                <StyledText>
-                    Welcome
-                </StyledText>
-                <StyledForm onSubmit={handleSubmit}>
+                <StyledForm onSubmit={handleSubmit} style={{ margin: "2rem 0" }}>
                     <StyledInputDiv>
                         <StyledInput required placeholder="Username" type="text" name="username" id="username" />
                     </StyledInputDiv>
                     <StyledInputDiv>
                         <StyledInput required placeholder="Password" type="password" name="password" id="password" />
                     </StyledInputDiv>
-                    <StyledInputDiv>
+                    <StyledInputDiv style={{ marginTop: "2rem" }}>
                         <StyledButton type="submit">Login</StyledButton>
                     </StyledInputDiv>
                 </StyledForm>
                 <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
                     <StyledText style={{ fontSize: "1rem" }}>Don't have an account? <StyledTag to={'/auth/signup'}>Create account.</StyledTag></StyledText>
-                    <StyledText style={{ fontSize: "1rem" }}><StyledTag to={'/auth/forgot-password'}>Forgot password?</StyledTag></StyledText>
+                    {/* <StyledText style={{ fontSize: "1rem" }}><StyledTag to={'/auth/forgot-password'}>Forgot password?</StyledTag></StyledText> */}
                 </div>
             </FormContainer>
         </Container >

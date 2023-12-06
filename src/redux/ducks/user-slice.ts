@@ -10,6 +10,7 @@ const initialState: UserState = {
   passwordChangeFormErrors: {},
   updateFormErrors: {},
   deleteAccountErrors: {},
+  signupFormErrors: {},
 };
 
 export const userSlice = createSlice({
@@ -60,6 +61,17 @@ export const userSlice = createSlice({
       state.isLoggedIn = false;
       state.loading = false;
     },
+    signupUser: (state, action) => {
+      state.loading = true;
+    },
+    signupUserSuccess: (state) => {
+      state.loading = false;
+      state.signupFormErrors = {};
+    },
+    signupUserError: (state, action) => {
+      state.loading = false;
+      state.signupFormErrors = action.payload;
+    },
     changePasswordRequest: (state, action) => {
       state.loading = true;
       state.passwordChangeFormErrors = {};
@@ -105,6 +117,7 @@ export const userSlice = createSlice({
       state.error = null;
       state.passwordChangeFormErrors = {};
       state.updateFormErrors = {};
+      state.signupFormErrors = {};
     },
   },
 });
@@ -117,6 +130,10 @@ export const {
 
   logoutUser,
   logoutUserSuccess,
+
+  signupUser,
+  signupUserError,
+  signupUserSuccess,
 
   updateUserError,
   updateUserRequest,

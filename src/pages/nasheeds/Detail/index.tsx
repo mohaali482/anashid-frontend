@@ -7,7 +7,7 @@ import FlexDiv from "../../../components/styled/pages/detail/header";
 import NasheedImage from "../../../components/styled/pages/detail/image";
 import Title from "../../../components/styled/pages/detail/title";
 import { FaPause, FaPlay } from "react-icons/fa";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchNasheed, pauseCurrentPlaying, removeSavedNasheedRequest, saveNasheedRequest, setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
@@ -15,11 +15,13 @@ import { RootState } from "../../../redux/store";
 
 const Detail = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const { id } = useParams()
 
     const nasheedId = Number(id)
 
     const { nasheed, currentPlaying, currentPlayingPaused } = useSelector((state: RootState) => state.nasheeds)
+    const { isLoggedIn } = useSelector((state: RootState) => state.user)
 
     const isCurrentlyPlaying = nasheed && currentPlaying !== null && currentPlaying.id === nasheed.id && !currentPlayingPaused
 
@@ -34,10 +36,12 @@ const Detail = () => {
     }
 
     const handleUnsaveNasheed = (id: number) => {
+        if (!isLoggedIn) return navigate('/auth/login')
         dispatch(removeSavedNasheedRequest(id))
     }
 
     const handleSaveNasheed = (id: number) => {
+        if (!isLoggedIn) return navigate('/auth/login')
         dispatch(saveNasheedRequest(id))
     }
 

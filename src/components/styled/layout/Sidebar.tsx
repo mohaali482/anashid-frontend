@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { RootState } from "../../../redux/store";
 import { FaLock } from "react-icons/fa";
+import logo from "../../../assets/images/logo.png"
 
 const StyledAside = styled.aside`
     position: fixed;
@@ -99,6 +100,7 @@ const Sidebar = (props: { reference: React.RefObject<HTMLDivElement>, open: bool
             {props.open ? <SidebarOverlay /> : null}
             <StyledAside ref={props.reference} style={props.open ? { width: '16rem' } : {}}>
                 <StyledAsideHeader>
+                    <img src={logo} alt="logo" style={{ width: '2rem', height: '2rem', paddingRight: "0.5rem" }} />
                     Anashid
                 </StyledAsideHeader>
                 <StyledAsideContent>
