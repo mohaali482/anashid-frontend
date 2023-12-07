@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const StyledInput = styled.input`
+const StyledInput = styled.input<{ error?: boolean }>`
     border-radius: ${(props) => props.theme.borderRadius};
     width: 100%;
     height: 35px;
@@ -11,7 +11,9 @@ const StyledInput = styled.input`
 
     &:focus{
         outline: none;
-    }    
+    }
+
+    ${props => props.error ? `border: solid ${props.theme.danger} 1px;` : null}
 `
 
 export default StyledInput;

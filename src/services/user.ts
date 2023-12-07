@@ -1,4 +1,8 @@
-import { LoginResponseWithUser, User } from "../types/user-store";
+import {
+  LoginResponseWithUser,
+  ResetPasswordParams,
+  User,
+} from "../types/user-store";
 import axios from "./config";
 import Axios from "axios";
 
@@ -70,6 +74,27 @@ export async function requestUserSignup(formData: FormData) {
     data: formData,
     method: "POST",
   });
+
+  return response.data;
+}
+
+export async function requestForgotPassword(formData: FormData) {
+  const response = await axios("/auth/forgot-password", {
+    data: formData,
+    method: "POST",
+  });
+
+  return response.data;
+}
+
+export async function requestResetPassword(action: ResetPasswordParams) {
+  const response = await axios(
+    `/auth/reset-password/${action.userId}/${action.token}`,
+    {
+      data: action.formData,
+      method: "POST",
+    }
+  );
 
   return response.data;
 }

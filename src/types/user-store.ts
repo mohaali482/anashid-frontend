@@ -7,6 +7,12 @@ export interface LoginResponseWithUser {
   user: User;
 }
 
+export interface ResetPasswordParams {
+  userId: string;
+  token: string;
+  formData: FormData;
+}
+
 export interface LoginErrorResponse {
   detail: string;
 }
@@ -55,5 +61,10 @@ export interface UserState {
     image?: string[];
     first_name?: string[];
     last_name?: string[];
+  };
+  resetFormErrors: {
+    detail?: string;
+    new_password?: string[];
+    confirm_password?: string[];
   };
 }

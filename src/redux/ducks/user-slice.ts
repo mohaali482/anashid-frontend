@@ -1,5 +1,9 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { LoginResponseWithUser, UserState } from "../../types/user-store";
+import {
+  LoginResponseWithUser,
+  ResetPasswordParams,
+  UserState,
+} from "../../types/user-store";
 
 const initialState: UserState = {
   user: null,
@@ -11,6 +15,7 @@ const initialState: UserState = {
   updateFormErrors: {},
   deleteAccountErrors: {},
   signupFormErrors: {},
+  resetFormErrors: {},
 };
 
 export const userSlice = createSlice({
@@ -119,6 +124,30 @@ export const userSlice = createSlice({
       state.updateFormErrors = {};
       state.signupFormErrors = {};
     },
+    forgotPasswordRequest: (state, action: PayloadAction<FormData>) => {
+      state.loading = true;
+    },
+    forgotPasswordSuccess: (state) => {
+      state.loading = false;
+    },
+    forgotPasswordError: (state, action) => {
+      state.loading = false;
+      state.error = action.payload;
+    },
+    resetPasswordRequest: (
+      state,
+      action: PayloadAction<ResetPasswordParams>
+    ) => {
+      state.loading = true;
+    },
+    resetPasswordSuccess: (state) => {
+      state.loading = false;
+      state.resetFormErrors = {};
+    },
+    resetPasswordError: (state, action) => {
+      state.loading = false;
+      state.resetFormErrors = action.payload;
+    },
   },
 });
 
@@ -152,6 +181,13 @@ export const {
   deleteUserImageSuccess,
 
   resetErrors,
+
+  forgotPasswordRequest,
+  forgotPasswordError,
+  forgotPasswordSuccess,
+  resetPasswordRequest,
+  resetPasswordError,
+  resetPasswordSuccess,
 } = userSlice.actions;
 
 export default userSlice.reducer;
