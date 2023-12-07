@@ -10,8 +10,12 @@ import { FaPause, FaPlay } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchNasheed, pauseCurrentPlaying, removeSavedNasheedRequest, saveNasheedRequest, setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
+import { fetchNasheed, pauseCurrentPlaying, pushToPlayerQueue, removeSavedNasheedRequest, saveNasheedRequest, setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
 import { RootState } from "../../../redux/store";
+import { StyledDivIcons } from "../../../components/styled/Nasheeds/NasheedTd";
+import StyledIcon from "../../../components/styled/common/form/StyledIcon";
+import { MdQueueMusic } from "react-icons/md";
+import { Nasheed } from "../../../types/nasheed-store";
 
 const Detail = () => {
     const dispatch = useDispatch()
@@ -45,6 +49,13 @@ const Detail = () => {
         dispatch(saveNasheedRequest(id))
     }
 
+
+    const handleAddToQueue = (nasheed: Nasheed | null) => {
+        if (nasheed !== null) {
+            dispatch(pushToPlayerQueue(nasheed))
+        }
+    }
+
     if (nasheed) {
         document.title = "Nasheed - " + nasheed.name
     }
@@ -63,6 +74,12 @@ const Detail = () => {
                     :
                     <Button onClick={setCurrentPlayingNasheed} disabled={!nasheed?.audio}><FaPlay /> Play</Button>
                 }
+                <StyledDivIcons onClick={() => handleAddToQueue(nasheed)}>
+                    <StyledIcon>
+                        Add to Queue
+                        <MdQueueMusic size={20} />
+                    </StyledIcon>
+                </StyledDivIcons>
             </FlexDiv>
             <Description>
                 <Title>About</Title>

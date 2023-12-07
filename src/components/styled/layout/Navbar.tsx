@@ -8,6 +8,7 @@ import ToggleContext from "../../../toggler";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 import { Link } from "react-router-dom";
+import Title from "../pages/detail/title";
 
 const StyledNav = styled.nav`
     position: fixed;
@@ -72,7 +73,9 @@ const NavBar = ({ handleClick, title }: { handleClick: any, title: string }) => 
                 <SidebarButton onClick={handleClick}>
                     <HiMenuAlt2 size={25} />
                 </SidebarButton>
-                {title}
+                <Title>
+                    {title}
+                </Title>
                 <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
                     <StyledIcon onClick={() => updateTheme(theme === "dark" ? "light" : "dark")} style={{ cursor: "pointer" }}>
                         {theme === "light" ? <FaMoon /> : <FaSun />}

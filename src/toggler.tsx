@@ -27,9 +27,17 @@ export const ToggleProvider = ({ children }: { children: React.ReactNode }) => {
         if (theme === "dark") {
             document.body.style.backgroundColor = "black";
             document.body.style.color = "white";
+            const rootDiv = document.getElementById("root")
+            if (rootDiv) {
+                rootDiv.style.backgroundColor = "black";
+            }
         } else {
             document.body.style.backgroundColor = "white";
             document.body.style.color = "black";
+            const rootDiv = document.getElementById("root")
+            if (rootDiv) {
+                rootDiv.style.backgroundColor = "white";
+            }
         }
     }, [theme])
 

@@ -72,7 +72,7 @@ export async function requestUpdateNasheed(payload: NasheedUpdatePayload) {
 }
 
 export async function requestNasheed(id: number): Promise<Response> {
-  return await axios(`/nasheed/nasheeds/${id}`);
+  return await axios(`nasheed/nasheeds/${id}/`);
 }
 
 export async function requestSaveNasheed(id: number): Promise<Nasheed> {

@@ -20,6 +20,7 @@ const initialState: NasheedsState = {
   loadMoreLoading: false,
   query: "",
   currentPlaying: null,
+  currentPlayingQueue: [],
   currentPlayingPaused: false,
   message: null,
 };
@@ -141,8 +142,30 @@ export const nasheedsSlice = createSlice({
       state.query = action.payload;
     },
     setCurrentPlaying: (state, action: PayloadAction<Nasheed | null>) => {
+      if (action.payload === null) {
+        state.currentPlayingQueue = [];
+      }
       state.currentPlaying = action.payload;
       state.currentPlayingPaused = false;
+    },
+    pushToPlayerQueue: (state, action: PayloadAction<Nasheed>) => {
+      if (state.currentPlaying === null) {
+        state.currentPlaying = action.payload;
+      } else {
+        state.currentPlayingQueue.push(action.payload);
+        state.message = "Added successfully";
+      }
+    },
+    popFromPlayerQueue: (state) => {
+      state.currentPlayingQueue.shift();
+    },
+    removeFromPlayerQueue: (state, action: PayloadAction<number>) => {
+      state.currentPlayingQueue = state.currentPlayingQueue.filter(
+        (_, index) => index !== action.payload
+      );
+    },
+    clearPlayerQueue: (state) => {
+      state.currentPlayingQueue = [];
     },
     pauseCurrentPlaying: (state, action: PayloadAction<boolean>) => {
       state.currentPlayingPaused = action.payload;
@@ -238,6 +261,10 @@ export const {
   setFilterQuery,
   setCurrentPlaying,
   pauseCurrentPlaying,
+  popFromPlayerQueue,
+  pushToPlayerQueue,
+  removeFromPlayerQueue,
+  clearPlayerQueue,
 
   saveNasheedRequest,
   saveNasheedSuccess,

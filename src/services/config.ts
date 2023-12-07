@@ -18,7 +18,7 @@ export const injectStore = (_store: ToolkitStore<RootState>) => {
 
 const axios = setupCache(
   Axios.create({
-    baseURL: "http://127.0.0.1:8000",
+    baseURL: "http://" + window.location.hostname + "/api",
   }),
   {
     cacheTakeover: false,

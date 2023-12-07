@@ -4,7 +4,13 @@ import { IoClose } from 'react-icons/io5';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../redux/store';
 import StyledIcon from '../common/form/StyledIcon';
-import { pauseCurrentPlaying, setCurrentPlaying } from '../../../redux/ducks/nasheedSlice';
+import { clearPlayerQueue, pauseCurrentPlaying, popFromPlayerQueue, removeFromPlayerQueue, setCurrentPlaying } from '../../../redux/ducks/nasheedSlice';
+import { StyledDivIcons, StyledPoster, StyledPosterContainer, formatDuration } from './NasheedTd';
+import { MdCancel } from 'react-icons/md';
+import StyledHr from '../pages/account/StyledHr';
+import Button from '../pages/detail/button';
+import { BsPlay, BsPlayFill } from 'react-icons/bs';
+import Title from '../pages/detail/title';
 
 
 
@@ -63,11 +69,18 @@ const StyledAudioPlayerContainer = styled.div<{ open: boolean }>`
     left: ${props => props.open ? "0" : ""};
     right: ${props => props.open ? "0" : ""};
     border-radius: ${(props) => props.theme.borderRadius};
-    margin-right: 1.58rem;
     z-index: 100;
     transition: all 0.5s ease;
     overflow-y: ${(props) => props.open ? "scroll" : ""};
-    cursor: pointer;
+    overflow-x: ${(props) => props.open ? "hidden" : ""};
+    cursor: ${(props) => props.open ? "" : "pointer"};
+
+    @media(min-width: 768px) {
+        margin-right: 1.58rem;
+    }
+    @media(max-width: 768px) {
+        margin-right: 0.5rem;
+    }
 `
 
 const StyledAudioPoster = styled.img`
@@ -98,6 +111,31 @@ const AudioPlayerContainer = styled.div`
     justify-content: center;
 `
 
+const AudioPlayerQueue = styled.div`
+    width: 70%;
+    height: 300px;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 1rem;
+    gap: 1rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    color: ${(props) => props.theme.palette.primary.textPrimary};
+`
+
+const AudioPlayerQueueItem = styled.div`
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+`
+
 interface AudioPlayerProps {
     open: boolean;
     setDrawerOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -120,9 +158,28 @@ const InternalAudioPlayer = (props: InternalAudioPlayerProps) => {
 const MemoizedAudioPlayer = memo(InternalAudioPlayer)
 
 const AudioPlayer = (props: AudioPlayerProps) => {
-    const { currentPlaying, currentPlayingPaused } = useSelector((state: RootState) => state.nasheeds)
+    const { currentPlaying, currentPlayingPaused, currentPlayingQueue } = useSelector((state: RootState) => state.nasheeds)
     const [loading, setLoading] = useState(false)
     const audioRef = useRef<HTMLAudioElement>(null)
+    const dispatch = useDispatch();
+
+    const handleRemoveAudio = () => {
+        dispatch(setCurrentPlaying(null))
+    }
+
+    const handleRemoveFromQueue = (index: number) => {
+        dispatch(removeFromPlayerQueue(index))
+    }
+
+    const handlePlayFromQueue = (index: number) => {
+        const nasheed = currentPlayingQueue[index]
+        dispatch(setCurrentPlaying(nasheed))
+    }
+
+    const handleClearList = () => {
+        dispatch(clearPlayerQueue())
+    }
+
 
     useEffect(() => {
         if (currentPlaying && currentPlayingPaused) {
@@ -157,10 +214,9 @@ const AudioPlayer = (props: AudioPlayerProps) => {
         }
     }, [currentPlaying])
 
-    const dispatch = useDispatch();
-    const handleRemoveAudio = () => {
-        dispatch(setCurrentPlaying(null))
-    }
+
+
+
     if (props.open) {
         document.body.style.overflow = 'hidden';
         document.title = "Nasheeds - " + currentPlaying?.name
@@ -168,22 +224,36 @@ const AudioPlayer = (props: AudioPlayerProps) => {
         document.body.style.overflow = 'auto';
     }
     useEffect(() => {
-        audioRef.current?.addEventListener('pause', () => {
-            dispatch(pauseCurrentPlaying(true));
-        })
-        audioRef.current?.addEventListener('play', () => {
+        const playHandler = () => {
             dispatch(pauseCurrentPlaying(false));
-        })
+        }
+        const pauseHandler = () => {
+            dispatch(pauseCurrentPlaying(true));
+        }
+
+        audioRef.current?.addEventListener('pause', pauseHandler)
+        audioRef.current?.addEventListener('play', playHandler)
 
         return () => {
-            audioRef.current?.removeEventListener('pause', () => {
-                dispatch(pauseCurrentPlaying(true));
-            })
-            audioRef.current?.removeEventListener('play', () => {
-                dispatch(pauseCurrentPlaying(false));
-            })
+            audioRef.current?.removeEventListener('pause', pauseHandler)
+            audioRef.current?.removeEventListener('play', playHandler)
         }
     }, [])
+
+    useEffect(() => {
+        const endedHandler = () => {
+            if (currentPlayingQueue.length > 0) {
+                const nasheed = currentPlayingQueue[0];
+                dispatch(setCurrentPlaying(nasheed))
+                dispatch(popFromPlayerQueue())
+            }
+        }
+        audioRef.current?.addEventListener('ended', endedHandler)
+
+        return () => {
+            audioRef.current?.removeEventListener('ended', endedHandler)
+        }
+    }, [currentPlayingQueue])
 
     useEffect(() => {
         const keyboardEventListener = (ev: KeyboardEvent) => {
@@ -275,6 +345,43 @@ const AudioPlayer = (props: AudioPlayerProps) => {
                     <>
                         <div>
                             <AudioDrawerTitle>{currentPlaying?.name}</AudioDrawerTitle>
+                        </div>
+                        <StyledHr />
+                        <div>
+                            <div style={{ display: "flex", margin: "0 auto", justifyContent: "space-evenly" }}>
+                                <div>
+                                    <Title>Queue</Title>
+                                </div>
+                                <div style={{ display: "flex", alignItems: "center" }}>
+                                    <Button onClick={handleClearList}>Clear List</Button>
+                                </div>
+                            </div>
+                            <AudioPlayerQueue>
+                                {
+                                    currentPlayingQueue?.length > 0 ?
+                                        currentPlayingQueue.map((nasheed, index) => (
+                                            <AudioPlayerQueueItem key={index}>
+                                                <StyledPosterContainer style={{ width: "20%" }}>
+                                                    <StyledPoster style={{ width: "100%" }} src={nasheed.poster} />
+                                                </StyledPosterContainer>
+                                                <div>{nasheed.name}</div>
+                                                <div>{formatDuration(nasheed.duration)}</div>
+                                                <div>
+                                                    <StyledDivIcons onClick={() => handleRemoveFromQueue(index)}>
+                                                        <MdCancel size={25} />
+                                                    </StyledDivIcons>
+                                                </div>
+                                                <div>
+                                                    <StyledDivIcons onClick={() => handlePlayFromQueue(index)}>
+                                                        <BsPlayFill size={30} />
+                                                    </StyledDivIcons>
+                                                </div>
+                                            </AudioPlayerQueueItem>
+                                        ))
+                                        :
+                                        <div>No items</div>
+                                }
+                            </AudioPlayerQueue>
                         </div>
                     </>
                 }

@@ -4,9 +4,9 @@ import { BsDownload, BsPauseCircleFill, BsPlayCircleFill, BsShareFill, BsThreeDo
 import NasheedTdActionsDropDown from "./NasheedTdActionsDropDown";
 import React, { useEffect, useId, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
+import { MdFavorite, MdFavoriteBorder, MdQueueMusic } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
-import { pauseCurrentPlaying, removeSavedNasheedRequest, saveNasheedRequest, setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
+import { pauseCurrentPlaying, pushToPlayerQueue, removeSavedNasheedRequest, saveNasheedRequest, setCurrentPlaying } from "../../../redux/ducks/nasheedSlice";
 import StyledIcon from "../common/form/StyledIcon";
 import { RootState } from "../../../redux/store";
 
@@ -29,14 +29,14 @@ const StyledTdPlayButton = styled(StyledTd)`
     height: 2rem;
 `
 
-const StyledPosterContainer = styled.div`
+export const StyledPosterContainer = styled.div`
     display: flex;
     justify-content: center;
     border-radius: ${(props) => props.theme.borderRadius};
     background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
 `
 
-const StyledPoster = styled.img`
+export const StyledPoster = styled.img`
     border-radius: ${(props) => props.theme.borderRadius};
     height: 6rem;
     width: 6rem;
@@ -60,7 +60,7 @@ const StyledDiv = styled.div`
     }
 `
 
-function formatDuration(seconds: number) {
+export function formatDuration(seconds: number) {
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = seconds % 60;
 
@@ -118,6 +118,10 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
     const handleUnsaveNasheed = (id: number) => {
         if (!isLoggedIn) return navigate('/auth/login')
         dispatch(removeSavedNasheedRequest(id))
+    }
+
+    const handleAddToQueue = (nasheed: Nasheed) => {
+        dispatch(pushToPlayerQueue(nasheed))
     }
 
     const handleSaveNasheed = (id: number) => {
@@ -185,7 +189,11 @@ const NasheedTd = ({ nasheed, dropdownLinks }: NasheedTdProps) => {
                                     <MdFavoriteBorder size={20} onClick={() => handleSaveNasheed(nasheed.id)} />
                             }
                         </StyledIcon>
-
+                    </StyledDivIcons>
+                    <StyledDivIcons>
+                        <StyledIcon>
+                            <MdQueueMusic size={20} onClick={() => handleAddToQueue(nasheed)} />
+                        </StyledIcon>
                     </StyledDivIcons>
                     <StyledDivIcons>
                         <a href={nasheed.audio} download style={{ textDecoration: 'none', color: 'inherit' }}>

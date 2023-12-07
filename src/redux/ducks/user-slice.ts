@@ -120,6 +120,7 @@ export const userSlice = createSlice({
     },
     resetErrors: (state) => {
       state.error = null;
+      state.loading = false;
       state.passwordChangeFormErrors = {};
       state.updateFormErrors = {};
       state.signupFormErrors = {};
