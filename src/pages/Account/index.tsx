@@ -17,11 +17,16 @@ import Dialog from "../../components/styled/common/Dialog";
 import Spinner from "../../components/styled/common/Spinner";
 import InputError from "../../components/styled/pages/account/InputError";
 import StyledFileUpload from "../../components/styled/common/form/StyledFileUpload";
-import { FiUpload } from "react-icons/fi";
+import { FiChevronRight, FiUpload, FiUser } from "react-icons/fi";
 import StyledLink from "../../components/styled/pages/account/StyledLink";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import Modal from "../../components/styled/common/Alert";
+import StyledDiv from "../../components/styled/pages/account/Div";
+import StyledIcon from "../../components/styled/common/form/StyledIcon";
+import logo from "../../../public/logo.png"
+import StyledDiv2 from "../../components/styled/pages/account/Div2";
+import StyledDiv3 from "../../components/styled/pages/account/Div3";
 
 const Account = () => {
     const dispatch = useDispatch();
@@ -154,7 +159,7 @@ const Account = () => {
             {loading && <Dialog onClose={null}>
                 <Spinner />
             </Dialog>}
-            <Container>
+            <Container style={{ paddingRight: "2rem", alignItems: "center" }}>
                 <div style={{ padding: "1.5rem", width: "100%" }}>
                     <h1>Profile Picture</h1>
                     {updateFormErrors?.image &&
@@ -162,64 +167,72 @@ const Account = () => {
                             <InputError key={index}>{err}</InputError>
                         ))
                     }
-                    <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", height: "120px" }}>
+                    <StyledDiv>
                         <UserImage src={profile ? profilePreview : user?.image ? user.image : profile_default} alt={user?.first_name + " " + user?.last_name + " profile picture"} />
                         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "space-between", marginLeft: "1rem", height: "100%", width: "100%" }}>
-                            <form onSubmit={handleUpdateProfilePicture} ref={formRef} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", width: "100%" }}>
+                            <form onSubmit={handleUpdateProfilePicture} ref={formRef} style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1rem", width: "100%", marginBottom: "1rem" }}>
                                 <StyledFileUpload style={{ display: "flex", alignItems: "center", height: "50px", padding: "0" }}>
                                     <FiUpload style={{ padding: "1rem", paddingRight: '0.5rem' }} />
-                                    <span>Profile Upload</span>
+                                    <span style={{ paddingRight: '1rem' }}>Change</span>
                                     <input type="file" accept="image/*" name="image" id="image" onChange={onSelectFile} style={{ display: "none" }} />
                                 </StyledFileUpload>
-                                <StyledButton style={{ width: "100%" }} type="submit">Update</StyledButton>
+                                <StyledButton style={{ width: "100%" }} type="submit">Save</StyledButton>
                             </form>
                             <StyledDangerButton onClick={() => setModalOpen2(true)} disabled={user?.image ? false : true}>
                                 Delete Profile Picture
                             </StyledDangerButton>
                         </div>
+                    </StyledDiv>
+                </div>
+                <StyledHr />
+                <StyledDiv2 style={{ width: "100%" }}>
+                    <FormContainer style={{ justifyContent: "flex-start", margin: "0", width: "100%" }}>
+                        <StyledForm style={{ alignItems: "flex-start", margin: "0" }} onSubmit={handleSubmit}>
+                            <h2>Account Details</h2>
+                            <InputDiv>
+                                <Input required placeholder="Username" type="text" name="username" id="username" defaultValue={user?.username} error={updateFormErrors?.username ? true : false} />
+                                {updateFormErrors?.username &&
+                                    updateFormErrors.username.map(err => (
+                                        <InputError>{err}</InputError>
+                                    ))
+                                }
+                            </InputDiv>
+                            <InputDiv>
+                                <Input required placeholder="Email" type="email" name="email" id="email" defaultValue={user?.email ? user.email : ""} error={updateFormErrors?.email ? true : false} />
+                                {updateFormErrors?.email &&
+                                    updateFormErrors.email.map(err => (
+                                        <InputError>{err}</InputError>
+                                    ))
+                                }
+                            </InputDiv>
+                            <InputDiv>
+                                <Input required placeholder="Firstname" type="text" name="first_name" id="first_name" defaultValue={user?.first_name ? user.first_name : ""} error={false} />
+                            </InputDiv>
+                            <InputDiv>
+                                <Input required placeholder="Lastname" type="text" name="last_name" id="last_name" defaultValue={user?.last_name ? user.last_name : ""} error={false} />
+                            </InputDiv>
+                            <InputDiv>
+                                <StyledButton style={{ width: "100%" }} type="submit">Update</StyledButton>
+                            </InputDiv>
+                        </StyledForm>
+                    </FormContainer>
+                    <div style={{ width: "50%" }}>
+                        <img src={logo} style={{ width: "100%", borderRadius: "10px" }} alt="I don't know what to put here. If you're reading this hello :)." />
                     </div>
-                </div>
+                </StyledDiv2>
                 <StyledHr />
-                <FormContainer style={{ justifyContent: "flex-start", margin: "0", maxWidth: "75%", paddingRight: "5rem" }}>
-                    <StyledForm style={{ alignItems: "flex-start", margin: "0" }} onSubmit={handleSubmit}>
-                        <h2>Account Details</h2>
-                        <InputDiv>
-                            <Input required placeholder="Username" type="text" name="username" id="username" defaultValue={user?.username} error={updateFormErrors?.username ? true : false} />
-                            {updateFormErrors?.username &&
-                                updateFormErrors.username.map(err => (
-                                    <InputError>{err}</InputError>
-                                ))
-                            }
-                        </InputDiv>
-                        <InputDiv>
-                            <Input required placeholder="Email" type="email" name="email" id="email" defaultValue={user?.email ? user.email : ""} error={updateFormErrors?.email ? true : false} />
-                            {updateFormErrors?.email &&
-                                updateFormErrors.email.map(err => (
-                                    <InputError>{err}</InputError>
-                                ))
-                            }
-                        </InputDiv>
-                        <InputDiv>
-                            <Input required placeholder="Firstname" type="text" name="first_name" id="first_name" defaultValue={user?.first_name ? user.first_name : ""} error={false} />
-                        </InputDiv>
-                        <InputDiv>
-                            <Input required placeholder="Lastname" type="text" name="last_name" id="last_name" defaultValue={user?.last_name ? user.last_name : ""} error={false} />
-                        </InputDiv>
-                        <InputDiv>
-                            <StyledButton type="submit">Update</StyledButton>
-                        </InputDiv>
-                    </StyledForm>
-                </FormContainer >
-                <div style={{ display: "flex", alignItems: "center", gap: "2rem", marginBottom: "2rem", marginTop: "2rem" }}>
-                    <h2>Password</h2>
-                    <Link to={"/accounts/profile/change-password"}>
-                        <StyledLink>
-                            Change Password
-                        </StyledLink>
-                    </Link>
-                </div>
-                <StyledHr />
-                <StyledDangerButton onClick={() => setModalOpen(true)}>Delete Account</StyledDangerButton>
+                <StyledDiv3>
+                    <div>
+                        <Link to={"/accounts/profile/change-password"}>
+                            <StyledLink>
+                                Change Password
+                            </StyledLink>
+                        </Link>
+                    </div>
+                    <div>
+                        <StyledDangerButton onClick={() => setModalOpen(true)}>Delete Account</StyledDangerButton>
+                    </div>
+                </StyledDiv3>
             </Container >
         </>
     )
