@@ -28,6 +28,6 @@ body,
   overflow: auto;
 }
 
-body > #root > div {
+body > #root {
   height: 100vh;
 }
