@@ -13,7 +13,7 @@ export async function requestListNasheeds(
   query: string
 ): Promise<Response> {
   return (
-    await axios(`/nasheed/nasheeds/?limit=${limit}&name__contains=${query}`)
+    await axios(`/nasheed/nasheeds/?limit=${limit}&name__icontains=${query}`)
   ).data;
 }
 
@@ -23,7 +23,7 @@ export async function requestMyNasheeds(
 ): Promise<Response> {
   return (
     await axios(
-      `/nasheed/my-nasheeds/?limit=${limit}&name__contains=${query}`,
+      `/nasheed/my-nasheeds/?limit=${limit}&name__icontains=${query}`,
       { cache: false }
     )
   ).data;
@@ -35,7 +35,7 @@ export async function requestSavedNasheeds(
 ): Promise<Response> {
   return (
     await axios(
-      `/nasheed/saved-nasheeds/?limit=${limit}&name__contains=${query}`,
+      `/nasheed/saved-nasheeds/?limit=${limit}&name__icontains=${query}`,
       { cache: false }
     )
   ).data;
