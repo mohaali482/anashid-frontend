@@ -9,7 +9,7 @@ import Axios from "axios";
 export async function requestLogin(
   formData: FormData
 ): Promise<LoginResponseWithUser> {
-  const response = await Axios(axios.defaults.baseURL + "/auth/token", {
+  const response = await Axios(axios.defaults.baseURL + "/auth/token/", {
     data: formData,
     method: "POST",
     withCredentials: true,
@@ -70,7 +70,7 @@ export async function requestUserImageDelete() {
 }
 
 export async function requestUserSignup(formData: FormData) {
-  const response = await axios("/auth/signup", {
+  const response = await axios("/auth/signup/", {
     data: formData,
     method: "POST",
   });
@@ -79,7 +79,7 @@ export async function requestUserSignup(formData: FormData) {
 }
 
 export async function requestForgotPassword(formData: FormData) {
-  const response = await axios("/auth/forgot-password", {
+  const response = await axios("/auth/forgot-password/", {
     data: formData,
     method: "POST",
   });
@@ -89,7 +89,7 @@ export async function requestForgotPassword(formData: FormData) {
 
 export async function requestResetPassword(action: ResetPasswordParams) {
   const response = await axios(
-    `/auth/reset-password/${action.userId}/${action.token}`,
+    `/auth/reset-password/${action.userId}/${action.token}/`,
     {
       data: action.formData,
       method: "POST",
