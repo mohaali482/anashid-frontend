@@ -17,14 +17,13 @@ import Dialog from "../../components/styled/common/Dialog";
 import Spinner from "../../components/styled/common/Spinner";
 import InputError from "../../components/styled/pages/account/InputError";
 import StyledFileUpload from "../../components/styled/common/form/StyledFileUpload";
-import { FiChevronRight, FiUpload, FiUser } from "react-icons/fi";
+import { FiUpload } from "react-icons/fi";
 import StyledLink from "../../components/styled/pages/account/StyledLink";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import Modal from "../../components/styled/common/Alert";
 import StyledDiv from "../../components/styled/pages/account/Div";
-import StyledIcon from "../../components/styled/common/form/StyledIcon";
-import logo from "../../../public/logo.png"
+import logo from "../../assets/images/logo.png";
 import StyledDiv2 from "../../components/styled/pages/account/Div2";
 import StyledDiv3 from "../../components/styled/pages/account/Div3";
 
