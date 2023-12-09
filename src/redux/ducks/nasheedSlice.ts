@@ -54,6 +54,7 @@ export const nasheedsSlice = createSlice({
       state.items = state.items.filter(
         (nasheed: Nasheed) => nasheed.id !== action.payload
       );
+      state.message = "Removed successfully";
     },
     updateNasheed: (state, action: PayloadAction<NasheedUpdatePayload>) => {},
     updateNasheedSuccess: (state, action: PayloadAction<Nasheed>) => {
