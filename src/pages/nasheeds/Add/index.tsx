@@ -79,8 +79,8 @@ const NasheedForm = () => {
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const formData = new FormData(e.target as HTMLFormElement)
-        setSubmit(true)
         dispatch(addNasheed(formData))
+        setSubmit(true)
     }
 
     const { formErrors, loading } = useSelector((state: RootState) => state.nasheeds)
