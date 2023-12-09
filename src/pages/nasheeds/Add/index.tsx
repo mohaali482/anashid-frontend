@@ -76,7 +76,7 @@ const NasheedForm = () => {
     }
 
 
-    const onSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const formData = new FormData(e.target as HTMLFormElement)
         dispatch(addNasheed(formData))
@@ -102,12 +102,12 @@ const NasheedForm = () => {
 
 
     return (
-        <FormContainer onSubmit={onSubmit}>
+        <FormContainer>
             <StyledIcon>
                 <AiFillFileAdd size={50} />
             </StyledIcon>
             <StyledText>New Nasheed</StyledText>
-            <StyledForm onSubmit={onSubmit} ref={formRef}>
+            <StyledForm onSubmit={handleSubmit} ref={formRef}>
                 <StyledInputDiv>
                     <StyledFileUpload style={{
                         width: "200px",

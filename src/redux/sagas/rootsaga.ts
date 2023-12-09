@@ -49,7 +49,6 @@ import {
   signupUserSaga,
   updateUserSaga,
 } from "./user-saga";
-import { requestForgotPassword } from "../../services/user";
 
 export default function* rootSaga() {
   yield all([
@@ -73,9 +72,10 @@ export default function* rootSaga() {
     takeLatest(fetchSavedNasheeds, fetchSavedNasheedsSaga),
     takeLatest(fetchNasheeds, fetchNasheedsSaga),
     takeLatest(fetchPageNasheeds, fetchPageNasheedsSaga),
+    takeLatest(loadMoreNasheeds, loadMoreNasheedsSaga),
+
     takeLatest(addNasheed, requestAddNasheedSaga),
     takeLatest(updateNasheed, updateNasheedSaga),
-    takeLatest(loadMoreNasheeds, loadMoreNasheedsSaga),
     takeLatest(removeNasheed, removeNasheedSaga),
   ]);
 }
