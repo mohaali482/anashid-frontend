@@ -103,7 +103,7 @@ const BackgroundCover = () => {
                     {getStyles().greeting}
                 </StyledH1>
                 <StyledP>
-                    Welcome to Anashid! Where we collect and share nasheeds from around the world just for you.
+                    Welcome to Anasheed! Where we collect and share nasheeds from around the world just for you.
                 </StyledP>
             </StyledDiv>
         </StyledSection>

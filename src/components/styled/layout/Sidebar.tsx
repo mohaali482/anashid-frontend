@@ -123,7 +123,7 @@ const Sidebar = (props: SidebarProps) => {
             <StyledAside ref={props.reference} style={props.open ? { width: '16rem' } : {}}>
                 <StyledAsideHeader>
                     <img src={logo} alt="logo" style={{ width: '2rem', height: '2rem', paddingRight: "0.5rem" }} />
-                    Anashid
+                    Anasheed
                     <StyledIcon style={{ justifyContent: "end", paddingRight: "1rem", cursor: "pointer" }} onClick={() => props.setOpen(false)}>
                         <IoClose size={25} />
                     </StyledIcon>

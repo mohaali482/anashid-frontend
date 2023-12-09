@@ -105,7 +105,7 @@ const AppLayout = () => {
 
     return (
         <>
-            <NavBar handleClick={toggleSidebar} title={links.find((link) => link.link === route.pathname)?.title || "Anashid"} />
+            <NavBar handleClick={toggleSidebar} title={links.find((link) => link.link === route.pathname)?.title || "Anasheed"} />
             <Sidebar reference={sidebarRef} open={open} links={links} setOpen={setOpen} />
             <Container>
                 {loading && <Dialog onClose={null}>
