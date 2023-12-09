@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { RootState } from "../../../redux/store";
 import { FaLock } from "react-icons/fa";
 import logo from "../../../assets/images/logo.png"
+import StyledIcon from "../common/form/StyledIcon";
+import { IoClose } from "react-icons/io5";
 
 const StyledAside = styled.aside`
     position: fixed;
@@ -39,6 +41,12 @@ const StyledAsideHeader = styled.div`
     margin-left: 1.25rem;
     margin-bottom: 1.25rem;
     margin-top: 1.25rem;
+
+    @media(min-width: 1024px){
+        &>div{
+            display: none;
+        }
+    }
 `
 
 const StyledAsideUl = styled.ul`
@@ -92,7 +100,21 @@ const SidebarOverlay = styled.div`
     transition: all 0.3s ease-in-out;
 `
 
-const Sidebar = (props: { reference: React.RefObject<HTMLDivElement>, open: boolean, links: { title: string, link: string, protect: boolean, icon: JSX.Element, codename?: string }[] }) => {
+interface SidebarProps {
+    reference: React.RefObject<HTMLDivElement>;
+    open: boolean;
+    links: {
+        title: string;
+        link: string;
+        protect: boolean;
+        icon: JSX.Element;
+        codename?: string
+    }[]
+
+    setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Sidebar = (props: SidebarProps) => {
     const { isLoggedIn, user } = useSelector((state: RootState) => state.user)
 
     return (
@@ -102,6 +124,9 @@ const Sidebar = (props: { reference: React.RefObject<HTMLDivElement>, open: bool
                 <StyledAsideHeader>
                     <img src={logo} alt="logo" style={{ width: '2rem', height: '2rem', paddingRight: "0.5rem" }} />
                     Anashid
+                    <StyledIcon style={{ justifyContent: "end", paddingRight: "1rem", cursor: "pointer" }} onClick={() => props.setOpen(false)}>
+                        <IoClose size={25} />
+                    </StyledIcon>
                 </StyledAsideHeader>
                 <StyledAsideContent>
                     <StyledAsideUl>

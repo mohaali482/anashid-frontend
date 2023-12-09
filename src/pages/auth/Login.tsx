@@ -59,7 +59,7 @@ const Login = () => {
                 <StyledIcon>
                     <img src={logo} alt="logo" style={{ height: "250px" }} />
                 </StyledIcon>
-                {loading && <Dialog onClose={null}>
+                {loading && <Dialog fullScreen onClose={null}>
                     <Spinner />
                 </Dialog>}
                 <StyledForm onSubmit={handleSubmit} style={{ margin: "2rem 0" }}>

@@ -26,16 +26,23 @@ const StyledDiv = styled.div`
     z-index: -10;
     filter:  blur(40px);
     backdrop-filter: blur(1px);
+    position: absolute;
+    top: 0;
+    right: 0;
 `
 
 const StyledDiv2 = styled.div`
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
     display: flex;
     max-width: 1280px;
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
-    padding: 1rem;
+    padding: 0.5rem;
     margin-right: 0.5rem;
     height: 40px;
 

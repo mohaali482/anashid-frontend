@@ -29,15 +29,15 @@ const Backdrop = styled.div`
 
 `
 
-const Container = styled.div`
+const Container = styled.div<{ fullScreen: boolean }>`
     position: fixed;
-    top: 5rem;
+    top: ${(props) => props.fullScreen ? '0' : '5rem'};
     right: 0;
-    left: 16rem;
+    left: ${(props) => props.fullScreen ? '0' : '16rem'};
     bottom: 0;
     z-index: 101;
-    width: calc(100% - 16rem);
-    height: calc(100vh - 5rem);
+    width: ${(props) => props.fullScreen ? '100%' : 'calc(100% - 16rem)'};
+    height: ${(props) => props.fullScreen ? '100%' : 'calc(100vh - 5rem)'};
 
     @media (max-width: 1024px) {
         width: 100%;
@@ -49,10 +49,11 @@ const Container = styled.div`
 
 interface DialogProps {
     children: React.ReactNode;
+    fullScreen?: boolean;
     onClose: (() => void) | null;
 }
 
-const Dialog = ({ children }: DialogProps) => {
+const Dialog = ({ children, fullScreen }: DialogProps) => {
     const containerRef = useRef<HTMLDivElement | null>(null)
 
     useEffect(() => {
@@ -63,7 +64,7 @@ const Dialog = ({ children }: DialogProps) => {
     }, [])
 
     return (
-        <Container ref={containerRef}>
+        <Container fullScreen={fullScreen || false} ref={containerRef}>
             <Backdrop>
                 <StyledDialog onClick={(e) => { e.stopPropagation(); e.preventDefault(); }}>
                     {children}
