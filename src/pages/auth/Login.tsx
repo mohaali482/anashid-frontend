@@ -56,7 +56,7 @@ const Login = () => {
     return (
         <Container>
             <FormContainer>
-                <StyledIcon >
+                <StyledIcon style={{ height: "250px" }}>
                     <img src={logo} alt="logo" style={{ height: "150px" }} />
                 </StyledIcon>
                 {loading && <Dialog onClose={null}>
