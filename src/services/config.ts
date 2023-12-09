@@ -29,7 +29,7 @@ const axios = setupCache(
 async function requestRefreshToken() {
   try {
     const response = await Axios.post(
-      axios.defaults.baseURL + "/auth/token/refresh",
+      axios.defaults.baseURL + "/auth/token/refresh/",
       {},
       {
         withCredentials: true,
