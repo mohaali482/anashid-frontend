@@ -3,18 +3,18 @@ import { DefaultTheme } from "styled-components";
 export const defaultTheme: DefaultTheme = {
   palette: {
     primary: {
-      backgroundPrimary: "#EBEBEB",
+      backgroundPrimary: "#EBE6E6",
       backgroundSecondary: "#FFFFFF",
 
-      textPrimary: "#191414",
-      textSecondary: "#fff",
+      textPrimary: "#000000",
+      textSecondary: "#0A0A0A",
     },
   },
   main: "#1DB954",
   danger: "	#df4759",
 
   light: "#fff",
-  gray: "#878787", // dark gray light for dark theme
+  gray: "#0A0A0A", // dark gray light for dark theme
   lightWhite: "#ffffff1a",
 
   boxShadow: "0 35px 60px -30px",
@@ -31,8 +31,8 @@ export const darkTheme: DefaultTheme = {
       textSecondary: "#F5F5F5",
     },
   },
-  main: "#1DB954",
-  danger: "	#df4759",
+  main: "#46E27C",
+  danger: "	#B62032",
 
   light: "#fff",
   gray: "#F5F5F5",

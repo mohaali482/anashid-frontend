@@ -27,7 +27,3 @@ body,
 #root {
   overflow: auto;
 }
-
-body > #root {
-  height: 100vh;
-}

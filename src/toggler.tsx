@@ -24,16 +24,17 @@ export const ToggleProvider = ({ children }: { children: React.ReactNode }) => {
     }, [])
 
     useEffect(() => {
+        const htmlElement = document.getElementsByTagName("html")[0]
         if (theme === "dark") {
-            document.body.style.backgroundColor = "black";
-            document.body.style.color = "white";
+            htmlElement.style.backgroundColor = "black";
+            htmlElement.style.color = "white";
             const rootDiv = document.getElementById("root")
             if (rootDiv) {
                 rootDiv.style.backgroundColor = "black";
             }
         } else {
-            document.body.style.backgroundColor = "white";
-            document.body.style.color = "black";
+            htmlElement.style.backgroundColor = "white";
+            htmlElement.style.color = "black";
             const rootDiv = document.getElementById("root")
             if (rootDiv) {
                 rootDiv.style.backgroundColor = "white";
