@@ -124,8 +124,8 @@ const Sidebar = (props: SidebarProps) => {
                 <StyledAsideHeader>
                     <img src={logo} alt="logo" style={{ width: '2rem', height: '2rem', paddingRight: "0.5rem" }} />
                     Anasheed
-                    <StyledIcon style={{ justifyContent: "end", paddingRight: "1rem", cursor: "pointer" }} onClick={() => props.setOpen(false)}>
-                        <IoClose size={25} />
+                    <StyledIcon style={{ justifyContent: "end", paddingRight: "1rem", cursor: "pointer" }}>
+                        <IoClose size={25} onClick={() => props.setOpen(false)} />
                     </StyledIcon>
                 </StyledAsideHeader>
                 <StyledAsideContent>
