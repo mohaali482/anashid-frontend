@@ -95,7 +95,7 @@ const StyledLoadingContainer = styled.div`
 `
 
 const Drawer = styled.div<{ open: boolean }>`
-    ${props => props.open ? "position: absolute; top: 1rem; left: 0; right: 0;" : "width: 100%"}
+    ${props => props.open ? "position: absolute; top: 1rem; left: 0; right: 0; height: 100%;" : "width: 100%"}
 `
 
 const AudioPlayerContainer = styled.div`
@@ -106,8 +106,9 @@ const AudioPlayerContainer = styled.div`
 
 const AudioPlayerQueue = styled.div`
     width: 70%;
-    height: 300px;
-    margin-bottom: 2rem;
+    height: 80%;
+    margin-bottom: 1rem;
+    margin-top: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -340,7 +341,7 @@ const AudioPlayer = (props: AudioPlayerProps) => {
                             <AudioDrawerTitle>{currentPlaying?.name}</AudioDrawerTitle>
                         </div>
                         <StyledHr />
-                        <div>
+                        <div style={{ height: "100%" }}>
                             <div style={{ display: "flex", margin: "0 auto", justifyContent: "space-evenly" }}>
                                 <div>
                                     <Title>Queue</Title>
