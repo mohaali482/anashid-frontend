@@ -4,21 +4,21 @@ import styled from "styled-components";
 import { RootState } from "../../../redux/store";
 
 const StyledFooter = styled.footer<{ playerOpened: boolean }>`
-    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
-    margin-top: 2rem;
-    margin-bottom: 0.5rem;
-    border-radius: 0.5rem;
-    padding: 1.25rem;
-`
+    margin-top: auto;
+    `
 
 const Container = styled.div`
-    width: 100%;
-    margin: 0 auto;
+    background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
+    padding: 1.25rem;
+    margin: 0.5rem auto;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 
-    @media (min-width: 768px) {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    @media (max-width: 576px) {
+        flex-direction: column;
+        justify-content: center;
     }
 `
 
