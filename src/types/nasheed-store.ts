@@ -11,7 +11,7 @@ export interface Owner {
   first_name: string | null;
   last_name: string | null;
   email: string | null;
-  image: File | null;
+  image: string | null;
   date_joined: Date;
 }
 

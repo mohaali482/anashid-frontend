@@ -16,6 +16,7 @@ import { StyledDivIcons } from "../../../components/styled/Nasheeds/NasheedTd";
 import StyledIcon from "../../../components/styled/common/form/StyledIcon";
 import { MdQueueMusic } from "react-icons/md";
 import { Nasheed } from "../../../types/nasheed-store";
+import profile_default from "../../../assets/images/profile_default.svg"
 
 const Detail = () => {
     const dispatch = useDispatch()
@@ -68,7 +69,13 @@ const Detail = () => {
         <Container>
             <FlexDiv>
                 <NasheedImage src={nasheed?.poster} alt={nasheed?.name} />
-                <Title>{nasheed?.name}</Title>
+                <div>
+                    <Title>{nasheed?.name}</Title>
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                        <img src={nasheed?.owner.image || profile_default} style={{ width: "50px", borderRadius: "100%" }} />
+                        <span>Author: {`${nasheed?.owner.first_name} ${nasheed?.owner.last_name}`}</span>
+                    </div>
+                </div>
                 {isCurrentlyPlaying ?
                     <Button onClick={pauseCurrentPlayingNasheed} disabled={!nasheed?.audio}><FaPause /> Pause</Button>
                     :
