@@ -158,7 +158,7 @@ const Account = () => {
             {loading && <Dialog onClose={null}>
                 <Spinner />
             </Dialog>}
-            <Container style={{ paddingRight: "2rem", alignItems: "center" }}>
+            <Container style={{ paddingRight: "2rem", paddingLeft: "2rem", alignItems: "center" }}>
                 <div style={{ padding: "1.5rem", width: "100%" }}>
                     <h1>Profile Picture</h1>
                     {updateFormErrors?.image &&

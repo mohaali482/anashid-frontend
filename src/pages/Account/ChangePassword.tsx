@@ -51,8 +51,8 @@ const ChangePassword = () => {
                     <Spinner />
                 </Dialog>
             }
-            <Container>
-                <FormContainer style={{ justifyContent: "flex-start", margin: "0", maxWidth: "75%", paddingRight: "5rem" }}>
+            <Container style={{ paddingLeft: "2rem", paddingRight: "2rem" }}>
+                <FormContainer style={{ justifyContent: "flex-start", margin: "0", width: "85%" }}>
                     <StyledForm style={{ alignItems: "flex-start", margin: "0" }} onSubmit={handleChangePassword} ref={changePasswordFormRef}>
                         <h2>Change Password</h2>
                         <InputDiv>
