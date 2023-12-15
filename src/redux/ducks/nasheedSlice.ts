@@ -164,9 +164,11 @@ export const nasheedsSlice = createSlice({
       state.currentPlayingQueue = state.currentPlayingQueue.filter(
         (_, index) => index !== action.payload
       );
+      state.message = "Removed Successfully";
     },
     clearPlayerQueue: (state) => {
       state.currentPlayingQueue = [];
+      state.message = "Cleared Successfully";
     },
     pauseCurrentPlaying: (state, action: PayloadAction<boolean>) => {
       state.currentPlayingPaused = action.payload;
