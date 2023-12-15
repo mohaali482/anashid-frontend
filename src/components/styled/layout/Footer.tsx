@@ -6,17 +6,9 @@ import { RootState } from "../../../redux/store";
 const StyledFooter = styled.footer<{ playerOpened: boolean }>`
     background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
     margin-top: 2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 0.5rem;
     border-radius: 0.5rem;
     padding: 1.25rem;
-    position: absolute;
-    bottom: 0.5rem;
-    left: 0.5rem;
-    right: 0.5rem;
-
-    ${props => !props.playerOpened && `
-        margin-bottom: 0;
-    ` }
 `
 
 const Container = styled.div`

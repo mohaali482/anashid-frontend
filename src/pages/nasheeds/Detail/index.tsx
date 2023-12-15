@@ -69,9 +69,9 @@ const Detail = () => {
         <Container>
             <FlexDiv>
                 <NasheedImage src={nasheed?.poster} alt={nasheed?.name} />
-                <div>
+                <div style={{ width: "100%" }}>
                     <Title>{nasheed?.name}</Title>
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "10px", width: "100%" }}>
                         <img src={nasheed?.owner.image || profile_default} style={{ width: "50px", borderRadius: "100%" }} />
                         <span>Author: {`${nasheed?.owner.first_name} ${nasheed?.owner.last_name}`}</span>
                     </div>

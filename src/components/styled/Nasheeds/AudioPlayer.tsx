@@ -64,7 +64,7 @@ const StyledAudioPlayerContainer = styled.div<{ open: boolean }>`
     width: ${props => props.open ? "100vw" : ""};
     height: ${props => props.open ? "100vh" : "4rem"};
     background-color:  ${(props) => props.theme.palette.primary.backgroundPrimary};
-    position: fixed;
+    position: ${(props) => props.open ? "fixed" : "sticky"};
     bottom: 0;
     left: ${props => props.open ? "0" : ""};
     right: ${props => props.open ? "0" : ""};
@@ -74,13 +74,6 @@ const StyledAudioPlayerContainer = styled.div<{ open: boolean }>`
     overflow-y: ${(props) => props.open ? "scroll" : ""};
     overflow-x: ${(props) => props.open ? "hidden" : ""};
     cursor: ${(props) => props.open ? "" : "pointer"};
-
-    @media(min-width: 768px) {
-        margin-right: 1.58rem;
-    }
-    @media(max-width: 768px) {
-        margin-right: 0.5rem;
-    }
 `
 
 const StyledAudioPoster = styled.img`
