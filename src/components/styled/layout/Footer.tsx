@@ -9,6 +9,10 @@ const StyledFooter = styled.footer<{ playerOpened: boolean }>`
     margin-bottom: 4rem;
     border-radius: 0.5rem;
     padding: 1.25rem;
+    position: absolute;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
 
     ${props => !props.playerOpened && `
         margin-bottom: 0;
