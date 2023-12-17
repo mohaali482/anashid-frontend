@@ -3,14 +3,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { RootState } from "../../../redux/store";
 
-const StyledFooter = styled.footer<{ playerOpened: boolean }>`
+const StyledFooter = styled.footer`
     margin-top: auto;
     `
 
-const Container = styled.div`
+const Container = styled.div<{ playerOpened: boolean }>`
     background-color: ${(props) => props.theme.palette.primary.backgroundPrimary};
     padding: 1.25rem;
     margin: 0.5rem auto;
+    ${props => props.playerOpened ? 'margin-bottom: 4.5rem;' : ''}
     border-radius: 0.5rem;
     display: flex;
     align-items: center;
@@ -61,8 +62,8 @@ const Footer = () => {
     const { currentPlaying } = useSelector((state: RootState) => state.nasheeds)
 
     return (
-        <StyledFooter playerOpened={currentPlaying !== null}>
-            <Container>
+        <StyledFooter>
+            <Container playerOpened={currentPlaying !== null}>
                 <StyledCopyright>© 2023 <StyledLink to="https://github.com/mohaali482">Mohammed Ali</StyledLink>. All Rights Reserved.</StyledCopyright>
                 <StyledUl>
                     <StyledLi>

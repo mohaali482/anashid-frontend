@@ -64,11 +64,10 @@ const StyledAudioPlayerContainer = styled.div<{ open: boolean }>`
     width: ${props => props.open ? "100vw" : ""};
     height: ${props => props.open ? "100vh" : "4rem"};
     background-color:  ${(props) => props.theme.palette.primary.backgroundPrimary};
-    position: ${(props) => props.open ? "fixed" : "sticky"};
-    -webkit-backface-visibility: hidden;
+    position: fixed;
     bottom: 0;
-    left: ${props => props.open ? "0" : ""};
-    right: ${props => props.open ? "0" : ""};
+    left: 0.5rem;
+    right: 0.5rem;
     border-radius: ${(props) => props.theme.borderRadius};
     z-index: 100;
     transition: all 0.5s ease;
