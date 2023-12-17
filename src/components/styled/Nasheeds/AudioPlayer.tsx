@@ -65,6 +65,7 @@ const StyledAudioPlayerContainer = styled.div<{ open: boolean }>`
     height: ${props => props.open ? "100vh" : "4rem"};
     background-color:  ${(props) => props.theme.palette.primary.backgroundPrimary};
     position: ${(props) => props.open ? "fixed" : "sticky"};
+    -webkit-backface-visibility: hidden;
     bottom: 0;
     left: ${props => props.open ? "0" : ""};
     right: ${props => props.open ? "0" : ""};
