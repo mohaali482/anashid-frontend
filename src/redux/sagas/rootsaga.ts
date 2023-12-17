@@ -1,4 +1,4 @@
-import { all, takeLatest } from "redux-saga/effects";
+import { all, takeEvery, takeLatest } from "redux-saga/effects";
 import {
   addNasheed,
   fetchMyNasheeds,
@@ -64,8 +64,8 @@ export default function* rootSaga() {
     takeLatest(forgotPasswordRequest, forgotPasswordSaga),
     takeLatest(resetPasswordRequest, resetPasswordSaga),
 
-    takeLatest(saveNasheedRequest, saveNasheedSaga),
-    takeLatest(removeSavedNasheedRequest, removeSavedNasheedSaga),
+    takeEvery(saveNasheedRequest, saveNasheedSaga),
+    takeEvery(removeSavedNasheedRequest, removeSavedNasheedSaga),
 
     takeLatest(fetchNasheed, fetchNasheedSaga),
     takeLatest(fetchMyNasheeds, fetchMyNasheedsSaga),
