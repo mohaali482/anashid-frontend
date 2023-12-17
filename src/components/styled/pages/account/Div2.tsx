@@ -5,9 +5,13 @@ const StyledDiv2 = styled.div`
     justify-content: space-between;
     
     @media (max-width: 768px) {
-        & :nth-child(2){
+        & > div{
             display: none;
         }
+        & :first-child{
+            display: block;
+        }
+        justify-content: center;
     }
 `
 
