@@ -9,6 +9,7 @@ import { darkTheme, defaultTheme } from './components/styled/theme'
 import ToggleContext, { ToggleProvider } from './toggler'
 import { injectStore } from './services/config'
 import StyledToaster from './components/styled/toaster'
+import { Analytics } from "@vercel/analytics/react"
 
 injectStore(store)
 
@@ -26,5 +27,6 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
         }
       </ToggleContext.Consumer>
     </ToggleProvider>
+    <Analytics />
   </React.StrictMode>,
 )
