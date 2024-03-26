@@ -31,7 +31,7 @@ import {
 } from "../../services/nasheeds";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../store";
-import { Nasheed, Response } from "../../types/nasheed-store";
+import { Nasheed, NasheedError, Response } from "../../types/nasheed-store";
 
 export function* fetchNasheedsSaga() {
   try {
@@ -110,7 +110,7 @@ export function* requestAddNasheedSaga(action: PayloadAction<FormData>) {
     let { data } = yield call(requestAddNasheed, action.payload);
     yield put(addNasheedSuccess(data));
   } catch (error) {
-    yield put(addNasheedError(error.response.data));
+    yield put(addNasheedError({ audio: [], name: [], poster: [] }));
   }
 }
 
