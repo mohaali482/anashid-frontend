@@ -65,16 +65,7 @@ const Signup = () => {
                     <AiOutlineUserAdd size={50} />
                 </StyledIcon>
                 <StyledText>Signup</StyledText>
-                <StyledForm ref={signupFormRef} style={{ width: "max-content" }} onSubmit={handleSubmit}>
-                    <StyledInputDiv style={{ flexDirection: "row" }}>
-                        <label htmlFor="image">Image: </label>
-                        <StyledInput required placeholder="Image" type="file" accept="image/png" name="image" id="image" />
-                        {signupFormErrors?.image &&
-                            signupFormErrors.image.map(err => (
-                                <InputError>{err}</InputError>
-                            ))
-                        }
-                    </StyledInputDiv>
+                <StyledForm ref={signupFormRef} style={{ width: "100%" }} onSubmit={handleSubmit}>
                     <StyledInputDiv>
                         <StyledInput required placeholder="Username" type="text" name="username" id="username" />
                         {signupFormErrors?.username &&
